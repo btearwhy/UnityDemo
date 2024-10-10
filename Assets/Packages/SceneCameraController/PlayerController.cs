@@ -61,11 +61,12 @@ public class PlayerController : MonoBehaviour
 
             Vector3 moveDirection = Vector3.Normalize(fowardDirection * moveVector2f.y + rightDirection * -moveVector2f.x);
 
-            character.GetComponent<Movement>().Move(moveDirection);
+            character.GetComponent<Rigidbody>().AddForce(moveDirection * 10);
+            //character.GetComponent<Movement>().Move(moveDirection);
         }
         else
         {
-            character.GetComponent<Movement>().Deccelerate();
+           // character.GetComponent<Movement>().Deccelerate();
         }
     }
 
