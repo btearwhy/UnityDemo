@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     public float accelerate;
 
     public Vector3 movement;
-    private Quaternion targetRotation = Quaternion.Euler(0, 90, 0);
+    public Quaternion targetRotation = Quaternion.Euler(0, 90, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Animator>().SetFloat("Speed", speed);
+        transform.GetChild(0).GetComponent<Animator>().SetFloat("Speed", speed);
+
     }
 
     public void Move(Vector3 moveDirection)
@@ -35,10 +36,13 @@ public class Movement : MonoBehaviour
         }
 
         targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+        /*if (GetComponent<Rigidbody>().velocity.magnitude <= 3)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+        }*/
         //transform.Translate(moveDirection * speed, Space.World);
-        
+
     }
 
     private void FixedUpdate()
@@ -49,25 +53,21 @@ public class Movement : MonoBehaviour
     private void moveCharacter(Vector3 movement)
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        //rb.AddForce(movement* 3, ForceMode.Acceleration);
+        if(movement == Vector3.zero)
+        {
+            float dampingFactor = 0.95f;
+            rb.velocity = Vector3.Scale(rb.velocity, new Vector3(dampingFactor, dampingFactor, dampingFactor));
+        }
+        else 
+            rb.AddForce(movement * speed);
+        speed = rb.velocity.magnitude;
         //speed = GetComponent<Rigidbody>().velocity.magnitude;
-        rb.velocity = movement * speed * Time.fixedDeltaTime + new Vector3(0, rb.velocity.y, 0);
-
+        //rb.velocity = movement * speed  + new Vector3(0, rb.velocity.y, 0);
+        
     }
 
     public void Deccelerate()
     {
-        speed = GetComponent<Rigidbody>().velocity.magnitude;
-        /* if (speed > 0)
-         {
-             speed -= accelerate * Time.deltaTime;
-             //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-             //transform.Translate(transform.forward * speed, Space.World);
-             //GetComponent<Animator>().SetFloat("Speed", speed);
-         }
-         else
-         {
-             speed = 0;
-         }*/
+        movement = Vector3.zero;
     }
 }

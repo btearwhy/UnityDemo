@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
         Vector2 moveVector2f = inputActions.KeyboardandMouse.Movement.ReadValue<Vector2>();
         if(moveVector2f != Vector2.zero)
         {
+            Debug.Log("second");
             Vector3 fowardDirection = Vector3.Normalize(Vector3.Scale(-transform.up, new Vector3(1, 0, 1)));
             Vector3 rightDirection = Vector3.Cross(fowardDirection, Vector3.up);
 
