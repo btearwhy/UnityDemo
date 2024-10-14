@@ -6,12 +6,15 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float turnSpeed;
+    public float actualSpeed;
     public float speed;
     public float maxSpeed;
     public float accelerate;
 
     public Vector3 movement;
     public Quaternion targetRotation = Quaternion.Euler(0, 90, 0);
+
+    private bool acc = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,26 +25,18 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.GetChild(0).GetComponent<Animator>().SetFloat("Speed", speed);
+        transform.GetChild(0).GetComponent<Animator>().SetFloat("Speed", actualSpeed);
 
     }
 
     public void Move(Vector3 moveDirection)
     {
+        acc = true;
         movement = moveDirection;
         speed += accelerate * Time.deltaTime;
-        if (speed >= maxSpeed)
-        {
-            speed = maxSpeed;
-        }
+        speed = Mathf.Clamp(speed, 0, maxSpeed);
 
         targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-        /*if (GetComponent<Rigidbody>().velocity.magnitude <= 3)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-        }*/
-        //transform.Translate(moveDirection * speed, Space.World);
 
     }
 
@@ -53,21 +48,24 @@ public class Movement : MonoBehaviour
     private void moveCharacter(Vector3 movement)
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        if(movement == Vector3.zero)
+        if(!acc)
         {
-            float dampingFactor = 0.95f;
-            rb.velocity = Vector3.Scale(rb.velocity, new Vector3(dampingFactor, dampingFactor, dampingFactor));
+            speed -= accelerate;
+            speed = Mathf.Clamp(speed, 0, maxSpeed);
+
+            rb.AddForce(-rb.velocity.normalized * speed);
         }
-        else 
+        else
+        {
             rb.AddForce(movement * speed);
-        speed = rb.velocity.magnitude;
-        //speed = GetComponent<Rigidbody>().velocity.magnitude;
-        //rb.velocity = movement * speed  + new Vector3(0, rb.velocity.y, 0);
-        
+        }
+        actualSpeed = rb.velocity.magnitude;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime);
+
     }
 
     public void Deccelerate()
     {
-        movement = Vector3.zero;
+        acc = false;
     }
 }
