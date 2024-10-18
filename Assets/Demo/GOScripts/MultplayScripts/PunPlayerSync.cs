@@ -18,6 +18,7 @@ public class PunPlayerSync : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             //Player is local
+            gameObject.tag = "Player";
         }
         else
         {
@@ -37,7 +38,7 @@ public class PunPlayerSync : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            //We own this player: send the others our data
+           //We own this player: send the others our data
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
         }
@@ -55,8 +56,13 @@ public class PunPlayerSync : MonoBehaviourPun, IPunObservable
         if (!photonView.IsMine)
         {
             //Update remote player (smooth this, this looks good, at the cost of some accuracy)
-            transform.position = Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation, latestRot, Time.deltaTime * 5);
+            transform.position = latestPos;// Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 5);
+            transform.rotation = latestRot;// Quaternion.Lerp(transform.rotation, latestRot, Time.deltaTime * 5);
+            Debug.Log("Not mine" + gameObject);
+        }
+        else
+        {
+            Debug.Log("Mine" + gameObject);
         }
     }
 }

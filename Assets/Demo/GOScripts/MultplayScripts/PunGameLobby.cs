@@ -16,7 +16,7 @@ public class PunGameLobby : MonoBehaviourPunCallbacks
     string roomName = "Room 1";
     Vector2 roomListScroll = Vector2.zero;
     bool joiningRoom = false;
-
+    
     // Use this for initialization
     void Start()
     {
@@ -106,7 +106,6 @@ public class PunGameLobby : MonoBehaviourPunCallbacks
                 GUILayout.Label(createdRooms[i].PlayerCount + "/" + createdRooms[i].MaxPlayers);
 
                 GUILayout.FlexibleSpace();
-
                 if (GUILayout.Button("Join Room"))
                 {
                     joiningRoom = true;
@@ -129,7 +128,6 @@ public class PunGameLobby : MonoBehaviourPunCallbacks
         GUILayout.Label("Player Name: ", GUILayout.Width(85));
         //Player name text field
         playerName = GUILayout.TextField(playerName, GUILayout.Width(250));
-
         GUILayout.FlexibleSpace();
 
         GUI.enabled = (PhotonNetwork.NetworkClientState == ClientState.JoinedLobby || PhotonNetwork.NetworkClientState == ClientState.Disconnected) && !joiningRoom;
@@ -177,14 +175,16 @@ public class PunGameLobby : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log("OnCreatedRoom");
-        //Set our player name
+/*        //Set our player name
         PhotonNetwork.NickName = playerName;
         //Load the Scene called GameLevel (Make sure it's added to build settings)
-        PhotonNetwork.LoadLevel("GameLevel");
+        PhotonNetwork.LoadLevel("GameLevel");*/
     }
 
     public override void OnJoinedRoom()
     {
         Debug.Log("OnJoinedRoom");
+        PhotonNetwork.NickName = playerName;
+        PhotonNetwork.LoadLevel("GameLevel");
     }
 }

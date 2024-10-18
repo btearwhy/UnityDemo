@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using System.Collections.Generic;
+using System.Collections;
 
 public class PunRoomController : MonoBehaviourPunCallbacks
 {
@@ -10,6 +12,8 @@ public class PunRoomController : MonoBehaviourPunCallbacks
     //Player spawn point
     public Transform spawnPoint;
 
+    private GameObject character;
+    GameObject ControllerObject;
     // Use this for initialization
     void Start()
     {
@@ -20,11 +24,22 @@ public class PunRoomController : MonoBehaviourPunCallbacks
             UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
             return;
         }
-
+        StartCoroutine(SpawnPlayerWhenConnected());
+        ControllerObject = Instantiate(controllerPrefab, Vector3.zero, Quaternion.identity);
+        /*        character = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, Quaternion.identity, 0);*/
+        /*GameObject ControllerObject = Instantiate(controllerPrefab, Vector3.zero, Quaternion.identity);*/
+        /*        ControllerObject.GetComponent<PlayerController>().character = character;*/
         //We're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate\
 
-        GameObject character = PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint.position, Quaternion.identity, 0);
-        GameObject ControllerObject = PhotonNetwork.Instantiate(controllerPrefab.name, spawnPoint.position, Quaternion.identity, 0);
+
+    }
+
+    IEnumerator SpawnPlayerWhenConnected()
+    {
+        yield return new WaitUntil(() => PhotonNetwork.InRoom);
+
+        character = PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+        
         ControllerObject.GetComponent<PlayerController>().character = character;
     }
 
@@ -54,6 +69,7 @@ public class PunRoomController : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         //We have left the Room, return back to the GameLobby
+        PhotonNetwork.Destroy(character);
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
     }
 }

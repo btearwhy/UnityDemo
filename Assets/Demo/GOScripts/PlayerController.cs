@@ -6,14 +6,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float ArmLength;
+    public float armLength;
+    public float minArmLength = 1.0f;
+    public float maxArmLength = 15.0f;
+    public float cameraVertical = 45;
+    public float cameraHorizontal = 180;
+    public float cameraTilt = 0;
 
-    public float CameraVertical = 45;
-    public float CameraHorizontal = 180;
-    public float CameraTilt = 0;
-
-    public float RotateSpeed;
-    public float ZoomSpeed;
+    public float rotateSpeed = 40;
+    public float zoomSpeed = 2;
 
     public GameObject character;
 
@@ -22,7 +23,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         inputActions = new InputActions();
-    }
+        armLength = 7.0f;
+        minArmLength = 1.0f;
+        maxArmLength = 15.0f;
+        cameraVertical = 45;
+        cameraHorizontal = 180;
+        cameraTilt = 0;
+
+        rotateSpeed = 10;
+        zoomSpeed = 2;
+}
 
     private void OnDisable()
     {
@@ -36,19 +46,22 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = character.transform.position;
-        transform.Rotate(CameraVertical, CameraHorizontal, CameraTilt);
+        transform.Rotate(cameraVertical, cameraHorizontal, cameraTilt);
         foreach (Transform child in transform)
         {
-            child.localPosition = Vector3.up * ArmLength;
+            child.localPosition = Vector3.up * armLength;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        CameraControl();
-        OperationControl();
+        if(Camera.main != null && character != null)
+        {
+            CameraControl();
+            OperationControl();
+            
+        }
     }
 
     private void OperationControl()
@@ -75,13 +88,13 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 cameraVector2f = inputActions.KeyboardandMouse.CameraControl.ReadValue<Vector2>();
         transform.position = character.transform.position;
-        CameraHorizontal += cameraVector2f.x * RotateSpeed * Time.deltaTime;
-        ArmLength -= cameraVector2f.y * ZoomSpeed * Time.deltaTime;
-        ArmLength = Mathf.Clamp(ArmLength, 1.0f, 10.0f);
+        cameraHorizontal += cameraVector2f.x * rotateSpeed * Time.deltaTime;
+        armLength -= cameraVector2f.y * zoomSpeed * Time.deltaTime;
+        armLength = Mathf.Clamp(armLength, minArmLength, maxArmLength);
         foreach (Transform child in transform)
         {
-            child.localPosition = Vector3.up * ArmLength;
+            child.localPosition = Vector3.up * armLength;
         }
-        transform.localRotation = Quaternion.Euler(CameraVertical, CameraHorizontal, CameraTilt);
+        transform.localRotation = Quaternion.Euler(cameraVertical, cameraHorizontal, cameraTilt);
     }
 }
