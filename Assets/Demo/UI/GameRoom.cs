@@ -46,7 +46,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     public delegate void JoinRoomHandler();
     public event JoinRoomHandler OnJoin;
-    private int currentSeatNumber = -1;
+    private readonly int currentSeatNumber = -1;
 
     public RoomProperty roomProperty;
     public PlayerProperty playerProperty;
@@ -104,8 +104,10 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     internal void Ready(bool ready)
     {
-        Hashtable hashtable = new Hashtable();
-        hashtable.Add("ready", ready);
+        Hashtable hashtable = new Hashtable
+        {
+            { "ready", ready }
+        };
         PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
 
@@ -148,6 +150,10 @@ public class GameRoom : MonoBehaviourPunCallbacks
         }
     }
 
+    public bool IsReady()
+    {
+        return (bool)PhotonNetwork.LocalPlayer.CustomProperties["ready"];
+    }
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
 
@@ -155,8 +161,10 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     public void ChangeSeat(int cur)
     {
-        Hashtable playerProperties = new Hashtable();
-        playerProperties.Add("seat", cur);
+        Hashtable playerProperties = new Hashtable
+        {
+            { "seat", cur }
+        };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 }

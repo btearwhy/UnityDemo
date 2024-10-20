@@ -305,7 +305,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76696671}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -459,7 +459,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112815935}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -882,7 +882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: "player1\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1259,7 +1259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00004413963}
+  m_AnchoredPosition: {x: 0, y: 0.00006336747}
   m_SizeDelta: {x: 0, y: 270}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &792794447
@@ -1514,7 +1514,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 
+  m_Text: player1
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -1708,7 +1708,6 @@ GameObject:
   - component: {fileID: 820730441}
   - component: {fileID: 820730440}
   - component: {fileID: 820730439}
-  - component: {fileID: 820730442}
   m_Layer: 5
   m_Name: Button_CreateRoom
   m_TagString: Untagged
@@ -1816,18 +1815,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 820730437}
   m_CullTransparentMesh: 0
---- !u!114 &820730442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 820730437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2092e7dfe510346bdbc29a3d3a6a30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &956636915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,7 +1939,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 
+  m_Text: room1
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -2057,7 +2044,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u200B"
+  m_text: "room1\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2665,22 +2652,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1289131455}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beda3d976485cba4da459e03f074e451, type: 3}
+  m_Script: {fileID: 11500000, guid: cafdd97b555eee34098493b79e6c67f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overall_Canvas: {fileID: 1892575017}
-  text_title: {fileID: 820262666}
-  text_status: {fileID: 1926717584}
-  inputField_roomNumber: {fileID: 956636917}
-  button_createRoom: {fileID: 820730439}
-  text_noRoomSign: {fileID: 719746481}
-  viewScrollContent: {fileID: 792794444}
-  viewScrollContentPrefab: {fileID: 7404717420791784684, guid: 39814513409d3be498442e5f64415119,
-    type: 3}
-  text_playerName: {fileID: 1734630521}
-  inputField_playerName: {fileID: 806899296}
-  button_refresh: {fileID: 30662442}
-  levelName: GameRoom
+  gameVersion: 0.9
+  roomListScroll: {x: 0, y: 0}
+  joiningRoom: 0
+  levelName: SampleScene
 --- !u!1 &1444770245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2811,7 +2789,6 @@ GameObject:
   - component: {fileID: 1700928199}
   - component: {fileID: 1700928198}
   - component: {fileID: 1700928197}
-  - component: {fileID: 1700928196}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -2842,18 +2819,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 774.02, y: 288.6}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1700928196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1700928194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a87cb125969cbba4abea349571270442, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1700928197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2932,7 +2897,6 @@ GameObject:
   - component: {fileID: 1734630519}
   - component: {fileID: 1734630522}
   - component: {fileID: 1734630521}
-  - component: {fileID: 1734630520}
   m_Layer: 5
   m_Name: Text_PlayerName
   m_TagString: Untagged
@@ -2959,18 +2923,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 44.34}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1734630520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734630518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feca54381566d2f4f8723daf80a64015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1734630521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3115,6 +3067,7 @@ GameObject:
   - component: {fileID: 1892575017}
   - component: {fileID: 1892575016}
   - component: {fileID: 1892575015}
+  - component: {fileID: 1892575019}
   m_Layer: 5
   m_Name: Canvas_Lobby
   m_TagString: Untagged
@@ -3202,6 +3155,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1892575019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892575014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beda3d976485cba4da459e03f074e451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overall_Canvas: {fileID: 1892575017}
+  text_title: {fileID: 820262666}
+  text_status: {fileID: 1926717584}
+  inputField_roomNumber: {fileID: 956636917}
+  button_createRoom: {fileID: 820730439}
+  text_noRoomSign: {fileID: 719746481}
+  viewScrollContent: {fileID: 792794444}
+  viewScrollContentPrefab: {fileID: 7404717420791784684, guid: 39814513409d3be498442e5f64415119,
+    type: 3}
+  text_playerName: {fileID: 1734630521}
+  inputField_playerName: {fileID: 806899296}
+  button_refresh: {fileID: 30662442}
+  gameLobby: {fileID: 1289131458}
 --- !u!1 &1922310612
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,7 +3315,6 @@ GameObject:
   - component: {fileID: 1926717583}
   - component: {fileID: 1926717585}
   - component: {fileID: 1926717584}
-  - component: {fileID: 1926717586}
   m_Layer: 5
   m_Name: Text_Status
   m_TagString: Untagged
@@ -3460,18 +3437,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1926717582}
   m_CullTransparentMesh: 0
---- !u!114 &1926717586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926717582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: feca54381566d2f4f8723daf80a64015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1957298393
 GameObject:
   m_ObjectHideFlags: 0

@@ -61,7 +61,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
         else
         {
             text_button_ready.text = "ready";
-            button_ready.onClick.AddListener(() => gameRoom.Ready(!gameRoom.playerProperty.IsReady()));
+            button_ready.onClick.AddListener(() => gameRoom.Ready(!gameRoom.IsReady()));
 
             dropdown_maps.enabled = false;
             
@@ -86,13 +86,14 @@ public class UI_Controller_GameRoom : MonoBehaviour
                 {
                     cb.normalColor = Color.yellow;
                 }
+                button.colors = cb;
             }
             else
             {
                 seats[i].GetComponentInChildren<TMP_Text>().text = string.Empty;
                 cb.normalColor = Color.white;
                 button.colors = cb;
-
+                button.enabled = true;
             }
         }
     }
