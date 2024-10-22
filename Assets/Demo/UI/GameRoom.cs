@@ -6,15 +6,16 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
-using System;
+using System.IO;
 using System.Linq;
+using System;
 
 public class RoomProperty
 {
-    public string map;
-    public Hashtable seat2id;
-    public Hashtable id2name;
-    public Hashtable id2ready;   
+    public string map { get; set; }
+    public Hashtable seat2id { get; set; }
+    public Hashtable id2name { get; set; }
+    public Hashtable id2ready { get; set; }   
 
     public RoomProperty()
     {
@@ -25,36 +26,62 @@ public class RoomProperty
     }
 }
 
-public class PlayerProperty
-{
-    public Hashtable map;
-    public bool IsReady()
-    {
-        return (bool)map["ready"];
-    }
-}
+
+
 public class GameRoom : MonoBehaviourPunCallbacks
 {
+    public string assetBundleName;
     public int maxPlayers = 10;
-    //地图暂时
-    public string map;
+    public List<MapType> maps;
+    public int curMap;
     public delegate void RoomViewHandler(RoomProperty roomProperty);
     public event RoomViewHandler OnRoomChanged;
 
     public delegate void ReadyHandler(bool ready);
     public event ReadyHandler OnReady;
 
+    public delegate void MapHandler();
+    public event MapHandler OnMapChanged;
+
     public delegate void JoinRoomHandler();
-    public event JoinRoomHandler OnJoin;
+    public event JoinRoomHandler OnInit;
+
+    public delegate void AcquireMasterHandler();
+    public event AcquireMasterHandler OnMasterAcquired;
+
     private readonly int currentSeatNumber = -1;
 
-    public RoomProperty roomProperty;
-    public PlayerProperty playerProperty;
-    private Player[] players;
 
-    // Start is called before the first frame update
-    void Start()
+    private Player[] players;
+    private AssetBundle localAssetBundle;
+
+    public static GameRoom gameRoom;
+    private void Awake()
     {
+        gameRoom = this;
+        DontDestroyOnLoad(gameObject);
+    }
+    // Start is called before the first frame update
+    void Start() 
+    {
+        Debug.Log("loading asset");
+        assetBundleName = "maps";
+        string assetName = "map";
+        localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, assetBundleName));
+        if (localAssetBundle == null)
+        {
+            Debug.LogError("Failed to load AssetBundle!");
+            return;
+        }
+        MapType map;
+        int i = 0;
+        while(map = (MapType)localAssetBundle.LoadAsset<ScriptableObject>(assetName + i))
+        {
+            i++;
+            maps.Add(map);
+        }
+        curMap = 0;
+
         StartCoroutine(InitWhenConnected());
        
 
@@ -63,10 +90,9 @@ public class GameRoom : MonoBehaviourPunCallbacks
     IEnumerator InitWhenConnected()
     {
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        map = "SampleScene";
         players = PhotonNetwork.PlayerList;
         maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
-        OnJoin.Invoke();
+        OnInit.Invoke();
         Hashtable playerProperties = new Hashtable();
 
         if (PhotonNetwork.IsMasterClient)
@@ -81,6 +107,19 @@ public class GameRoom : MonoBehaviourPunCallbacks
         
         playerProperties.Add("seat", GetAvailableSeatNumber());
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+    }
+
+
+    internal void ChangeMap(int selected)
+    {
+        photonView.RPC("ChangeMapRPC", RpcTarget.All, selected);
+    }
+
+    [PunRPC]
+    public void ChangeMapRPC(int selected)
+    {
+        curMap = selected;
+        OnMapChanged.Invoke();
     }
 
     public int GetAvailableSeatNumber()
@@ -113,6 +152,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        localAssetBundle.Unload(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
     }
 
@@ -121,19 +161,14 @@ public class GameRoom : MonoBehaviourPunCallbacks
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
 
         players = PhotonNetwork.PlayerList;
-        RoomProperty roomProperty = new RoomProperty();
-        foreach(Player player in players)
-        {
-            roomProperty.id2name.Add(player.ActorNumber, player.NickName);
-            roomProperty.id2ready.Add(player.ActorNumber, player.CustomProperties["ready"]);
-            roomProperty.seat2id.Add(player.CustomProperties["seat"], player.ActorNumber);
-        }
         if (changedProps.ContainsKey("seat"))
         {
+            RoomProperty roomProperty = roomProperty = SetRoomProperty();
             OnRoomChanged.Invoke(roomProperty);
         }
         if (changedProps.ContainsKey("ready"))
         {
+            RoomProperty roomProperty = SetRoomProperty();
             OnRoomChanged.Invoke(roomProperty);
             if (PhotonNetwork.IsMasterClient)
             {
@@ -148,8 +183,22 @@ public class GameRoom : MonoBehaviourPunCallbacks
                 OnReady.Invoke(cnt == players.Length);
             }
         }
+
+
     }
 
+    private RoomProperty SetRoomProperty()
+    {
+        RoomProperty property = new RoomProperty();
+        foreach (Player player in players)
+        {
+            property.id2name.Add(player.ActorNumber, player.NickName);
+            property.id2ready.Add(player.ActorNumber, player.CustomProperties["ready"]);
+            property.seat2id.Add(player.CustomProperties["seat"], player.ActorNumber);
+        }
+
+        return property;
+    }
     public bool IsReady()
     {
         return (bool)PhotonNetwork.LocalPlayer.CustomProperties["ready"];
@@ -166,5 +215,28 @@ public class GameRoom : MonoBehaviourPunCallbacks
             { "seat", cur }
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        players = PhotonNetwork.PlayerList;
+        RoomProperty roomProperty = SetRoomProperty();
+        OnRoomChanged.Invoke(roomProperty);
+    }
+
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+
+        photonView.RPC("MasterRPC", newMasterClient);
+    }
+
+    [PunRPC]
+    public void MasterRPC()
+    {
+        Debug.Log("called");
+        Ready(true);
+        OnMasterAcquired.Invoke();
     }
 }

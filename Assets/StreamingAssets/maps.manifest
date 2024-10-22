@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 947167238
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c4b63f1dc8575eaeb771ffdd9b0b8a49
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b50adfbaf34405d58b9280c1c9a648ce
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 58fd31448b3186a479e79c76574d47f9, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/Data/map0.asset
+- Assets/Demo/Data/map1.asset
+Dependencies: []

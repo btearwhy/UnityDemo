@@ -1259,7 +1259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00006336747}
+  m_AnchoredPosition: {x: 0, y: 0.0006260406}
   m_SizeDelta: {x: 0, y: 270}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &792794447
@@ -2658,7 +2658,7 @@ MonoBehaviour:
   gameVersion: 0.9
   roomListScroll: {x: 0, y: 0}
   joiningRoom: 0
-  levelName: SampleScene
+  levelName: GameRoom
 --- !u!1 &1444770245
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,9 +28,8 @@ public class UI_Controller_GameRoom : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameRoom.OnJoin += GUIInit;
+        gameRoom.OnInit += GUIInit;
 
-        
     }
 
     public void GUIInit()
@@ -50,22 +49,50 @@ public class UI_Controller_GameRoom : MonoBehaviour
 
             seats.Add(item);
         }
+        
         gameRoom.OnRoomChanged += refreshSeats;
+        
+        img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
+        dropdown_maps.ClearOptions();
+        IEnumerable <TMP_Dropdown.OptionData> mapOptions = from map in gameRoom.maps
+                                      select new TMP_Dropdown.OptionData(map.mapName, map.image);
+        dropdown_maps.AddOptions(mapOptions.ToList());
+        dropdown_maps.onValueChanged.AddListener(gameRoom.ChangeMap);
+        gameRoom.OnMapChanged += () => {
+            Debug.Log(gameRoom.curMap);
+            img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
+            dropdown_maps.value = gameRoom.curMap;
+        };
+
+        gameRoom.OnMasterAcquired += MasterView;
         if (PhotonNetwork.IsMasterClient)
         {
-            text_button_ready.text = "start";
-            button_ready.enabled = false;
-            button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.map));
-            gameRoom.OnReady += (ready) => button_ready.enabled = ready;
+            MasterView();
         }
         else
         {
-            text_button_ready.text = "ready";
-            button_ready.onClick.AddListener(() => gameRoom.Ready(!gameRoom.IsReady()));
-
-            dropdown_maps.enabled = false;
+            ClientView();
             
         }
+    }
+
+    private void MasterView()
+    {
+        dropdown_maps.enabled = true;
+        text_button_ready.text = "start";
+        button_ready.enabled = false;
+        button_ready.onClick.RemoveAllListeners();
+        button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].mapName));
+        gameRoom.OnReady += (ready) => button_ready.enabled = ready;
+    }
+
+    private void ClientView()
+    {
+        text_button_ready.text = "ready";
+        button_ready.onClick.RemoveAllListeners();
+        button_ready.onClick.AddListener(() => gameRoom.Ready(!gameRoom.IsReady()));
+
+        dropdown_maps.enabled = false;
     }
 
     private void refreshSeats(RoomProperty roomProperty)

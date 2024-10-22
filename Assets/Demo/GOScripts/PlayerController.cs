@@ -59,28 +59,38 @@ public class PlayerController : MonoBehaviour
         if(Camera.main != null && character != null)
         {
             CameraControl();
+            MovementControl();
             OperationControl();
-            
         }
     }
 
     private void OperationControl()
     {
+        if (inputActions.KeyboardandMouse.Attack.triggered)
+        {
+            character.GetComponent<AbilitySystem>().StartAction(0);
+        }
+        if (inputActions.KeyboardandMouse.Absorb.inProgress)
+        {
+            character.GetComponent<AbilitySystem>().StartAction(1);
+        }
+    }
+
+    private void MovementControl()
+    {
         Vector2 moveVector2f = inputActions.KeyboardandMouse.Movement.ReadValue<Vector2>();
         if(moveVector2f != Vector2.zero)
         {
-            Debug.Log("second");
             Vector3 fowardDirection = Vector3.Normalize(Vector3.Scale(-transform.up, new Vector3(1, 0, 1)));
             Vector3 rightDirection = Vector3.Cross(fowardDirection, Vector3.up);
 
             Vector3 moveDirection = Vector3.Normalize(fowardDirection * moveVector2f.y + rightDirection * -moveVector2f.x);
 
             character.GetComponent<Movement>().Move(moveDirection);
-            Rigidbody rb = character.GetComponent<Rigidbody>();
         }
         else
         {
-            character.GetComponent<Movement>().Deccelerate();
+            character.GetComponent<Movement>().Decelerate();
         }
     }
 

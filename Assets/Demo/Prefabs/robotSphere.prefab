@@ -2654,10 +2654,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4420666836196460214}
-  - component: {fileID: 4378355960431547838}
   - component: {fileID: 4324658819770638332}
   - component: {fileID: 4419969796306017464}
-  - component: {fileID: 2850556861668151431}
   - component: {fileID: 7307011394102324368}
   - component: {fileID: 8680071607747138998}
   m_Layer: 0
@@ -2682,18 +2680,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4378355960431547838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4419031337106860878}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdfe52ad0699f7842b1bd6f40aadd01e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &4324658819770638332
 Animator:
   serializedVersion: 3
@@ -2726,22 +2712,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 500
+  actualSpeed: 0
   speed: 0
   maxSpeed: 50
   accelerate: 10
   movement: {x: 0, y: 0, z: 0}
---- !u!114 &2850556861668151431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4419031337106860878}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62936e4e20ef1f945be6113d39676614, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  targetRotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
 --- !u!135 &7307011394102324368
 SphereCollider:
   m_ObjectHideFlags: 0

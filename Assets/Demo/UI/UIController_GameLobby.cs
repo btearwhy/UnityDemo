@@ -59,12 +59,12 @@ public class UIController_GameLobby : MonoBehaviourPunCallbacks
         });
 
         Refresh();
-        button_refresh.onClick.AddListener(Refresh);
+        button_refresh.onClick.AddListener(gameLobby.JoinLobby);
     }
 
     public void Refresh()
     {
-        gameLobby.JoinLobby();
+        
         for (int i = 0; i < viewScrollContent.transform.childCount; i++)
         {
             Destroy(viewScrollContent.transform.GetChild(i).gameObject);
