@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,9 +21,10 @@ public class PlayerController : MonoBehaviour
 
     public InputActions inputActions;
 
+
     private void Awake()
     {
-        inputActions = new InputActions();
+
         armLength = 7.0f;
         minArmLength = 1.0f;
         maxArmLength = 15.0f;
@@ -32,7 +34,30 @@ public class PlayerController : MonoBehaviour
 
         rotateSpeed = 10;
         zoomSpeed = 2;
-}
+
+        inputActions = new InputActions();
+        inputActions.KeyboardandMouse.Attack.performed += callBackContext =>
+        {
+            if (callBackContext.interaction is TapInteraction)
+            {
+                Debug.Log("tap");
+                character.GetComponent<AbilitySystem>().ActionPressed(0);
+            }
+            else if (callBackContext.interaction is HoldInteraction)
+            {
+                Debug.Log("hold");
+                character.GetComponent<AbilitySystem>().ActionHeld(0);
+            }
+        };
+        inputActions.KeyboardandMouse.Attack.canceled += callbackContext =>
+        {
+            if (callbackContext.interaction is HoldInteraction)
+            {
+                Debug.Log("released");
+                character.GetComponent<AbilitySystem>().ActionReleased(0);
+            }
+        };
+    }
 
     private void OnDisable()
     {
@@ -51,6 +76,8 @@ public class PlayerController : MonoBehaviour
         {
             child.localPosition = Vector3.up * armLength;
         }
+
+
     }
 
     // Update is called once per frame
@@ -66,20 +93,26 @@ public class PlayerController : MonoBehaviour
 
     private void OperationControl()
     {
+/*        if (inputActions.KeyboardandMouse.Attack.inProgress)
+        {
+            Debug.Log("attack progress");
+            character.GetComponent<AbilitySystem>().ActionHeld(0);
+        }
         if (inputActions.KeyboardandMouse.Attack.triggered)
         {
-            character.GetComponent<AbilitySystem>().StartAction(0);
-        }
+            Debug.Log("attack trigger");
+            character.GetComponent<AbilitySystem>().ActionPressed(0);
+        }*/
         if (inputActions.KeyboardandMouse.Absorb.inProgress)
         {
-            character.GetComponent<AbilitySystem>().StartAction(1);
+            character.GetComponent<AbilitySystem>().ActionHeld(0) ;
         }
     }
 
     private void MovementControl()
     {
         Vector2 moveVector2f = inputActions.KeyboardandMouse.Movement.ReadValue<Vector2>();
-        if(moveVector2f != Vector2.zero)
+        if (moveVector2f != Vector2.zero)
         {
             Vector3 fowardDirection = Vector3.Normalize(Vector3.Scale(-transform.up, new Vector3(1, 0, 1)));
             Vector3 rightDirection = Vector3.Cross(fowardDirection, Vector3.up);
@@ -88,7 +121,7 @@ public class PlayerController : MonoBehaviour
 
             character.GetComponent<Movement>().Move(moveDirection);
         }
-        else
+        else if (character.GetComponent<Movement>().speed > 0)
         {
             character.GetComponent<Movement>().Decelerate();
         }
@@ -100,7 +133,7 @@ public class PlayerController : MonoBehaviour
         transform.position = character.transform.position;
         cameraHorizontal += cameraVector2f.x * rotateSpeed * Time.deltaTime;
         armLength -= cameraVector2f.y * zoomSpeed * Time.deltaTime;
-        armLength = Mathf.Clamp(armLength, minArmLength, maxArmLength);
+        armLength = Mathf.Clamp(armLength, maxArmLength, maxArmLength);
         foreach (Transform child in transform)
         {
             child.localPosition = Vector3.up * armLength;

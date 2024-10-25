@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using Photon.Realtime;
-using System.IO;
 using System.Linq;
 using System;
 
@@ -16,6 +15,7 @@ public class RoomProperty
     public Hashtable seat2id { get; set; }
     public Hashtable id2name { get; set; }
     public Hashtable id2ready { get; set; }   
+    public Hashtable id2character { get; set; }
 
     public RoomProperty()
     {
@@ -23,6 +23,7 @@ public class RoomProperty
         seat2id = new Hashtable();
         id2name = new Hashtable();
         id2ready = new Hashtable();
+        id2character = new Hashtable();
     }
 }
 
@@ -30,10 +31,13 @@ public class RoomProperty
 
 public class GameRoom : MonoBehaviourPunCallbacks
 {
-    public string assetBundleName;
     public int maxPlayers = 10;
     public List<MapType> maps;
     public int curMap;
+
+    public List<Character> characters;
+    public int chosenCharacter;
+
     public delegate void RoomViewHandler(RoomProperty roomProperty);
     public event RoomViewHandler OnRoomChanged;
 
@@ -53,34 +57,26 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
 
     private Player[] players;
-    private AssetBundle localAssetBundle;
 
     public static GameRoom gameRoom;
     private void Awake()
     {
         gameRoom = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoadManager.DontDestroyOnLoad(gameObject);
     }
     // Start is called before the first frame update
     void Start() 
     {
-        Debug.Log("loading asset");
-        assetBundleName = "maps";
-        string assetName = "map";
-        localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, assetBundleName));
-        if (localAssetBundle == null)
-        {
-            Debug.LogError("Failed to load AssetBundle!");
-            return;
-        }
-        MapType map;
-        int i = 0;
-        while(map = (MapType)localAssetBundle.LoadAsset<ScriptableObject>(assetName + i))
-        {
-            i++;
-            maps.Add(map);
-        }
+
+        AssetBundleManager assetBundleManager = AssetBundleManager.GetInstance();
+        IEnumerable<MapType> maps_t = from map in assetBundleManager.LoadAssets<ScriptableObject>("maps")
+                                    select (MapType)map;
+        maps.AddRange(maps_t);
         curMap = 0;
+
+        IEnumerable<Character> characters_t = from character in assetBundleManager.LoadAssets<ScriptableObject>("characters")
+                                      select (Character)character;
+        characters.AddRange(characters_t);
 
         StartCoroutine(InitWhenConnected());
        
@@ -106,7 +102,17 @@ public class GameRoom : MonoBehaviourPunCallbacks
         }
         
         playerProperties.Add("seat", GetAvailableSeatNumber());
+        playerProperties.Add("character", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+    }
+
+    internal void ChangeCharacter(int selected)
+    {
+        Hashtable hashtable = new Hashtable
+        {
+            { "character", selected }
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hashtable);
     }
 
 
@@ -152,7 +158,6 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        localAssetBundle.Unload(false);
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
     }
 
@@ -183,7 +188,11 @@ public class GameRoom : MonoBehaviourPunCallbacks
                 OnReady.Invoke(cnt == players.Length);
             }
         }
-
+        if (changedProps.ContainsKey("character"))
+        {
+            RoomProperty roomProperty = roomProperty = SetRoomProperty();
+            OnRoomChanged.Invoke(roomProperty);
+        }
 
     }
 
@@ -195,6 +204,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
             property.id2name.Add(player.ActorNumber, player.NickName);
             property.id2ready.Add(player.ActorNumber, player.CustomProperties["ready"]);
             property.seat2id.Add(player.CustomProperties["seat"], player.ActorNumber);
+            property.id2character.Add(player.ActorNumber, player.CustomProperties["character"]);
         }
 
         return property;
@@ -235,7 +245,6 @@ public class GameRoom : MonoBehaviourPunCallbacks
     [PunRPC]
     public void MasterRPC()
     {
-        Debug.Log("called");
         Ready(true);
         OnMasterAcquired.Invoke();
     }

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fd31448b3186a479e79c76574d47f9, type: 3}
   m_Name: map0
   m_EditorClassIdentifier: 
-  sceneName: SampleScene
+  sceneName: Location camping forest
   mapName: map1
-  image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  image: {fileID: 21300000, guid: a9803d26d51522045802283337c6149c, type: 3}
   introduction: test map
+  spawnPositions:
+  - {x: 0, y: 10, z: 0}
+  - {x: 5, y: 10, z: 0}

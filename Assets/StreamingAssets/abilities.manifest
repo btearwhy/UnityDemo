@@ -1,0 +1,41 @@
+ManifestFileVersion: 0
+CRC: 696831564
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 488a318868d9eaff286e264b70787af0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a96e994f18a5604798150119625f0fa3
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 54
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: c56be9f6cd14dc24aa0dbc84afc4d868, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/Data/AttackAbility.asset
+Dependencies: []

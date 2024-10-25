@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 8433969515475153498}
   - component: {fileID: 4802140139596922367}
   - component: {fileID: 7295926274118207797}
-  - component: {fileID: 1312294195674906314}
   - component: {fileID: 4320279218372774817}
-  - component: {fileID: 3206072859700503604}
   - component: {fileID: 1741405671324313116}
+  - component: {fileID: 16039452280545612}
   m_Layer: 0
   m_Name: cannon_attack
   m_TagString: Untagged
@@ -83,19 +82,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &1312294195674906314
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9097458414496180448}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.35139355, y: 0.36947653, z: 0.3694765}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4320279218372774817
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -104,7 +90,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9097458414496180448}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -112,28 +98,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &3206072859700503604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9097458414496180448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1741405671324313116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,3 +114,17 @@ MonoBehaviour:
   impactVisualEffectAsset: {fileID: 0}
   flyingAudio: {fileID: 0}
   impactAudio: {fileID: 0}
+  initSpeed: 10
+--- !u!135 &16039452280545612
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097458414496180448}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.23
+  m_Center: {x: 0, y: 0, z: 0}

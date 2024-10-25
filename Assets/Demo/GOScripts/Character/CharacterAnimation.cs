@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour
 {
-    public Transform trans_projectileSpawnSocket;
     public AbilitySystem abilitySystem;
     // Start is called before the first frame update
     void Start()
@@ -17,9 +16,9 @@ public class CharacterAnimation : MonoBehaviour
     {
         
     }
-
-    public void AttackEvent(int abilityNo)
+    
+    public void HandleAnimation(AnimationEvent animationEvent)
     {
-        abilitySystem.actions[abilityNo].Fire(transform, trans_projectileSpawnSocket);
+        abilitySystem.actions[animationEvent.intParameter].HandleAnimationEvent(animationEvent.stringParameter);
     }
 }

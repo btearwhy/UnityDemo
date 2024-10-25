@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
+  m_Name: AttackAbility
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  movement: {fileID: 0}
+  animator: {fileID: 0}
+  animStartStateName: RightHandAttack
+  animHeldStateName: RightHandAttackCharge
+  animReleaseStateName: RightHandAttackRelease
+  fireSocket: c_index3.r
+  fireAudio: {fileID: 0}
+  projectilePrefab: {fileID: 9097458414496180448, guid: 6419bd5bb5b501c49a3fd09dada37b61,
+    type: 3}
+  maxAttackRange: 10

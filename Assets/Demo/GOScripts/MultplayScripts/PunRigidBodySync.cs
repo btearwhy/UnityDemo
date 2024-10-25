@@ -10,7 +10,7 @@ public class PunRigidBodySync : MonoBehaviourPun, IPunObservable
     Quaternion latestRot;
     Vector3 velocity;
     Vector3 angularVelocity;
-
+    
     bool valuesReceived = false;
 
     // Start is called before the first frame update
@@ -36,7 +36,6 @@ public class PunRigidBodySync : MonoBehaviourPun, IPunObservable
             latestRot = (Quaternion)stream.ReceiveNext();
             velocity = (Vector3)stream.ReceiveNext();
             angularVelocity = (Vector3)stream.ReceiveNext();
-
             valuesReceived = true;
         }
     }
@@ -47,10 +46,11 @@ public class PunRigidBodySync : MonoBehaviourPun, IPunObservable
         if (!photonView.IsMine && valuesReceived)
         {
             //Update Object position and Rigidbody parameters
-            transform.position = Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 5);
-            transform.rotation = Quaternion.Lerp(transform.rotation, latestRot, Time.deltaTime * 5);
+            transform.position = Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 100);
+            transform.rotation = Quaternion.Lerp(transform.rotation, latestRot, Time.deltaTime * 100);
             r.velocity = velocity;
             r.angularVelocity = angularVelocity;
+
         }
     }
 

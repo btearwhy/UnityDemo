@@ -11,12 +11,14 @@ using System.Linq;
 
 public class UI_Controller_GameRoom : MonoBehaviour
 {
+    public Sprite sprite_seat_default;
     public GameRoom gameRoom;
     public TMP_Text text_roomTitle;
     public TMP_Text text_players;
     public GameObject go_seats_scrollView_content;
     public GameObject prefab_seat;
     public TMP_Dropdown dropdown_maps;
+    public TMP_Dropdown dropdown_characters;
     public Image img_map;
     public Button button_leave;
     public Button button_ready;
@@ -24,6 +26,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
 
     private string chosenMap;
     private List<GameObject> seats;
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +56,13 @@ public class UI_Controller_GameRoom : MonoBehaviour
         gameRoom.OnRoomChanged += refreshSeats;
         
         img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
+        dropdown_characters.ClearOptions();
+        IEnumerable<TMP_Dropdown.OptionData> characterOptions = from character in gameRoom.characters
+                                                          select new TMP_Dropdown.OptionData(character.characterName,  character.avator);
+        dropdown_characters.AddOptions(characterOptions.ToList());
+        dropdown_characters.onValueChanged.AddListener(gameRoom.ChangeCharacter);
+
+
         dropdown_maps.ClearOptions();
         IEnumerable <TMP_Dropdown.OptionData> mapOptions = from map in gameRoom.maps
                                       select new TMP_Dropdown.OptionData(map.mapName, map.image);
@@ -82,7 +92,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
         text_button_ready.text = "start";
         button_ready.enabled = false;
         button_ready.onClick.RemoveAllListeners();
-        button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].mapName));
+        button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName));
         gameRoom.OnReady += (ready) => button_ready.enabled = ready;
     }
 
@@ -104,6 +114,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
             if(roomProperty.seat2id[i] != null)
             {
                 seats[i].GetComponentInChildren<TMP_Text>().text = (string)roomProperty.id2name[roomProperty.seat2id[i]];
+                button.image.sprite = gameRoom.characters[(int)roomProperty.id2character[roomProperty.seat2id[i]]].avator;
                 button.enabled = false;
                 if ((bool)roomProperty.id2ready[roomProperty.seat2id[i]])
                 {
@@ -121,6 +132,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
                 cb.normalColor = Color.white;
                 button.colors = cb;
                 button.enabled = true;
+                button.image.sprite = sprite_seat_default;
             }
         }
     }

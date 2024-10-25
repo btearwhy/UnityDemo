@@ -9,4 +9,5 @@ public class MapType : ScriptableObject
     public string mapName;
     public Sprite image;
     public string introduction;
+    public List<Vector3> spawnPositions;
 }

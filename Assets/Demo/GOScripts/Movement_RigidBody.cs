@@ -3,13 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement_RigidBody : MonoBehaviour, Movement
+public class Movement_RigidBody :Movement
 {
-    public float turnSpeed;
+
     public float actualSpeed;
-    public float speed;
-    public float maxSpeed;
-    public float accelerate;
+
 
     public Vector3 movement;
     public Quaternion targetRotation = Quaternion.Euler(0, 90, 0);
