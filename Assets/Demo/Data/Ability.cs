@@ -20,10 +20,6 @@ public class Ability : ScriptableObject
         animator = go.GetComponentInChildren<Animator>();
     }
 
-    internal virtual void OnHeld()
-    {
-        
-    }
 
     internal virtual void Pressed()
     {
@@ -44,4 +40,6 @@ public class Ability : ScriptableObject
     {
         
     }
+
+    internal virtual void End() { }
 }

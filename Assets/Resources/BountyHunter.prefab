@@ -67,8 +67,8 @@ MonoBehaviour:
   canRotate: 0
   maxSpeed: 10
   speed: 0
-  accelerate: 2
-  decelerate: 8
+  accelerate: 7
+  decelerate: 9.5
   turnSpeed: 1000
   shouldStop: 0
 --- !u!114 &4207489905532019253
@@ -175,6 +175,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 0
     Name: AttackAbility
+  - Type: 1
+    SynchronizeType: 0
+    Name: Charge
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0

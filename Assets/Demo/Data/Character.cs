@@ -8,6 +8,11 @@ public class Character : ScriptableObject
     public string characterName;
     public Sprite avator;
     public GameObject modelPrefab;
+
+
+    public float maxHealth;
+    public float attack;
+    public float defense;
     public List<string> abilities;
     
 }

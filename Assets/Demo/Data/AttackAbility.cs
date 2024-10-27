@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using VolumetricLines;
 
 public class AttackAbility : Ability
 {
@@ -16,20 +17,29 @@ public class AttackAbility : Ability
 
     public GameObject projectilePrefab;
 
-    public float maxAttackRange;
     public float initialAngle;
-    public float speed;
+    public float minAttackRange;
+    public float maxAttackRange;
+    public float attackRangeChargeSpeed;
 
-    public int numberOfPoints;
+
+
     private float attackRange;
 
     LineRenderer lineRenderer;
-
+    public int numberOfPoints;
+    public Material lineMaterial;
+    public float lineWidth;
     public override void Fire(Transform transform, Transform trans_projectileSpawnSocket)
     {
         base.Fire(transform, trans_projectileSpawnSocket);
-        GameObject projectileObject = Instantiate(projectilePrefab, trans_projectileSpawnSocket.position, transform.rotation);
-        projectileObject.GetComponent<Projectile>().Instigator = character;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            object[] parameters = new object[2];
+            parameters[0] = character.GetPhotonView().ViewID;
+            parameters[1] = getProjectileVelocity(character.transform.forward, attackRange, initialAngle);
+            GameObject projectileObject = PhotonNetwork.Instantiate(projectilePrefab.name, trans_projectileSpawnSocket.position, Quaternion.AngleAxis(initialAngle, Vector3.Cross(character.transform.forward, character.transform.up)) * character.transform.rotation, 0, parameters);
+        }
     }
 
     internal override void Pressed()
@@ -37,16 +47,34 @@ public class AttackAbility : Ability
         movement.StopTranslation();
         animator.Play(animStartStateName);
     }
-
+    
+    
     internal override void Held()
     {
+        
         movement.StopTranslation();
         animator.Play(animHeldStateName);
+        if (PlayerState.IsUnderControll(character))
+        {
+            lineRenderer.enabled = true;
+            attackRange += attackRangeChargeSpeed * Time.deltaTime;
+            attackRange = Mathf.Clamp(attackRange, minAttackRange, maxAttackRange);
+            DrawLine(fireSocketTransform.position, character.transform.forward, attackRange, initialAngle);
+        }
+
     }
 
     internal override void Released()
     {
+        lineRenderer.enabled = false;
         animator.Play(animReleaseStateName);
+    }
+
+    internal override void End()
+    {
+        base.End();
+        attackRange = minAttackRange;
+        character.GetComponent<Movement>().ResetStatus();
     }
 
     internal override void HandleAnimationEvent(string dispatch)
@@ -57,7 +85,7 @@ public class AttackAbility : Ability
         }
         else if ("End".Equals(dispatch))
         {
-            character.GetComponent<Movement>().ResetStatus();
+            End();
         }
         
     }
@@ -74,31 +102,58 @@ public class AttackAbility : Ability
                 break;
             }
         }
+        attackRange = minAttackRange;
 
-        lineRenderer = new GameObject().AddComponent<LineRenderer>();
+        lineRenderer = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("lines", "LineStrip")).GetComponent<LineRenderer>();
+
+        lineRenderer.positionCount = numberOfPoints;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.material = lineMaterial;
+/*        lineRenderer.startColor = Color.white;
+        lineRenderer.endColor = Color.black;
+        lineRenderer.material.SetColor("lineColor", new Color(1, 1, 1, 0.5f));*/
+        lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
     }
 
-    public void DrawLine(Transform startTransform)
+    public void DrawLine(Vector3 startPosition, Vector3 direction, float castRange, float pitchAngle)
     {
-        Rigidbody rb;
-        Vector3 startPosition;
-        Vector3 startVelocity;
-        float initialForce = 15;
-        Quaternion rot;
+
         int i = 0;
-        float timer = 0.1f;
-        i = 0;
         lineRenderer.positionCount = numberOfPoints;
-        lineRenderer.enabled = true;
-        startPosition = startTransform.position;
-        startVelocity = rot * (InitialForce * startTransform.forward) / rb.mass;
-        lr.SetPosition(i, startPosition);
-        for (float j = 0; i < lr.positionCount - 1; j += timer)
+        lineRenderer.SetPosition(i, startPosition);
+        Vector3 velocity = getProjectileVelocity(direction, castRange, pitchAngle);
+        float timer = 0.2f;
+        Vector3 lastPosition = lineRenderer.GetPosition(i);
+        for (float j = 0; i < lineRenderer.positionCount - 1; j += timer)
         {
             i++;
-            Vector3 linePosition = startPosition + j * startVelocity;
-            linePosition.y = startPosition.y + startVelocity.y * j + 0.5f * Physics.gravity.y * j * j;
-            lr.SetPosition(i, linePosition);
+            Vector3 curPosition = startPosition + j * velocity + 0.5f * j * j * Physics.gravity;
+
+
+            Vector3 dir = curPosition - lastPosition;
+            if (Physics.Raycast(lastPosition, dir, out RaycastHit hit, dir.magnitude))
+            {
+                lineRenderer.SetPosition(i, hit.point);
+                lineRenderer.positionCount = i + 1;
+            }
+            else
+            {
+                lineRenderer.SetPosition(i, curPosition);
+            }
         }
+
+    }
+
+
+
+    private static Vector3 getProjectileVelocity(Vector3 direction, float castRange, float pitchAngle)
+    {
+        float pitchAngleRadians = pitchAngle * Mathf.PI / 180.0f;
+        float velocityMagnitude = Mathf.Sqrt(-Physics.gravity.y * castRange / Mathf.Sin(2 * pitchAngleRadians));
+        float velocityVertical = velocityMagnitude * Mathf.Sin(pitchAngleRadians);
+        float velocityHorizontal = velocityMagnitude * Mathf.Cos(pitchAngleRadians);
+        Vector3 velocity = new Vector3(direction.x * velocityHorizontal, velocityVertical, direction.z * velocityHorizontal);
+        return velocity;
     }
 }

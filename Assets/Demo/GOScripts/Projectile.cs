@@ -4,30 +4,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
 {
     public VisualEffectAsset visualEffectAsset;
     public VisualEffectAsset impactVisualEffectAsset;
     public AudioSource flyingAudio;
     public AudioSource impactAudio;
 
-    public GameObject Instigator;
-
+    public GameObject instigator;
+    public float effectRange;
     public float initSpeed;
-    Rigidbody rigidBody;
 
+
+    public Effect effect;
     private void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
-        rigidBody.velocity = initSpeed * transform.forward;
-        //flyingAudio.Play();
+        if(flyingAudio != null)
+        {
+            flyingAudio.Play();
+        }
         
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         //impactAudio.Play();
-        if(collision.collider.gameObject != Instigator)
-            Debug.Log("Collide with " + collision.collider.name);
+        if (impactAudio != null)
+        {
+            impactAudio.Play();
+        }
+        if (collision.collider.gameObject != instigator)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, effectRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                effect.Apply(instigator, hitCollider.gameObject);
+            }
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
+        }
+    }
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        int photonViewID = (int)info.photonView.InstantiationData[0];
+        instigator = PhotonView.Find(photonViewID).gameObject;
+        GetComponent<Rigidbody>().velocity = (Vector3)info.photonView.InstantiationData[1];
     }
 }

@@ -19,8 +19,8 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 0.9
     UseNameServer: 1
-    FixedRegion: 
-    Server: 
+    FixedRegion: cn
+    Server: ns.photonengine.cn
     Port: 0
     ProxyServer: 
     Protocol: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 1
-  DevRegion: asia
+  DevRegion: cn
   PunLogging: 0
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -42,6 +42,10 @@ MonoBehaviour:
   - ChangeMapRPC
   - MasterRPC
   - StartActionRPC
+  - ActionPressed_RPC
+  - ActionHeld_RPC
+  - ActionReleased_RPC
+  - GrantAbility_RPC
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1
