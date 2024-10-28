@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2471584167
+CRC: 3516630133
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a9d80106e546e8c26b7fae8ff8ade6f0
+    Hash: 2c6150116d7d6ff44220b129b9de52d2
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 03533e84b2ed195f51129089a0a54e36
+    Hash: a39aee9a6b34e3ea52f62c49521b80a3
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -40,6 +40,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: abc8dca246d55e248b6b384e7e71ab00, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 3d054f4a5087928469ccbbb7ca5b971b, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 6d2dd7ca794f08f4aa1151094564e194, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f331a1db6f2b6248bd5b63cfa56ecb2, type: 3}
@@ -55,5 +57,5 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Demo/Data/Character.asset
+- Assets/Demo/Data/BountyHunter.asset
 Dependencies: []

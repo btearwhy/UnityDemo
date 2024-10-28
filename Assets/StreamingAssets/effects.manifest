@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2057933767
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 442a9523c1c94dda32a9fe95f2d8c28a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 430dcff18e9c1d46ac2a255c5915a268
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: 3ad897837be02044a9d0ccc36a030465, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/Data/Effect_Damage.asset
+Dependencies: []

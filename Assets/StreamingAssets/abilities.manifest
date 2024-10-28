@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2175121787
+CRC: 268809969
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 17699884779ecda7a87dae769ffa8528
+    Hash: f65f9d5aef85cf914abedfa9413697a9
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3f0a52e14b665744e8984a0169d5baaf
+    Hash: 37f3f54ed182cc1fa44a55a8855f6d67
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,9 +28,15 @@ ClassTypes:
 - Class: 54
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: 3ad897837be02044a9d0ccc36a030465, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: c56be9f6cd14dc24aa0dbc84afc4d868, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 135
@@ -38,4 +44,5 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Data/AttackAbility.asset
-Dependencies: []
+Dependencies:
+- C:/Users/dengmofan/3D mobile/Assets/StreamingAssets/effects

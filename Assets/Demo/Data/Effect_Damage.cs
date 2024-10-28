@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,11 +10,14 @@ public class Effect_Damage : Effect
         if (target.TryGetComponent<AttributeSet>(out AttributeSet targetAttributeSet) && instigator.TryGetComponent<AttributeSet>(out AttributeSet instigatorAttributeSet))
         {
             float damage = instigatorAttributeSet.attack - targetAttributeSet.defense;
-            if(damage > 0)
+            if(instigator.TryGetComponent<PhotonView>(out PhotonView photonView))
             {
-                damage /= (instigator.transform.position - target.transform.position).magnitude; 
+                targetAttributeSet.DealDamage(photonView.ControllerActorNr, damage);
             }
-            targetAttributeSet.DealDamage(instigator, damage); 
+            else
+            {
+                targetAttributeSet.DealDamage(instigator, damage);
+            } 
         }
     }
 }

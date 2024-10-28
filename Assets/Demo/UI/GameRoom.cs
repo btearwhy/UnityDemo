@@ -11,26 +11,36 @@ using System;
 
 public class RoomProperty
 {
-    public string map { get; set; }
-    public Hashtable seat2id { get; set; }
-    public Hashtable id2name { get; set; }
-    public Hashtable id2ready { get; set; }   
-    public Hashtable id2character { get; set; }
-
-    public RoomProperty()
-    {
-        map = string.Empty;
-        seat2id = new Hashtable();
-        id2name = new Hashtable();
-        id2ready = new Hashtable();
-        id2character = new Hashtable();
-    }
+    public Dictionary<int, PlayerLocal> playersMap;
+    public int map;
+    public int maxPlayersCount;
 }
 
+public class PlayerLocal
+{
+    public int actorID;
+    public string nickName;
+    public int seatNr;
+    public bool ready;
+    public int character;
+    public int score;
 
+    public PlayerController controller;
+
+    public PlayerLocal(int actorID, string nickName, int seatNr, bool ready, int character, int score)
+    {
+        this.actorID = actorID;
+        this.nickName = nickName;
+        this.seatNr = seatNr;
+        this.ready = ready;
+        this.character = character;
+        this.score = score;
+    }    
+}
 
 public class GameRoom : MonoBehaviourPunCallbacks
 {
+    public int score = 10;
     public int maxPlayers = 10;
     public List<MapType> maps;
     public int curMap;
@@ -52,6 +62,9 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     public delegate void AcquireMasterHandler();
     public event AcquireMasterHandler OnMasterAcquired;
+
+    public delegate void ScoreChangeHandler(RoomProperty roomProperty);
+    public event ScoreChangeHandler OnScoreChanged;
 
     private readonly int currentSeatNumber = -1;
 
@@ -103,6 +116,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
         
         playerProperties.Add("seat", GetAvailableSeatNumber());
         playerProperties.Add("character", 0);
+        playerProperties.Add("score", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
@@ -168,12 +182,12 @@ public class GameRoom : MonoBehaviourPunCallbacks
         players = PhotonNetwork.PlayerList;
         if (changedProps.ContainsKey("seat"))
         {
-            RoomProperty roomProperty = roomProperty = SetRoomProperty();
+            RoomProperty roomProperty = roomProperty = GetRoomProperty();
             OnRoomChanged.Invoke(roomProperty);
         }
         if (changedProps.ContainsKey("ready"))
         {
-            RoomProperty roomProperty = SetRoomProperty();
+            RoomProperty roomProperty = GetRoomProperty();
             OnRoomChanged.Invoke(roomProperty);
             if (PhotonNetwork.IsMasterClient)
             {
@@ -190,23 +204,27 @@ public class GameRoom : MonoBehaviourPunCallbacks
         }
         if (changedProps.ContainsKey("character"))
         {
-            RoomProperty roomProperty = roomProperty = SetRoomProperty();
+            RoomProperty roomProperty = roomProperty = GetRoomProperty();
             OnRoomChanged.Invoke(roomProperty);
+        }
+        if (changedProps.ContainsKey("score"))
+        {
+            RoomProperty roomProperty = roomProperty = GetRoomProperty();
+            OnScoreChanged.Invoke(roomProperty);
         }
 
     }
 
-    private RoomProperty SetRoomProperty()
+    public RoomProperty GetRoomProperty()
     {
         RoomProperty property = new RoomProperty();
-        foreach (Player player in players)
+        property.map = curMap;
+        for(int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
-            property.id2name.Add(player.ActorNumber, player.NickName);
-            property.id2ready.Add(player.ActorNumber, player.CustomProperties["ready"]);
-            property.seat2id.Add(player.CustomProperties["seat"], player.ActorNumber);
-            property.id2character.Add(player.ActorNumber, player.CustomProperties["character"]);
+            PlayerLocal player = new PlayerLocal(players[i].ActorNumber, players[i].NickName, (int)players[i].CustomProperties["seat"], (bool)players[i].CustomProperties["ready"], (int)players[i].CustomProperties["character"], (int)players[i].CustomProperties["score"]);
+            property.playersMap.Add(player.actorID, player);
         }
-
+        property.maxPlayersCount = maxPlayers;
         return property;
     }
     public bool IsReady()
@@ -231,7 +249,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     {
         base.OnPlayerLeftRoom(otherPlayer);
         players = PhotonNetwork.PlayerList;
-        RoomProperty roomProperty = SetRoomProperty();
+        RoomProperty roomProperty = GetRoomProperty();
         OnRoomChanged.Invoke(roomProperty);
     }
 
@@ -248,4 +266,22 @@ public class GameRoom : MonoBehaviourPunCallbacks
         Ready(true);
         OnMasterAcquired.Invoke();
     }
+
+    public void AddScore(int killerName, int victimName)
+    {
+        Player killer = PhotonNetwork.CurrentRoom.GetPlayer(killerName);
+        int scoreOriginal = (int)killer.CustomProperties["score"];
+        Hashtable playerProperties = new Hashtable
+        {
+            { "score", scoreOriginal + score }
+        };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+       /* photonView.RPC("AddScoreRPC", RpcTarget.All, actorName, score);*/
+    }
+
+/*    [PunRPC]
+    public void AddScoreRPC(int actorName, int score)
+    {
+        
+    }*/
 }

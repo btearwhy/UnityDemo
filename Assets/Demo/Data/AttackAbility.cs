@@ -38,7 +38,7 @@ public class AttackAbility : Ability
             object[] parameters = new object[2];
             parameters[0] = character.GetPhotonView().ViewID;
             parameters[1] = getProjectileVelocity(character.transform.forward, attackRange, initialAngle);
-            GameObject projectileObject = PhotonNetwork.Instantiate(projectilePrefab.name, trans_projectileSpawnSocket.position, Quaternion.AngleAxis(initialAngle, Vector3.Cross(character.transform.forward, character.transform.up)) * character.transform.rotation, 0, parameters);
+            PhotonNetwork.Instantiate(projectilePrefab.name, trans_projectileSpawnSocket.position, Quaternion.AngleAxis(initialAngle, Vector3.Cross(character.transform.forward, character.transform.up)) * character.transform.rotation, 0, parameters);
         }
     }
 

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 413193962
+CRC: 2892968988
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -10,10 +10,17 @@ AssetBundleManifest:
       Dependencies: {}
     Info_2:
       Name: abilities
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: effects
     Info_3:
       Name: controllers
       Dependencies: {}
     Info_4:
       Name: lines
+      Dependencies: {}
+    Info_5:
+      Name: ui
+      Dependencies: {}
+    Info_6:
+      Name: effects
       Dependencies: {}

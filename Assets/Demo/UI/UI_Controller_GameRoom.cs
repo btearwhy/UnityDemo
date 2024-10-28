@@ -69,7 +69,6 @@ public class UI_Controller_GameRoom : MonoBehaviour
         dropdown_maps.AddOptions(mapOptions.ToList());
         dropdown_maps.onValueChanged.AddListener(gameRoom.ChangeMap);
         gameRoom.OnMapChanged += () => {
-            Debug.Log(gameRoom.curMap);
             img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
             dropdown_maps.value = gameRoom.curMap;
         };
@@ -107,33 +106,39 @@ public class UI_Controller_GameRoom : MonoBehaviour
 
     private void refreshSeats(RoomProperty roomProperty)
     {
-        for (int i = 0; i < seats.Count; i++)
+        bool[] set = new bool[seats.Count];
+        foreach(var entry in roomProperty.playersMap)
         {
-            Button button = seats[i].GetComponentInChildren<Button>();
+            int seatNr = entry.Value.seatNr;
+            set[seatNr] = true;
+            Button button = seats[seatNr].GetComponentInChildren<Button>();
             ColorBlock cb = button.colors;
-            if(roomProperty.seat2id[i] != null)
+            seats[seatNr].GetComponentInChildren<TMP_Text>().text = entry.Value.nickName;
+            button.image.sprite = gameRoom.characters[entry.Value.character].avator;
+            button.enabled = false;
+            if (entry.Value.ready)
             {
-                seats[i].GetComponentInChildren<TMP_Text>().text = (string)roomProperty.id2name[roomProperty.seat2id[i]];
-                button.image.sprite = gameRoom.characters[(int)roomProperty.id2character[roomProperty.seat2id[i]]].avator;
-                button.enabled = false;
-                if ((bool)roomProperty.id2ready[roomProperty.seat2id[i]])
-                {
-                    cb.normalColor = Color.green;
-                }
-                else
-                {
-                    cb.normalColor = Color.yellow;
-                }
-                button.colors = cb;
+                cb.normalColor = Color.green;
             }
             else
             {
+                cb.normalColor = Color.yellow;
+            }
+            button.colors = cb;
+        }
+        for(int i = 0; i < seats.Count; i++)
+        {
+            if (!set[i])
+            {
                 seats[i].GetComponentInChildren<TMP_Text>().text = string.Empty;
+                Button button = seats[i].GetComponentInChildren<Button>();
+                ColorBlock cb = button.colors;
                 cb.normalColor = Color.white;
                 button.colors = cb;
                 button.enabled = true;
                 button.image.sprite = sprite_seat_default;
             }
         }
+        
     }
 }

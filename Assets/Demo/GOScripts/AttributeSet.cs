@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttributeSet : MonoBehaviour
+public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
     public float health;
     public float currentHealth;
@@ -22,8 +23,12 @@ public class AttributeSet : MonoBehaviour
     public delegate void CurrentHealthHandler(float health);
     public event CurrentHealthHandler OnCurrentHealthChanged;
 
-    public delegate void DeathHandler(GameObject instigator);
+    public delegate void KillHandler(int killerID, int victimID);
+    public event KillHandler OnKilled;
+
+    public delegate void DeathHandler();
     public event DeathHandler OnDied;
+
 
     private void Start()
     {
@@ -33,14 +38,41 @@ public class AttributeSet : MonoBehaviour
         currentDefense = defense;
     }
 
+    internal void DealDamage(int actorNr, float damage)
+    {
+        
+        currentHealth -= damage;
+        SetCurrentHealth(currentHealth);
+        if (currentHealth <= 0)
+        {
+            OnLeathal?.Invoke(gameObject);
+        }
+        if (currentHealth <= 0)
+        {
+            if(TryGetComponent<PhotonView>(out PhotonView photonview))
+            {
+                OnKilled?.Invoke(actorNr, photonview.ControllerActorNr);
+            }
+            Die();
+        }
+        else
+        {
+            SetCurrentHealth(currentHealth);
+        }
+    }
+
     internal void DealDamage(GameObject instigator, float damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
+        SetCurrentHealth(currentHealth);
+        if (currentHealth <= 0)
         {
-            OnLeathal.Invoke(instigator);
+            OnLeathal?.Invoke(gameObject);
         }
-        if (currentHealth <= 0) Die(instigator);
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
         else
         {
             SetCurrentHealth(currentHealth);
@@ -49,12 +81,45 @@ public class AttributeSet : MonoBehaviour
 
     private void SetCurrentHealth(float currentHealth)
     {
-        OnCurrentHealthChanged.Invoke(currentHealth);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("SetCurrentHealth_RPC", RpcTarget.All, currentHealth);
+        }
     }
 
-    private void Die(GameObject instigator)
+    [PunRPC]
+    private void SetCurrentHealth_RPC(float currentHealth)
     {
+        this.currentHealth = currentHealth;
+        OnCurrentHealthChanged?.Invoke(currentHealth);
+    }
 
-        OnDied.Invoke(instigator);
+
+
+    private void Die()
+    {
+        GetComponentInChildren<Animator>().Play("Death");
+        OnDied?.Invoke();
+
+        PlayerState.GetInstance().GetController().enabled = false;
+        if (photonView.IsMine)
+        {
+            IEnumerator DestroyAfterSeconds(float seconds)
+            {
+                yield return new WaitForSeconds(seconds);
+                PhotonNetwork.Destroy(gameObject);
+            }
+            StartCoroutine(DestroyAfterSeconds(5));
+        }
+        
+    }
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        string characterName = (string)info.photonView.InstantiationData[0];
+        Character character = (Character)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("characters", characterName);
+        maxHealth = character.maxHealth;
+        attack = character.attack;
+        defense = character.defense;
     }
 }

@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
     public GameObject instigator;
     public float effectRange;
     public float initSpeed;
-
+    public float impactForce;
 
     public Effect effect;
     private void Start()
@@ -38,6 +38,14 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, effectRange);
             foreach (var hitCollider in hitColliders)
             {
+                if (hitCollider.gameObject == gameObject) continue;
+                if (hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+                {
+                    Vector3 force = hitCollider.transform.position - transform.position;
+                    force /= force.magnitude * force.magnitude * force.magnitude;
+                    force *= impactForce;
+                    rigidbody.AddForce(force, ForceMode.Impulse);
+                }
                 effect.Apply(instigator, hitCollider.gameObject);
             }
             if (PhotonNetwork.IsMasterClient)
