@@ -29,10 +29,10 @@ public class UI_Controller_BattleHUD : MonoBehaviour
             scoreboard.GetComponent<UI_Controller_Scoreboard>().AddItem(entry.Value.nickName, entry.Value.score);
         }
 
-        gameRoom.OnScoreChanged += (players) =>
+        gameRoom.OnScoreChanged += (newRoomProperty) =>
         {
-            /*对比调整顺序*/
-        }
+            
+        };
         button_score.onClick.AddListener(() =>
         {
             scoreboard.SetActive(!scoreboard.activeSelf);
