@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4207489905532019252}
   - component: {fileID: 4207489905532019253}
   - component: {fileID: 1000152982684365499}
+  - component: {fileID: 117366939503996184}
   - component: {fileID: 71959284881169101}
   - component: {fileID: -8295403757346959182}
   - component: {fileID: 7865968114549656518}
@@ -33,6 +34,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.906399, y: 8.72, z: -10.315999}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5512569732900671747}
   m_Father: {fileID: 0}
@@ -105,6 +107,18 @@ MonoBehaviour:
   defense: 0
   currentAttack: 0
   currentDefense: 0
+--- !u!114 &117366939503996184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3769354870167962771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a7e11d2e83bce4c8311f5bd8cf672c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &71959284881169101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,64 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2dd7ca794f08f4aa1151094564e194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3699354293188967481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5173303756807015353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 1
-    SynchronizeType: 2
-    Name: Forward
-  - Type: 1
-    SynchronizeType: 0
-    Name: Turn
-  - Type: 4
-    SynchronizeType: 0
-    Name: Crouch
-  - Type: 4
-    SynchronizeType: 0
-    Name: OnGround
-  - Type: 1
-    SynchronizeType: 0
-    Name: Jump
-  - Type: 1
-    SynchronizeType: 0
-    Name: JumpLeg
-  - Type: 9
-    SynchronizeType: 0
-    Name: Absorb
-  - Type: 4
-    SynchronizeType: 0
-    Name: AttackAbility
-  - Type: 1
-    SynchronizeType: 0
-    Name: Charge
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0
---- !u!114 &4207489905154084452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5173303756807015353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51b55c30c703e2744813de7c95b023c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilitySystem: {fileID: 0}
 --- !u!1001 &5407184375078991592
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -300,6 +256,64 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5407184375078991592}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3699354293188967481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5173303756807015353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 1
+    SynchronizeType: 2
+    Name: Forward
+  - Type: 1
+    SynchronizeType: 0
+    Name: Turn
+  - Type: 4
+    SynchronizeType: 0
+    Name: Crouch
+  - Type: 4
+    SynchronizeType: 0
+    Name: OnGround
+  - Type: 1
+    SynchronizeType: 0
+    Name: Jump
+  - Type: 1
+    SynchronizeType: 0
+    Name: JumpLeg
+  - Type: 9
+    SynchronizeType: 0
+    Name: Absorb
+  - Type: 4
+    SynchronizeType: 0
+    Name: AttackAbility
+  - Type: 1
+    SynchronizeType: 0
+    Name: Charge
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
+--- !u!114 &4207489905154084452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5173303756807015353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b55c30c703e2744813de7c95b023c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitySystem: {fileID: 0}
 --- !u!4 &5512569732900671747 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 710767f33357e7746886ce660d34ff9d,

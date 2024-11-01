@@ -40,12 +40,10 @@ public class PlayerController : MonoBehaviour
         {
             if (callBackContext.interaction is TapInteraction)
             {
-                Debug.Log("tap");
                 character.GetComponent<AbilitySystem>().ActionPressed(0);
             }
             else if (callBackContext.interaction is HoldInteraction)
             {
-                Debug.Log("hold");
                 character.GetComponent<AbilitySystem>().ActionHeld(0);
             }
         };
@@ -53,8 +51,26 @@ public class PlayerController : MonoBehaviour
         {
             if (callbackContext.interaction is HoldInteraction)
             {
-                Debug.Log("released");
                 character.GetComponent<AbilitySystem>().ActionReleased(0);
+            }
+        };
+
+        inputActions.KeyboardandMouse.Absorb.performed += callBackContext =>
+        {
+            if (callBackContext.interaction is TapInteraction)
+            {
+                character.GetComponent<AbilitySystem>().ActionPressed(1);
+            }
+            else if (callBackContext.interaction is HoldInteraction)
+            {
+                character.GetComponent<AbilitySystem>().ActionHeld(1);
+            }
+        };
+        inputActions.KeyboardandMouse.Absorb.canceled += callbackContext =>
+        {
+            if (callbackContext.interaction is HoldInteraction)
+            {
+                character.GetComponent<AbilitySystem>().ActionReleased(1);
             }
         };
     }
@@ -103,10 +119,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("attack trigger");
             character.GetComponent<AbilitySystem>().ActionPressed(0);
         }*/
-        if (inputActions.KeyboardandMouse.Absorb.inProgress)
+/*        if (inputActions.KeyboardandMouse.Absorb.inProgress)
         {
             character.GetComponent<AbilitySystem>().ActionHeld(0) ;
-        }
+        }*/
     }
 
     private void MovementControl()

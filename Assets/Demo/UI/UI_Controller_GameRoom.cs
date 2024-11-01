@@ -114,7 +114,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
             Button button = seats[seatNr].GetComponentInChildren<Button>();
             ColorBlock cb = button.colors;
             seats[seatNr].GetComponentInChildren<TMP_Text>().text = entry.Value.nickName;
-            button.image.sprite = gameRoom.characters[entry.Value.character].avator;
+            button.image.sprite = entry.Value.character.avator;
             button.enabled = false;
             if (entry.Value.ready)
             {

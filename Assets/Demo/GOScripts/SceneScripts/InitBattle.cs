@@ -23,9 +23,15 @@ public class LevelInitializer : MonoBehaviour
             healthBar.GetComponent<Image>().fillAmount = health / attributeSet.maxHealth;
         };
 
-        attributeSet.OnKilled += gameRoom.AddScore;
+        attributeSet.OnKilled += (id1, id2) => {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                gameRoom.AddScore(id1, id2);
+            }    
+        };
 
-        
+        GameObject battleHUD = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "BattleHUD"));
+        battleHUD.GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     public GameObject SpawnCharacterAndController()

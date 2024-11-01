@@ -14,6 +14,11 @@ public class RoomProperty
     public Dictionary<int, PlayerLocal> playersMap;
     public int map;
     public int maxPlayersCount;
+
+    public RoomProperty()
+    {
+        playersMap = new Dictionary<int, PlayerLocal>();
+    }
 }
 
 public class PlayerLocal
@@ -22,12 +27,12 @@ public class PlayerLocal
     public string nickName;
     public int seatNr;
     public bool ready;
-    public int character;
+    public Character character;
     public int score;
 
     public PlayerController controller;
 
-    public PlayerLocal(int actorID, string nickName, int seatNr, bool ready, int character, int score)
+    public PlayerLocal(int actorID, string nickName, int seatNr, bool ready, Character character, int score)
     {
         this.actorID = actorID;
         this.nickName = nickName;
@@ -40,10 +45,13 @@ public class PlayerLocal
 
 public class GameRoom : MonoBehaviourPunCallbacks
 {
-    public int score = 10;
+    public int score = 20;
     public int maxPlayers = 10;
     public List<MapType> maps;
     public int curMap;
+
+    public int winCondition;
+    public string endingScene;
 
     public List<Character> characters;
     public int chosenCharacter;
@@ -173,6 +181,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
+        Destroy(gameRoom);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -183,12 +192,12 @@ public class GameRoom : MonoBehaviourPunCallbacks
         if (changedProps.ContainsKey("seat"))
         {
             RoomProperty roomProperty = roomProperty = GetRoomProperty();
-            OnRoomChanged.Invoke(roomProperty);
+            OnRoomChanged?.Invoke(roomProperty);
         }
         if (changedProps.ContainsKey("ready"))
         {
             RoomProperty roomProperty = GetRoomProperty();
-            OnRoomChanged.Invoke(roomProperty);
+            OnRoomChanged?.Invoke(roomProperty);
             if (PhotonNetwork.IsMasterClient)
             {
                 int cnt = 0;
@@ -205,12 +214,12 @@ public class GameRoom : MonoBehaviourPunCallbacks
         if (changedProps.ContainsKey("character"))
         {
             RoomProperty roomProperty = roomProperty = GetRoomProperty();
-            OnRoomChanged.Invoke(roomProperty);
+            OnRoomChanged?.Invoke(roomProperty);
         }
         if (changedProps.ContainsKey("score"))
         {
             RoomProperty roomProperty = roomProperty = GetRoomProperty();
-            OnScoreChanged.Invoke(roomProperty);
+            OnScoreChanged?.Invoke(roomProperty);
         }
 
     }
@@ -219,9 +228,9 @@ public class GameRoom : MonoBehaviourPunCallbacks
     {
         RoomProperty property = new RoomProperty();
         property.map = curMap;
-        for(int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount ; i++)
         {
-            PlayerLocal player = new PlayerLocal(players[i].ActorNumber, players[i].NickName, (int)players[i].CustomProperties["seat"], (bool)players[i].CustomProperties["ready"], (int)players[i].CustomProperties["character"], (int)players[i].CustomProperties["score"]);
+            PlayerLocal player = new PlayerLocal(players[i].ActorNumber, players[i].NickName, (int)players[i].CustomProperties["seat"], (bool)players[i].CustomProperties["ready"], characters[(int)players[i].CustomProperties["character"]], (int)players[i].CustomProperties["score"]);
             property.playersMap.Add(player.actorID, player);
         }
         property.maxPlayersCount = maxPlayers;
@@ -271,12 +280,21 @@ public class GameRoom : MonoBehaviourPunCallbacks
     {
         Player killer = PhotonNetwork.CurrentRoom.GetPlayer(killerName);
         int scoreOriginal = (int)killer.CustomProperties["score"];
+        int scoreAdd = score;
+        if (killerName == victimName) scoreAdd = -score / 2;
+        int newScore = scoreOriginal + scoreAdd;
+
         Hashtable playerProperties = new Hashtable
         {
-            { "score", scoreOriginal + score }
+            { "score", newScore }
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
-       /* photonView.RPC("AddScoreRPC", RpcTarget.All, actorName, score);*/
+        if (newScore >= winCondition)
+        {
+            Debug.Log("end with" + newScore);
+            PhotonNetwork.LoadLevel(endingScene);
+        }
+        /* photonView.RPC("AddScoreRPC", RpcTarget.All, actorName, score);*/
     }
 
 /*    [PunRPC]

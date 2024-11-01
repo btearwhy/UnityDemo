@@ -17,7 +17,7 @@ MonoBehaviour:
   modelPrefab: {fileID: 3769354870167962771, guid: b66899bedc15c6e40861818c753f3d6b,
     type: 3}
   maxHealth: 100
-  attack: 10
+  attack: 40
   defense: 0
   abilities:
   - AttackAbility

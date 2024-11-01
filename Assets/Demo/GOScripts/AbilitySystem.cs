@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class AbilitySystem : MonoBehaviourPunCallbacks
 {
-
     public List<Ability> actions;
     private Animator animator;
     private Movement movement;

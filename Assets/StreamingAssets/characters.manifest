@@ -1,12 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3516630133
+CRC: 2652403647
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2c6150116d7d6ff44220b129b9de52d2
+    Hash: ddf72c2d31d50eef235e8ee1688bf165
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a39aee9a6b34e3ea52f62c49521b80a3
+    Hash: aa6f742a78e75ef282c8708fd01b05a6
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: ddf72c2d31d50eef235e8ee1688bf165
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -32,21 +35,23 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: e6ace4006c47f4c48829043f2e2409f1, type: 3}
+  Script: {fileID: 11500000, guid: 3d054f4a5087928469ccbbb7ca5b971b, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 51b55c30c703e2744813de7c95b023c7, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: abc8dca246d55e248b6b384e7e71ab00, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 3d054f4a5087928469ccbbb7ca5b971b, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 6d2dd7ca794f08f4aa1151094564e194, type: 3}
+  Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 5f331a1db6f2b6248bd5b63cfa56ecb2, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  Script: {fileID: 11500000, guid: abc8dca246d55e248b6b384e7e71ab00, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e6ace4006c47f4c48829043f2e2409f1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 81a7e11d2e83bce4c8311f5bd8cf672c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6d2dd7ca794f08f4aa1151094564e194, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 136
@@ -55,7 +60,11 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
-SerializeReferenceClassIdentifiers: []
+SerializeReferenceClassIdentifiers:
+- AssemblyName: PhotonUnityNetworking
+  ClassName: Photon.Pun.PhotonAnimatorView/SynchronizedLayer
+- AssemblyName: PhotonUnityNetworking
+  ClassName: Photon.Pun.PhotonAnimatorView/SynchronizedParameter
 Assets:
 - Assets/Demo/Data/BountyHunter.asset
 Dependencies: []

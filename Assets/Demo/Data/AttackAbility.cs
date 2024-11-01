@@ -106,7 +106,6 @@ public class AttackAbility : Ability
 
         lineRenderer = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("lines", "LineStrip")).GetComponent<LineRenderer>();
 
-        lineRenderer.positionCount = numberOfPoints;
         lineRenderer.startWidth = lineWidth;
         lineRenderer.endWidth = lineWidth;
         lineRenderer.material = lineMaterial;
@@ -114,20 +113,21 @@ public class AttackAbility : Ability
         lineRenderer.endColor = Color.black;
         lineRenderer.material.SetColor("lineColor", new Color(1, 1, 1, 0.5f));*/
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
     }
 
     public void DrawLine(Vector3 startPosition, Vector3 direction, float castRange, float pitchAngle)
     {
-
-        int i = 0;
         lineRenderer.positionCount = numberOfPoints;
+        int i = 0;
+
         lineRenderer.SetPosition(i, startPosition);
         Vector3 velocity = getProjectileVelocity(direction, castRange, pitchAngle);
         float timer = 0.2f;
         Vector3 lastPosition = lineRenderer.GetPosition(i);
-        for (float j = 0; i < lineRenderer.positionCount - 1; j += timer)
+        i++;
+        for (float j = 0; i < lineRenderer.positionCount; j += timer)
         {
-            i++;
             Vector3 curPosition = startPosition + j * velocity + 0.5f * j * j * Physics.gravity;
 
 
@@ -141,6 +141,7 @@ public class AttackAbility : Ability
             {
                 lineRenderer.SetPosition(i, curPosition);
             }
+            i++;
         }
 
     }

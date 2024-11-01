@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
 {
     public VisualEffectAsset visualEffectAsset;
     public VisualEffectAsset impactVisualEffectAsset;
+    public GameObject ImpactVisual;
     public AudioSource flyingAudio;
     public AudioSource impactAudio;
 
@@ -16,7 +17,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
     public float initSpeed;
     public float impactForce;
 
-    public Effect effect;
+    public List<Effect> effects;
     private void Start()
     {
         if(flyingAudio != null)
@@ -33,27 +34,37 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
         {
             impactAudio.Play();
         }
+        
         if (collision.collider.gameObject != instigator)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, effectRange);
-            foreach (var hitCollider in hitColliders)
-            {
-                if (hitCollider.gameObject == gameObject) continue;
-                if (hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
-                {
-                    Vector3 force = hitCollider.transform.position - transform.position;
-                    force /= force.magnitude * force.magnitude * force.magnitude;
-                    force *= impactForce;
-                    rigidbody.AddForce(force, ForceMode.Impulse);
-                }
-                effect.Apply(instigator, hitCollider.gameObject);
-            }
-            if (PhotonNetwork.IsMasterClient)
-            {
-                PhotonNetwork.Destroy(gameObject);
-            }
+            Invoke("Explode", 2.0f);
         }
     }
+
+    public void Explode()
+    {
+        Instantiate(ImpactVisual, transform.position, Quaternion.identity);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, effectRange);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject == gameObject) continue;
+            if (hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+            {
+                Vector3 force = hitCollider.transform.position - transform.position;
+                force /= force.magnitude * force.magnitude * force.magnitude;
+                force *= impactForce;
+                rigidbody.AddForce(force, ForceMode.Impulse);
+            }
+            foreach(Effect effect in effects){
+                effect.Apply(instigator, hitCollider.gameObject);
+            }
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+    }
+
 
     public void OnPhotonInstantiate(PhotonMessageInfo info)
     {

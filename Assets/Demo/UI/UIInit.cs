@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class UIInit : MonoBehaviour
 {
-    public GameObject MainUI;
+    public string MainUI;
     // Start is called before the first frame update
     void Start()
     {
-        MainUI = Instantiate(MainUI);
-        MainUI.GetComponent<Canvas>().worldCamera = Camera.main;
+        Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", MainUI));
     }
 }
