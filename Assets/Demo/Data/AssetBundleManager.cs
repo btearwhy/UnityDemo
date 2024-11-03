@@ -29,6 +29,8 @@ public class AssetBundleManager : ScriptableObject
             assetBundleManager.assetBundleNames.Add("controllers");
             assetBundleManager.assetBundleNames.Add("lines");
             assetBundleManager.assetBundleNames.Add("ui");
+            assetBundleManager.assetBundleNames.Add("effects");
+            assetBundleManager.assetBundleNames.Add("buffs");
             assetBundleManager.basePath = Application.streamingAssetsPath;
             assetBundleManager.Init();
         }

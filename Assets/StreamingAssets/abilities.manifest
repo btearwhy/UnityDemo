@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 623557128
+CRC: 2144710186
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3cd0ffb2e58e6658ce07f97c866338c8
+    Hash: 86a38dd5a5f1c94d7fe14e201910f761
   TypeTreeHash:
     serializedVersion: 2
-    Hash: beee113620b85ecccf0ca6d784d67d92
+    Hash: 78a4f04c27e446371e086881594fcce6
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 3cd0ffb2e58e6658ce07f97c866338c8
+    Hash: 86a38dd5a5f1c94d7fe14e201910f761
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -33,15 +33,17 @@ ClassTypes:
 - Class: 108
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 11500000, guid: 33d1063e4aef8f1429d553d97e62cccc, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: c56be9f6cd14dc24aa0dbc84afc4d868, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 3ad897837be02044a9d0ccc36a030465, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8c9c79aa4722dd545afc1fa86ce446aa, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
 - Class: 115
@@ -58,6 +60,8 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: CFXRRuntime
   ClassName: CartoonFX.CFXR_Effect/CameraShake
 Assets:
+- Assets/Demo/Data/AbsorbAbility.asset
 - Assets/Demo/Data/AttackAbility.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/effects
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/effects
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/lines

@@ -19,6 +19,6 @@ public class CharacterAnimation : MonoBehaviour
     
     public void HandleAnimation(AnimationEvent animationEvent)
     {
-        abilitySystem.actions[animationEvent.intParameter].HandleAnimationEvent(animationEvent.stringParameter);
+        abilitySystem.abilities[animationEvent.intParameter].HandleAnimationEvent(animationEvent.stringParameter);
     }
 }

@@ -30,6 +30,20 @@ public class BattleSystem : MonoBehaviour
         buff.OnAdded();
     }
 
+    public List<Buff_Instant> GetAttackAttachedBuff()
+    {
+        List<Buff_Instant> instantBuffs = new List<Buff_Instant>();
+        foreach(Buff buff in carriedBuffs)
+        {
+            if(buff is Buff_Instant)
+            {
+                instantBuffs.Add(buff as Buff_Instant);
+            }
+        }
+        return instantBuffs;
+    }
+
+
     public void HitFlash(Color color, float interval = 0.2f)
     {
         StartCoroutine(HitFlashCoroutine(gameObject, color, interval));
@@ -61,4 +75,6 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
+
+    
 }

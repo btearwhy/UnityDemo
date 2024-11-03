@@ -13,6 +13,6 @@ public class Character : ScriptableObject
     public float maxHealth;
     public float attack;
     public float defense;
-    public List<string> abilities;
+    public List<Ability_Data> abilities;
     
 }

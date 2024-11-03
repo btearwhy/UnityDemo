@@ -43,10 +43,9 @@ public class LevelInitializer : MonoBehaviour
         GameObject characterObject = PhotonNetwork.Instantiate(character.modelPrefab.name, spawns[Random.Range(0, spawns.Count)], Quaternion.identity, 0, new object[] { character.characterName });
         controller.GetComponent<PlayerController>().character = characterObject;
         PlayerState.GetInstance().SetController(controller.GetComponent<PlayerController>());
-        foreach (string abilityName in character.abilities)
+        foreach (Ability_Data ability_data in character.abilities)
         {
-            /*            Ability ability = (Ability)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", abilityName);*/
-            characterObject.GetComponent<AbilitySystem>().GrantAbility(abilityName);
+            characterObject.GetComponent<AbilitySystem>().GrantAbility(ability_data.CreateInstance());
         }
 
 

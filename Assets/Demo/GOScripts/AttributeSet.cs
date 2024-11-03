@@ -38,23 +38,6 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         currentDefense = defense;
     }
 
-    internal void DealDamage(int actorNr, float damage)
-    {
-
-        float prediectedCurrentHealth = currentHealth - damage;
-/*        if (prediectedCurrentHealth <= 0)
-        {
-            OnLeathal?.Invoke(gameObject);
-        }*/
-        if (prediectedCurrentHealth <= 0)
-        {
-            if(TryGetComponent<PhotonView>(out PhotonView photonview))
-            {
-                OnKilled?.Invoke(actorNr, photonview.ControllerActorNr);
-            }
-        }
-        SetCurrentHealth(prediectedCurrentHealth);
-    }
 
     internal void DealDamage(GameObject instigator, float damage)
     {
@@ -62,7 +45,10 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         float prediectedCurrentHealth = currentHealth - damage;
         if (prediectedCurrentHealth <= 0)
         {
-            OnLeathal?.Invoke(gameObject);
+            if (TryGetComponent<PhotonView>(out PhotonView photonviewTarget) && TryGetComponent<PhotonView>(out PhotonView photonViewInstigator))
+            {
+                OnKilled?.Invoke(photonViewInstigator.ControllerActorNr, photonviewTarget.ControllerActorNr);
+            }
         }
         SetCurrentHealth(prediectedCurrentHealth);
 

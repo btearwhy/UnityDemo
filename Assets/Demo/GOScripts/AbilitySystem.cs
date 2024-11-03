@@ -7,18 +7,19 @@ using UnityEngine;
 
 public class AbilitySystem : MonoBehaviourPunCallbacks
 {
-    public List<Ability> actions;
+    public List<Ability> abilities;
     private Animator animator;
     private Movement movement;
-    List<int> abilitiesOnHeld;
 
-    AttributeSet attributeSet;
+    private List<int> abilitiesOnHeld;
+
+    public AttributeSet attributeSet;
 
     // Start is called before the first frame update
 
     private void Awake()
     {
-        actions = new List<Ability>();
+        abilities = new List<Ability>();
         abilitiesOnHeld = new List<int>();
     }
     void Start()
@@ -33,7 +34,7 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        abilitiesOnHeld.ForEach(v => { actions[v].Held(); });
+        abilitiesOnHeld.ForEach(v => { abilities[v].Held(); });
     }
 
     internal void ActionEnded(int abilityNo)
@@ -42,17 +43,16 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
     }
 
 
-    public void GrantAbility(string abilityName)
+    public void GrantAbility(Ability ability)
     {
-        photonView.RPC("GrantAbility_RPC", RpcTarget.All, abilityName);
+        photonView.RPC("GrantAbility_RPC", RpcTarget.All, ability);
     }
 
     [PunRPC]
-    public void GrantAbility_RPC(string abilityName)
+    public void GrantAbility_RPC(Ability ability)
     {
-        Ability abi = Instantiate((Ability)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", abilityName));
-        abi.Init(gameObject);
-        actions.Add(abi);
+        ability.Init(gameObject);
+        abilities.Add(ability);
     }
 
 
@@ -65,7 +65,7 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ActionPressed_RPC(int actionNo)
     {
-        actions[actionNo].Pressed();
+        abilities[actionNo].Pressed();
     }
 
     public void ActionHeld(int actionNo)
@@ -88,7 +88,7 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
     public void ActionReleased_RPC(int actionNo)
     {
         abilitiesOnHeld.Remove(actionNo);
-        actions[actionNo].Released();
+        abilities[actionNo].Released();
     }
 
 }

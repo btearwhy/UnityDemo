@@ -20,4 +20,4 @@ MonoBehaviour:
   attack: 40
   defense: 0
   abilities:
-  - AttackAbility
+  - {fileID: 11400000, guid: 9fcc409cd5b3b8543a0d670736702ecf, type: 2}

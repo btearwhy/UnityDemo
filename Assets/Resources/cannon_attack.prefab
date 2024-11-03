@@ -126,7 +126,7 @@ MonoBehaviour:
   effectRange: 5
   initSpeed: 10
   impactForce: 100
-  effect: {fileID: 11400000, guid: cdb3d41e5c748414abef2eb6af87f426, type: 2}
+  effects: []
 --- !u!135 &16039452280545612
 SphereCollider:
   m_ObjectHideFlags: 0

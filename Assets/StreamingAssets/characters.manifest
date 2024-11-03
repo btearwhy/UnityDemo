@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2652403647
+CRC: 577243483
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ddf72c2d31d50eef235e8ee1688bf165
+    Hash: bab29cb741183fde8dafa0c47d0707a5
   TypeTreeHash:
     serializedVersion: 2
-    Hash: aa6f742a78e75ef282c8708fd01b05a6
+    Hash: d0982bac9b16379d956481e4a3f0cc4a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: ddf72c2d31d50eef235e8ee1688bf165
+    Hash: bab29cb741183fde8dafa0c47d0707a5
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -47,6 +47,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: e6ace4006c47f4c48829043f2e2409f1, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 81a7e11d2e83bce4c8311f5bd8cf672c, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
@@ -67,4 +69,5 @@ SerializeReferenceClassIdentifiers:
   ClassName: Photon.Pun.PhotonAnimatorView/SynchronizedParameter
 Assets:
 - Assets/Demo/Data/BountyHunter.asset
-Dependencies: []
+Dependencies:
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities
