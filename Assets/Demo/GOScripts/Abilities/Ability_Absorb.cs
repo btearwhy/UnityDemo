@@ -27,30 +27,20 @@ public class Ability_Absorb : Ability
     private GameObject progressPresent;
 
     [field: NonSerialized]
-    private List<Image> slotBackgroundImages;
-
-    [field: NonSerialized]
-    private GameObject backgroundImage;
+    private Image slotBackgroundImage;
 
 
     [field:NonSerialized]
     private Ability_Absorb_Data data;
 
-    private struct Slot{
-        public Image slotImage;
-        public bool charged;
-        public Element element;
-
-        public Slot(Element element, Image slotImage, bool charged)
-        {
-            this.element = element;
-            this.slotImage = slotImage;
-            this.charged = charged;
-        }
-    }
-
-    [field:NonSerialized]
-    private Stack<Slot> stSlot;
+    [field: NonSerialized]
+    private Image slotImage;
+    [field: NonSerialized]
+    public float percentage;
+    [field: NonSerialized]
+    public Element? element;
+    [field: NonSerialized]
+    public int curBuffNum;
 
     public Ability_Absorb() { }
     public Ability_Absorb(string animStartStateName, string animHeldStateName, string animReleaseStateName, float detectRange, float detectRadius, float chargeSpeed, int slotsNr) : base(animStartStateName, animHeldStateName, animReleaseStateName)
@@ -65,17 +55,18 @@ public class Ability_Absorb : Ability
     public override void Init(GameObject go)
     {
         base.Init(go);
-        slotBackgroundImages = new List<Image>();
-        stSlot = new Stack<Slot>();
+
 
         data = (Ability_Absorb_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", "Absorb_Ability_Data");
         
         progressPresent = GameObject.Instantiate(data.slotBarCanvas);
-        backgroundImage = data.slotBackgroundImage;
-        for (int i = 0; i < slotsNr; i++)
-        {
-            slotBackgroundImages.Add(GameObject.Instantiate(backgroundImage, progressPresent.transform).GetComponent<Image>());
-        }
+
+        slotBackgroundImage = GameObject.Instantiate(data.slotBackgroundImage, progressPresent.transform).GetComponent<Image>();
+
+        percentage = 0.0f;
+        element = null;
+        slotImage = null;
+        curBuffNum = 0;
     }
 
     internal override void Pressed()
@@ -91,48 +82,43 @@ public class Ability_Absorb : Ability
         {
             GameObject hitObject = rayCastHit.collider.gameObject;
 
+            
 
-
-
-            if (stSlot.Count == slotsNr && stSlot.Peek().charged) return;
+            if (curBuffNum == slotsNr)
+            {
+                return;
+            }
 
             if (hitObject.TryGetComponent<WorldProperty>(out WorldProperty worldProperty))
             {
                 float amount = Time.deltaTime * chargeSpeed;
-                if (stSlot.TryPop(out Slot current))
+                if(element == worldProperty.element)
                 {
-                    if(current.element != worldProperty.element && !current.charged)
+                    percentage += amount;
+                    if(percentage >= 1.0f)
                     {
-                        GameObject.Destroy(current.slotImage);
-                        current.slotImage = GameObject.Instantiate(data.dictSlotImages[worldProperty.element], slotBackgroundImages[stSlot.Count].transform).GetComponent<Image>();
-                        current.slotImage.fillAmount = amount;
+                        Buff buff = ((Element_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("elements", worldProperty.element.ToString())).buff.CreateInstance();
+                        Effect_Buff effect_Buff = new Effect_Buff(buff);
+                        Buff_Instant buff_Instant = new Buff_Instant(1, effect_Buff, true);
+                        buff.Instigator = character;
+                        character.GetComponent<BattleSystem>().AddBuff(buff);
+                        
+                        percentage -= 1.0f;
+                        curBuffNum++;
                     }
-                    else
-                    {
-                        if(current.slotImage.fillAmount + amount >= 1.0f)
-                        {
-                            current.slotImage.fillAmount = 1.0f;
-                            current.charged = true;
-
-                            Buff buff = ((Element_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("elements", worldProperty.element.ToString())).buff.CreateInstance();
-                            Effect_Buff effect_Buff = new Effect_Buff(buff);
-                            Buff_Instant buff_Instant = new Buff_Instant(1, effect_Buff, true);
-                            buff.Instigator = character;
-                            character.GetComponent<BattleSystem>().AddBuff(buff);
-                        }
-                        else
-                        {
-                            current.slotImage.fillAmount += amount;
-                        }
-                    }
-                    current.element = worldProperty.element;
+                    slotImage.fillAmount = percentage;
                 }
                 else
                 {
-                    stSlot.Push(new Slot(amount, worldProperty.element, GameObject.Instantiate(data.dictSlotImages[worldProperty.element], slotBackgroundImages[stSlot.Count].transform).GetComponent<Image>())));
-                    stSlot.Peek().slotImage.fillAmount = stSlot.Peek().percentage;
+                    if(slotImage != null)
+                    {
+                        GameObject.Destroy(slotImage);
+                    }
+
+                    percentage = amount;
+                    slotImage = GameObject.Instantiate(data.dictSlotImages[element.Value], slotBackgroundImage.transform).GetComponent<Image>();
+                    slotImage.fillAmount = percentage;
                 }
-                
             }
 
 
@@ -141,19 +127,9 @@ public class Ability_Absorb : Ability
 
 
     }
-+
 
     internal override void Released()
     {
         //base.Released();
-    }
-
-    public void Consume()
-    {
-        if(stSlot.TryPop(out Slot peek))
-        {
-            if(peek.percentage)
-        }
-
     }
 }

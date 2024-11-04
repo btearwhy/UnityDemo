@@ -9,6 +9,7 @@ public class Effect_Data : ScriptableObject
 {
     public readonly string resourceName;
 
+
     public virtual Effect CreateInstance()
     {
         return new Effect();

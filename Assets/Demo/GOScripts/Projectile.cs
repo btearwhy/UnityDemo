@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
     public float initSpeed;
     public float impactForce;
     
-    public List<Effect> effects;
+    public Effect effect;
     private void Start()
     {
         if(flyingAudio != null)
@@ -55,9 +55,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
                 force *= impactForce;
                 rigidbody.AddForce(force, ForceMode.Impulse);
             }
-            foreach(Effect effect in effects){
-                effect.Apply(instigator, hitCollider.gameObject);
-            }
+            effect.Apply(instigator, hitCollider.gameObject);
         }
         if (PhotonNetwork.IsMasterClient)
         {
@@ -72,9 +70,6 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
         int photonViewID = (int)parameters[0];
         instigator = PhotonView.Find(photonViewID).gameObject;
         GetComponent<Rigidbody>().velocity = (Vector3)parameters[1];
-        for(int i = 2; i < parameters.Length; i++)
-        {
-            effects.Add((Effect)parameters[i]);
-        }
+        effect = (Effect)parameters[2];
     }
 }

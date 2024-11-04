@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,5 +77,15 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    
+    internal Buff GetOneAttackAttachedBuff()
+    {
+        foreach(Buff buff in carriedBuffs)
+        {
+            if(buff is Buff_Instant)
+            {
+                return buff;
+            }
+        }
+        return null;
+    }
 }

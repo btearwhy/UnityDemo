@@ -52,7 +52,6 @@ public class Ability_Attack : Ability
         base.Fire(transform, trans_projectileSpawnSocket);
         if (PhotonNetwork.IsMasterClient)
         {
-            //int parameterCount = effectsToCarry.Count + 2 + effects.Count;
             int parameterCount = 2 + effects.Count;
             object[] parameters = new object[parameterCount];
             parameters[0] = character.GetPhotonView().ViewID;
