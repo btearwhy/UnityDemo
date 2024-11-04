@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33d1063e4aef8f1429d553d97e62cccc, type: 3}
-  m_Name: AbsorbAbility
+  m_Script: {fileID: 11500000, guid: 18b22a4c6333b3546b6128da33c30ccb, type: 3}
+  m_Name: Element_Data 1
   m_EditorClassIdentifier: 
-  triggerName: 
-  icon: {fileID: 0}
+  element: 1
+  buff: {fileID: 11400000, guid: 6623c4ee15f0a6845be1d800a6c6bfe6, type: 2}
+  image: {fileID: 7737292225741504696, guid: 6b8b0d0850e8999449feff0f0615d7ac, type: 3}

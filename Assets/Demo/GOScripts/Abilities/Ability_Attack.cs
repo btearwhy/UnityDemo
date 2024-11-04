@@ -45,7 +45,7 @@ public class Ability_Attack : Ability
         this.attackRangeChargeSpeed = attackRangeChargeSpeed;
         this.effects = effects;
         this.lineRenderer = GameObject.Instantiate(linePrefab).GetComponent<LineRenderer>();
-}
+    }
 
     public override void Fire(Transform transform, Transform trans_projectileSpawnSocket)
     {
@@ -58,11 +58,6 @@ public class Ability_Attack : Ability
             parameters[0] = character.GetPhotonView().ViewID;
             parameters[1] = getProjectileVelocity(character.transform.forward, attackRange, initialAngle);
             int i = 2;
-            /*            foreach(Effect effect in effectsToCarry)
-                        {
-                            parameters[i] = effect.resourceName;
-                            i++;
-                        }*/
             foreach (Effect effect in effects)
             {
                 parameters[i] = effect;
@@ -74,16 +69,16 @@ public class Ability_Attack : Ability
 
     internal override void Pressed()
     {
+        base.Held();
         movement.StopTranslation();
-        animator.Play(animStartStateName);
     }
 
 
     internal override void Held()
     {
-
+        base.Held();
         movement.StopTranslation();
-        animator.Play(animHeldStateName);
+
         if (PlayerState.IsUnderControll(character))
         {
             lineRenderer.enabled = true;
@@ -96,8 +91,8 @@ public class Ability_Attack : Ability
 
     internal override void Released()
     {
+        base.Held();
         lineRenderer.enabled = false;
-        animator.Play(animReleaseStateName);
     }
 
     internal override void End()
@@ -136,7 +131,7 @@ public class Ability_Attack : Ability
 
         lineRenderer = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("lines", "LineStrip")).GetComponent<LineRenderer>();
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-
+        numberOfPoints = 30;
     }
 
     public void DrawLine(Vector3 startPosition, Vector3 direction, float castRange, float pitchAngle)

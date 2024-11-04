@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33d1063e4aef8f1429d553d97e62cccc, type: 3}
+  m_Name: Absorb_Ability_Data
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  animStartStateName: RightHandAttack
+  animHeldStateName: RightHandAttackCharge
+  animReleaseStateName: RightHandAttackRelease
+  detectRange: 3
+  detectRadius: 0.5
+  chargeSpeed: 10
+  slotsNr: 3
+  slotBackgroundImage: {fileID: 5038588645687554739, guid: 03b2ee548a4aa9e4dbe15c0749da6594,
+    type: 3}
+  slotBarCanvas: {fileID: 3454197873706559814, guid: e1c43a3e2f29ce84f8af2fcd0e458e02,
+    type: 3}
+  elements: 0000000001000000
+  slotImages:
+  - {fileID: 7737292225741504696, guid: 0a6ec8694e2359742afeda85351c2bf2, type: 3}
+  - {fileID: 7737292225741504696, guid: 6b8b0d0850e8999449feff0f0615d7ac, type: 3}

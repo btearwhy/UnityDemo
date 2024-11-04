@@ -1,22 +1,25 @@
 ManifestFileVersion: 0
-CRC: 2941801557
+CRC: 333766444
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 04117245a2f2e8f4b1900754c1bb3a4e
+    Hash: ebdac4e8bebae926501b17fdad0a1a8d
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1afcb6e37d7efd84e090eea7e2555ab8
+    Hash: 8b4c75102628cf370890ca300edcda48
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 04117245a2f2e8f4b1900754c1bb3a4e
+    Hash: ebdac4e8bebae926501b17fdad0a1a8d
 HashAppended: 0
 ClassTypes:
+- Class: 114
+  Script: {fileID: 11500000, guid: 9601438a68988494c8a5c862a4136baa, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 8c9c79aa4722dd545afc1fa86ce446aa, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Demo/Data/Effect_Buff.asset
 - Assets/Demo/Data/Effect_Damage.asset
 Dependencies: []

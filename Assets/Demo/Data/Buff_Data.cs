@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class Buff_Data : ScriptableObject
 {
+    public Sprite icon;
 
+    public virtual Buff CreateInstance()
+    {
+        return new Buff();
+    }
 }
 

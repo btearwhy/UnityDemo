@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fd31448b3186a479e79c76574d47f9, type: 3}
   m_Name: map1
   m_EditorClassIdentifier: 
-  sceneName: SampleScene
-  mapName: map2
+  sceneName: Scene
+  mapName: Playground
   image: {fileID: 21300000, guid: 0774bcb7613f85e4b8fcdbd60eff9319, type: 3}
   introduction: ' 2testmap 2'
+  spawnPositions:
+  - {x: 0, y: 5, z: 0}

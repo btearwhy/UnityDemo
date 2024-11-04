@@ -10,8 +10,6 @@ public class Ability
     public string animHeldStateName;
     public string animReleaseStateName;
 
-    Ability_Data ability_Data;
-
     [field: NonSerialized]
     public GameObject character;
 
@@ -41,17 +39,17 @@ public class Ability
 
     internal virtual void Pressed()
     {
-
+        animator.Play(animStartStateName);
     }
 
     internal virtual void Held()
     {
-
+        animator.Play(animHeldStateName);
     }
 
     internal virtual void Released()
     {
-
+        animator.Play(animReleaseStateName);
     }
 
     internal virtual void HandleAnimationEvent(string dispatch)

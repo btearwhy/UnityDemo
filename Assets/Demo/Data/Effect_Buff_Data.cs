@@ -14,6 +14,13 @@ public class Effect_Buff : Effect
 {
     public List<Buff> Buffs { get; set; }
 
+    public Effect_Buff() {
+        Buffs = new List<Buff>();
+    }
+    public Effect_Buff(Buff buff) {
+        Buffs = new List<Buff>();
+        Buffs.Add(buff);
+    }
 
     public override void Apply(GameObject instigator, GameObject target)
     {

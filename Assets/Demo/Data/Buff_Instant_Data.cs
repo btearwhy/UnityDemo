@@ -9,12 +9,14 @@ public class Buff_Instant_Data : Buff_Data
 
     public readonly List<Effect_Data> effectsOnEnemy;
     public readonly List<Effect_Data> effectsOnSelf;
+
+    public override Buff CreateInstance()
+    {
+        List<Effect> effectsOnEnemy = new List<Effect>();
+        this.effectsOnEnemy.ForEach(effect => effectsOnEnemy.Add(effect.CreateInstance()));
+        List<Effect> effectsOnSelf = new List<Effect>();
+        this.effectsOnSelf.ForEach(effect => effectsOnSelf.Add(effect.CreateInstance()));
+        return new Buff_Instant(times, effectsOnEnemy, effectsOnSelf);
+    }
 }
 
-[System.Serializable]
-public class Buff_Instant : Buff
-{
-    public List<Effect_Data> EffectsOnEnemy { get; set; }
-    
-    public List<Effect_Data> EffectsOnSelf { get; set; }
-}

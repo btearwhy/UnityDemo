@@ -13,6 +13,15 @@ public class Movement : MonoBehaviourPun
     public float decelerate;
     public float turnSpeed;
     public bool shouldStop;
+
+    public void Awake()
+    {
+        if(TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
+        {
+            attributeSet.OnCurrentMaxSpeedChanged += (maxSpeed) => this.maxSpeed = maxSpeed;
+        }
+    }
+
     public virtual void Move(Vector3 Direction)
     {
 

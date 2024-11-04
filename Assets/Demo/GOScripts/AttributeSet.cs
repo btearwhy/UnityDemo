@@ -8,20 +8,26 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
 {
     public float health;
     public float currentHealth;
+
     public float maxHealth;
     public float currentMaxHealth;
 
 
     public float attack;
-    public float defense;
     public float currentAttack;
+
+    public float defense;
     public float currentDefense;
+
+    public float maxSpeed;
+    public float currentMaxSpeed;
 
     public delegate void LeathalHandler(GameObject instigator);
     public event LeathalHandler OnLeathal;
 
-    public delegate void CurrentHealthHandler(float health);
-    public event CurrentHealthHandler OnCurrentHealthChanged;
+    public delegate void FloatAttributeHandler(float value);
+    public event FloatAttributeHandler OnCurrentHealthChanged;
+    public event FloatAttributeHandler OnCurrentMaxSpeedChanged;
 
     public delegate void KillHandler(int killerID, int victimID);
     public event KillHandler OnKilled;
@@ -70,7 +76,20 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         if (currentHealth <= 0) Die();
     }
 
+    public void SetMaxSpeed(float maxSpeed)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            photonView.RPC("SetMaxSpeed_RPC", RpcTarget.All, currentMaxSpeed);
+        }
+    }
 
+    [PunRPC]
+    private void SetMaxSpeed_RPC(float maxSpeed)
+    {
+        this.currentMaxSpeed = maxSpeed;
+        OnCurrentMaxSpeedChanged?.Invoke(maxSpeed);
+    }
 
     private void Die()
     {

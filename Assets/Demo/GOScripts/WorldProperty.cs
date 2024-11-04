@@ -5,7 +5,7 @@ using UnityEngine;
 public enum Element
 {
     WOOD,
-    GRAVITY,
+    STONE,
     WATER
 }
 public class WorldProperty : MonoBehaviour

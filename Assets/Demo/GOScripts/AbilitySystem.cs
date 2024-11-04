@@ -34,7 +34,9 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        abilitiesOnHeld.ForEach(v => { abilities[v].Held(); });
+        abilitiesOnHeld.ForEach(v => {
+            abilities[v].Held();
+        });
     }
 
     internal void ActionEnded(int abilityNo)

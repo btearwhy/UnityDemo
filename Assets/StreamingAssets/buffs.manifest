@@ -1,25 +1,29 @@
 ManifestFileVersion: 0
-CRC: 831657787
+CRC: 3423158580
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 39a1c507cc5c1c1a64afb10e0a71bdcb
+    Hash: 9ebd57b5211a9ff89f37f8b0162907e9
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6c30a4d829fc2d775891894095fae2f2
+    Hash: 39d20e6a954b255b05fcadb5d0d17028
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 39a1c507cc5c1c1a64afb10e0a71bdcb
+    Hash: 9ebd57b5211a9ff89f37f8b0162907e9
 HashAppended: 0
 ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: e7cf7834cb1c78f4496dcd62bb042dec, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: afd07fc8fe716714790f85836f9cba90, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44aa8f5a5acada449b3833a8ec22debd, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Data/DurationBuff.asset
+- Assets/Demo/Data/InstantBuff_Damage.asset
 - Assets/Demo/Data/InstantBuff.asset
+- Assets/Demo/Data/Buff_Decelerate_Data.asset
 Dependencies: []
