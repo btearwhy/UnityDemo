@@ -133,6 +133,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""1388d644-55be-4249-82c9-987f99a495c1"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""9ebe685c-e70b-43d6-b556-e610d8885357"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",

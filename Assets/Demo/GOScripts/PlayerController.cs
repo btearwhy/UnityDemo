@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.InputSystem.EnhancedTouch;
+using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 
 public class PlayerController : MonoBehaviour
 {
@@ -77,13 +79,87 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        EnhancedTouchSupport.Disable();
+        ETouch.Touch.onFingerDown -= HandleFingerDown;
+        ETouch.Touch.onFingerUp -= HandleFingerUp;
+        ETouch.Touch.onFingerMove -= HandleFingerMove;
+
         inputActions.KeyboardandMouse.Disable();
     }
 
     private void OnEnable()
     {
+        EnhancedTouchSupport.Enable();
+        ETouch.Touch.onFingerDown += HandleFingerDown;
+        ETouch.Touch.onFingerUp += HandleFingerUp;
+        ETouch.Touch.onFingerMove += HandleFingerMove;
+
         inputActions.KeyboardandMouse.Enable();
     }
+
+    private void HandleFingerMove(Finger TouchedFinger)
+    {
+        if(TouchedFinger == MovementFinger)
+        {
+            Vector2 knobPosition;
+            float maxMovement = joyStickSize.x / .2f;
+            ETouch.Touch currentTouch = TouchedFinger.currentTouch;
+
+            if(Vector2.Distance(currentTouch.screenPosition, joyStick.RectTransform.anchoredPosition) > maxMovement)
+            {
+                knobPosition = (currentTouch.screenPosition - joyStick.RectTransform.anchoredPosition).normalized * maxMovement;
+            }
+            else
+            {
+                knobPosition = currentTouch.screenPosition - joyStick.RectTransform.anchoredPosition;
+            }
+            joyStick.Knob.anchoredPosition = knobPosition;
+            MovementAmount = knobPosition / maxMovement;
+        }
+    }
+
+    private void HandleFingerUp(Finger TouchedFinger)
+    {
+        if(TouchedFinger == MovementFinger)
+        {
+            MovementFinger = null;
+            joyStick.Knob.anchoredPosition = Vector2.zero;
+            joyStick.Knob.gameObject.SetActive(false);
+            MovementAmount = Vector2.zero;
+        }
+    }
+
+    private void HandleFingerDown(Finger TouchedFinger)
+    {
+        if(MovementFinger == null && TouchedFinger.screenPosition.x < Screen.width / 2.0f)
+        {
+            MovementFinger = TouchedFinger;
+            MovementAmount = Vector2.zero;
+            joyStick.gameObject.SetActive(true);
+            joyStick.RectTransform.sizeDelta = joyStickSize;
+            joyStick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
+        }
+    }
+
+    private Vector2 ClampStartPosition(Vector2 startPosition)
+    {
+        if(startPosition.x < joyStickSize.x / 2)
+        {
+            startPosition.x = joyStickSize.x / 2;
+        }
+
+        if(startPosition.y <　joyStickSize.y / 2)
+        {
+            startPosition.y = joyStickSize.y / 2;
+        }
+        else if(startPosition.y > Screen.height - joyStickSize.y / 2)
+        {
+            startPosition.y = Screen.height - joyStickSize.y / 2;
+        }
+
+        return startPosition;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -156,4 +232,12 @@ public class PlayerController : MonoBehaviour
         }
         transform.localRotation = Quaternion.Euler(cameraVertical, cameraHorizontal, cameraTilt);
     }
+    public Vector2 MoveInput;
+
+    private Vector2 joyStickSize = new Vector2(300, 300);
+    private FloatingJoystick joyStick;
+
+    private Finger MovementFinger;
+    private Vector2 MovementAmount;
+
 }
