@@ -17,13 +17,14 @@ public class Ability_Attack : Ability
     private AudioSource fireAudio;
 
     public string projectileName;
+    public bool projectileGravity;
+    public float projectileSpeed;
 
-    
     public float initialAngle;
     public float minAttackRange;
     public float maxAttackRange;
     public float attackRangeChargeSpeed;
-    public List<Effect> effects;
+    public Effect effect;
 
 
 
@@ -35,40 +36,64 @@ public class Ability_Attack : Ability
     private int numberOfPoints;
 
     public Ability_Attack() { }
-    public Ability_Attack(string animStartStateName, string animHeldStateName, string animReleaseStateName, string fireSocket, string projectileName, float initialAngle, float minAttackRange, float maxAttackRange, float attackRangeChargeSpeed, List<Effect> effects, GameObject linePrefab):base(animStartStateName, animHeldStateName, animReleaseStateName)
+
+    public Ability_Attack(string data):base(data)
     {
-        this.fireSocket = fireSocket;
-        this.projectileName = projectileName;
-        this.initialAngle =  initialAngle;
-        this.minAttackRange = minAttackRange;
-        this.maxAttackRange = maxAttackRange;
-        this.attackRangeChargeSpeed = attackRangeChargeSpeed;
-        this.effects = effects;
-        this.lineRenderer = GameObject.Instantiate(linePrefab).GetComponent<LineRenderer>();
+        
+    }
+
+    public override void Initialize()
+    {
+        Ability_Attack_Data ability_attack_data = (Ability_Attack_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
+        this.animStartStateName = ability_attack_data.animStartStateName;
+        this.animHeldStateName = ability_attack_data.animHeldStateName;
+        this.animReleaseStateName = ability_attack_data.animReleaseStateName;
+        this.fireSocket = ability_attack_data.fireSocket;
+        this.projectileName = ability_attack_data.projectilePrefab.name ;
+        this.projectileGravity = ability_attack_data.projectileGravity;
+        this.projectileSpeed = ability_attack_data.projectileSpeed; 
+        this.initialAngle = ability_attack_data.initialAngle;
+        this.minAttackRange = ability_attack_data.minAttackRange;
+        this.maxAttackRange = ability_attack_data.maxAttackRange;
+        this.attackRangeChargeSpeed = ability_attack_data.attackRangeChargeSpeed;
+        this.effect = ability_attack_data.effect_Data.CreateInstance();
+        this.lineRenderer = GameObject.Instantiate(ability_attack_data.lineRenderer).GetComponent<LineRenderer>();
     }
 
     public override void Fire(Transform transform, Transform trans_projectileSpawnSocket)
     {
         base.Fire(transform, trans_projectileSpawnSocket);
+        
         if (PhotonNetwork.IsMasterClient)
         {
-            int parameterCount = 2 + effects.Count;
-            object[] parameters = new object[parameterCount];
-            parameters[0] = character.GetPhotonView().ViewID;
-            parameters[1] = getProjectileVelocity(character.transform.forward, attackRange, initialAngle);
-            int i = 2;
-            foreach (Effect effect in effects)
+            List<Effect> effects = new List<Effect>();
+            if(character.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
             {
-                parameters[i] = effect;
-                i++;
+                Buff_Instant buff = battleSystem.GetOneAttackAttachedBuff();
+                if(buff != null)
+                {
+                    effects.AddRange(buff.EffectsOnSelf);
+                    effects.AddRange(buff.EffectsOnEnemy);
+                    battleSystem.RemoveBuff(buff);
+                }
             }
+            object[] parameters = new object[4 + effects.Count];
+            parameters[0] = character.GetPhotonView().ViewID;
+            parameters[1] = GetProjectileVelocity(character.transform.forward, attackRange, initialAngle, projectileGravity?Physics.gravity:Vector3.zero, projectileSpeed);
+            parameters[2] = projectileGravity;
+            int i = 3;
+            for(; i < effects.Count + 3; i++)
+            {
+                parameters[i] = effects[i - 3];
+            }
+            parameters[i] = effect;
             PhotonNetwork.Instantiate(projectileName, trans_projectileSpawnSocket.position, Quaternion.AngleAxis(initialAngle, Vector3.Cross(character.transform.forward, character.transform.up)) * character.transform.rotation, 0, parameters);
         }
     }
 
     internal override void Pressed()
     {
-        base.Held();
+        base.Pressed();
         movement.StopTranslation();
     }
 
@@ -83,15 +108,16 @@ public class Ability_Attack : Ability
             lineRenderer.enabled = true;
             attackRange += attackRangeChargeSpeed * Time.deltaTime;
             attackRange = Mathf.Clamp(attackRange, minAttackRange, maxAttackRange);
-            DrawLine(fireSocketTransform.position, character.transform.forward, attackRange, initialAngle);
+            DrawLine(fireSocketTransform.position, character.transform.forward, attackRange, initialAngle, projectileGravity?Physics.gravity:Vector3.zero);
         }
 
     }
 
     internal override void Released()
     {
-        base.Held();
+        base.Released();
         lineRenderer.enabled = false;
+        
     }
 
     internal override void End()
@@ -99,6 +125,7 @@ public class Ability_Attack : Ability
         base.End();
         attackRange = minAttackRange;
         character.GetComponent<Movement>().ResetStatus();
+        OnEnded?.Invoke();
     }
 
     internal override void HandleAnimationEvent(string dispatch)
@@ -133,19 +160,19 @@ public class Ability_Attack : Ability
         numberOfPoints = 30;
     }
 
-    public void DrawLine(Vector3 startPosition, Vector3 direction, float castRange, float pitchAngle)
+    public void DrawLine(Vector3 startPosition, Vector3 direction, float castRange, float pitchAngle, Vector3 gravity)
     {
         lineRenderer.positionCount = numberOfPoints;
         int i = 0;
 
         lineRenderer.SetPosition(i, startPosition);
-        Vector3 velocity = getProjectileVelocity(direction, castRange, pitchAngle);
+        Vector3 velocity = GetProjectileVelocity(direction, castRange, pitchAngle, gravity, projectileSpeed);
         float timer = 0.2f;
         Vector3 lastPosition = lineRenderer.GetPosition(i);
         i++;
         for (float j = 0; i < lineRenderer.positionCount; j += timer)
         {
-            Vector3 curPosition = startPosition + j * velocity + 0.5f * j * j * Physics.gravity;
+            Vector3 curPosition = startPosition + j * velocity + 0.5f * j * j * gravity;
 
 
             Vector3 dir = curPosition - lastPosition;
@@ -165,10 +192,11 @@ public class Ability_Attack : Ability
 
 
 
-    private static Vector3 getProjectileVelocity(Vector3 direction, float castRange, float pitchAngle)
+    private static Vector3 GetProjectileVelocity(Vector3 direction, float castRange, float pitchAngle, Vector3 gravity, float projectileSpeed)
     {
+        if (gravity == Vector3.zero) return direction * projectileSpeed; 
         float pitchAngleRadians = pitchAngle * Mathf.PI / 180.0f;
-        float velocityMagnitude = Mathf.Sqrt(-Physics.gravity.y * castRange / Mathf.Sin(2 * pitchAngleRadians));
+        float velocityMagnitude = Mathf.Sqrt(-gravity.y * castRange / Mathf.Sin(2 * pitchAngleRadians));
         float velocityVertical = velocityMagnitude * Mathf.Sin(pitchAngleRadians);
         float velocityHorizontal = velocityMagnitude * Mathf.Cos(pitchAngleRadians);
         Vector3 velocity = new Vector3(direction.x * velocityHorizontal, velocityVertical, direction.z * velocityHorizontal);

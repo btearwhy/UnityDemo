@@ -12,9 +12,9 @@ public class Buff_Decelerate : Buff_Duration
         Percentage = percentage;
     }
 
-    public override void OnAdded()
+    public override void Added()
     {
-        base.OnAdded();
+        base.Added();
 
         if (Target.TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
         {
@@ -23,9 +23,9 @@ public class Buff_Decelerate : Buff_Duration
         }
     }
 
-    public override void OnRemoved()
+    public override void Removed()
     {
-        base.OnRemoved();
+        base.Removed();
 
         if(Target.TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
         {

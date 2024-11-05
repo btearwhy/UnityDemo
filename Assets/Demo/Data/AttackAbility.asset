@@ -20,13 +20,11 @@ MonoBehaviour:
   fireAudio: {fileID: 0}
   projectilePrefab: {fileID: 9097458414496180448, guid: 6419bd5bb5b501c49a3fd09dada37b61,
     type: 3}
+  projectileGravity: 1
   initialAngle: 45
   minAttackRange: 4
   maxAttackRange: 10
   attackRangeChargeSpeed: 6
-  effects:
-  - {fileID: 11400000, guid: cdb3d41e5c748414abef2eb6af87f426, type: 2}
+  effect_Data: {fileID: 11400000, guid: c52b2b1e66240bf4e842313ee1041a20, type: 2}
   lineRenderer: {fileID: 481126304768689868, guid: 158489636c6d50d4290c11b03aa00742,
     type: 3}
-  numberOfPoints: 30
-  lineWidth: 0.1

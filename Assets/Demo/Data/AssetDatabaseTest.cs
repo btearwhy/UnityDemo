@@ -10,12 +10,12 @@ public class AssetDatabaseTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-/*        Buff_Decelerate_Data map = AssetDatabase.LoadAssetAtPath<Buff_Decelerate_Data>("Assets/Demo/Data/Buff_Decelerate_Data.asset");
+/*        Effect_Data map = AssetDatabase.LoadAssetAtPath<Effect_Data>("Assets/Demo/Data/Effect_Data.asset");
         if (map == null)
         {
             // Create and save ScriptableObject because it doesn't exist yet
-            map = ScriptableObject.CreateInstance<Buff_Decelerate_Data>();
-            AssetDatabase.CreateAsset(map, "Assets/Demo/Data/Buff_Decelerate_Data.asset");
+            map = ScriptableObject.CreateInstance<Effect_Data>();
+            AssetDatabase.CreateAsset(map, "Assets/Demo/Data/Effect_Data.asset");
         }*/
     }
 

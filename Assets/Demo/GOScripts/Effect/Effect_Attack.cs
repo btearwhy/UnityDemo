@@ -6,38 +6,35 @@ using System;
 [System.Serializable]
 public class Effect_Attack : Effect
 {
-    public List<Buff> buffsOnSelf;
-    public List<Buff> buffsOnTarget;
+
+    public Effect_Attack() { }
+    public Effect_Attack(string data)
+    {
+        this.data = data;
+        Initialize();
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+    }
     // Start is called before the first frame update
 
     public override void Apply(GameObject instigator, GameObject target)
     {
-
-
-        foreach(Buff buff in buffsOnSelf)
-        {
-            buff.Target = instigator;
-            buff.Instigator = instigator;
-            buff.OnAdded();
-        }
-        foreach(Buff buff in buffsOnTarget)
-        {
-            buff.Target = target;
-            buff.Instigator = instigator;
-            buff.OnAdded();
-        }
-
         base.Apply(instigator, target);
 
-        foreach (Buff buff in buffsOnSelf)
+        if (target.TryGetComponent<AttributeSet>(out AttributeSet targetAttributeSet) && instigator.TryGetComponent<AttributeSet>(out AttributeSet instigatorAttributeSet))
         {
-            buff.OnRemoved();
-        }
-        foreach (Buff buff in buffsOnTarget)
-        {
-            buff.Target = target;
-            buff.Instigator = instigator;
-            buff.OnAdded();
+            float damage = instigatorAttributeSet.attack - targetAttributeSet.defense;
+            if (damage > 0)
+            {
+                if (target.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
+                {
+                    battleSystem.HitFlash(Color.white);
+                }
+            }
+            targetAttributeSet.DealDamage(instigator, damage);
         }
     }
 }

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Effect_Attack_Data : Effect_Data
 {
+
     public override Effect CreateInstance()
     {
-        return new Effect_Attack();
+        return new Effect_Attack(name);
     }
 }

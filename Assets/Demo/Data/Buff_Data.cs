@@ -8,9 +8,11 @@ public class Buff_Data : ScriptableObject
 {
     public Sprite icon;
 
+    public bool effectOnSelf;
+
     public virtual Buff CreateInstance()
     {
-        return new Buff();
+        return new Buff(effectOnSelf);
     }
 }
 

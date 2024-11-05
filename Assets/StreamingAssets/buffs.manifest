@@ -1,28 +1,31 @@
 ManifestFileVersion: 0
-CRC: 3423158580
+CRC: 2872662332
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9ebd57b5211a9ff89f37f8b0162907e9
+    Hash: ad0ebdb634c1c49160f4d06ee33e3a82
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 39d20e6a954b255b05fcadb5d0d17028
+    Hash: 64febbf64ada3fc6fb714885104a230c
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 9ebd57b5211a9ff89f37f8b0162907e9
+    Hash: ad0ebdb634c1c49160f4d06ee33e3a82
 HashAppended: 0
 ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: e7cf7834cb1c78f4496dcd62bb042dec, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 44aa8f5a5acada449b3833a8ec22debd, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: afd07fc8fe716714790f85836f9cba90, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 44aa8f5a5acada449b3833a8ec22debd, type: 3}
+  Script: {fileID: 11500000, guid: ea91586e0f6c8914ebfb080c0a41946e, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Data/DurationBuff.asset
+- Assets/Demo/Data/Buff_Attack_Wood.asset
 - Assets/Demo/Data/InstantBuff_Damage.asset
 - Assets/Demo/Data/InstantBuff.asset
 - Assets/Demo/Data/Buff_Decelerate_Data.asset

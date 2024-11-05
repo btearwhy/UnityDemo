@@ -27,8 +27,13 @@ public class BattleSystem : MonoBehaviour
     public void AddBuff(Buff buff)
     {
         carriedBuffs.Add(buff);
-        buff.Init(gameObject);
-        buff.OnAdded();
+        buff.Added();
+    }
+
+    public void RemoveBuff(Buff buff)
+    {
+        carriedBuffs.Remove(buff);
+        buff.Removed();
     }
 
     public List<Buff_Instant> GetAttackAttachedBuff()
@@ -77,13 +82,19 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    internal Buff GetOneAttackAttachedBuff()
+    public static void AttachBuffToEffect(ref Effect effect, Buff_Instant buff)
+    {
+        effect.buffs.Add(buff);
+        buff.OnRemoved.Invoke();
+    }
+
+    internal Buff_Instant GetOneAttackAttachedBuff()
     {
         foreach(Buff buff in carriedBuffs)
         {
             if(buff is Buff_Instant)
             {
-                return buff;
+                return buff as Buff_Instant;
             }
         }
         return null;

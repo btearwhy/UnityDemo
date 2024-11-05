@@ -8,7 +8,10 @@ public class Buff
 {
     public delegate void EffectHandler();
     public EffectHandler OnEffect;
+    public EffectHandler OnAdded;
+    public EffectHandler OnRemoved;
 
+    public bool effectOnSelf;
 
     [field:NonSerialized]
     public GameObject Target { get; set; }
@@ -18,20 +21,32 @@ public class Buff
 
     public Buff() { }
 
+    public Buff(bool effectOnSelf) {
+        this.effectOnSelf = effectOnSelf;
+    }
     public Buff(Buff_Data buff_data) { }
 
-    public virtual void Init(GameObject target)
+    public virtual void Apply()
     {
-        Target = target;
+        OnEffect?.Invoke();
     }
 
-    public virtual void OnAdded()
+    public virtual void Init(GameObject instigator, GameObject target)
     {
-        
+        Instigator = instigator;
+        if (effectOnSelf)
+            Target = instigator;
+        else
+            Target = target;
     }
 
-    public virtual void OnRemoved()
+    public virtual void Added()
     {
+        OnAdded?.Invoke();
+    }
 
+    public virtual void Removed()
+    {
+        OnRemoved?.Invoke();
     }
 }

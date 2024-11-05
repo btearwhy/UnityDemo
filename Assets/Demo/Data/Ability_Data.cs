@@ -12,6 +12,6 @@ public class Ability_Data : ScriptableObject
 
     public virtual Ability CreateInstance()
     {
-        return new Ability(animStartStateName, animHeldStateName, animReleaseStateName) ;
+        return new Ability(name);
     }
 }

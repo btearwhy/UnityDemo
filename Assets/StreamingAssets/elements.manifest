@@ -1,26 +1,28 @@
 ManifestFileVersion: 0
-CRC: 1383255168
+CRC: 4268797259
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d385cfe881994d5b4aa9c2c520375144
+    Hash: 7c7cd9ee301d9dc3b0a3ac81262c5033
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 8e64910f293afacfa50114bbd292fc2d
+    Hash: 60c0b96d3b5461df2bc10f0af1613edb
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: d385cfe881994d5b4aa9c2c520375144
+    Hash: 7c7cd9ee301d9dc3b0a3ac81262c5033
 HashAppended: 0
 ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 18b22a4c6333b3546b6128da33c30ccb, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 44aa8f5a5acada449b3833a8ec22debd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ea91586e0f6c8914ebfb080c0a41946e, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Demo/Data/Element_Data.asset
-- Assets/Demo/Data/Element_Data 1.asset
+- Assets/Demo/Data/WOOD.asset
+- Assets/Demo/Data/STONE.asset
 Dependencies:
 - D:/3D mobile/Assets/StreamingAssets/buffs

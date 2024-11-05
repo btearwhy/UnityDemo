@@ -6,6 +6,9 @@ using UnityEngine;
 [System.Serializable]
 public class Ability
 {
+    public delegate void EventHandler();
+    public EventHandler OnEnded;
+
     public string animStartStateName;
     public string animHeldStateName;
     public string animReleaseStateName;
@@ -18,15 +21,22 @@ public class Ability
     [field: NonSerialized]
     public Animator animator;
 
-    
+    public string data;
     public Ability() { }
-    public Ability(string animStartStateName, string animHeldStateName, string animReleaseStateName)
-    {
-        this.animStartStateName = animStartStateName;
-        this.animHeldStateName = animHeldStateName;
-        this.animReleaseStateName = animReleaseStateName;
+
+    public Ability(string data) {
+        this.data = data;
+        Initialize();
     }
-    
+
+    public virtual void Initialize()
+    {
+        Ability_Data ability_data = (Ability_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
+        this.animStartStateName = ability_data.animStartStateName;
+        this.animHeldStateName = ability_data.animHeldStateName;
+        this.animReleaseStateName = ability_data.animReleaseStateName;
+    }
+
     public virtual void Fire(Transform transform, Transform trans_projectileSpawnSocket) { }
 
     public virtual void Init(GameObject go)

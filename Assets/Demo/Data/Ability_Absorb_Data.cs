@@ -13,6 +13,7 @@ public class Ability_Absorb_Data : Ability_Data
     public GameObject slotBarCanvas;
 
     public List<Element> elements;
+    /*public List<Buff>*/
     public List<GameObject> slotImages;
     public Dictionary<Element, GameObject> dictSlotImages;
 
@@ -27,6 +28,6 @@ public class Ability_Absorb_Data : Ability_Data
 
     public override Ability CreateInstance()
     {
-        return new Ability_Absorb(animStartStateName, animHeldStateName, animReleaseStateName, detectRange, detectRadius, chargeSpeed, slotsNr);   
+        return new Ability_Absorb(name);   
     }
 }

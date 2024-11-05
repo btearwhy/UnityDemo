@@ -53,15 +53,15 @@ public class GameLobby : MonoBehaviourPunCallbacks
         //After we connected to Master server, join the Lobby
         char t = 'z';
         PhotonPeer.RegisterType(typeof(Effect), (byte)t--, Serializer.Serialize<Effect>, Serializer.Deserialize<Effect>);
-        PhotonPeer.RegisterType(typeof(Effect_Damage), (byte)t--, Serializer.Serialize<Effect_Damage>, Serializer.Deserialize<Effect_Damage>);
-        PhotonPeer.RegisterType(typeof(Effect_Buff), (byte)t--, Serializer.Serialize<Effect_Buff>, Serializer.Deserialize<Effect_Buff>);
         PhotonPeer.RegisterType(typeof(Effect_Attack), (byte)t--, Serializer.Serialize<Effect_Attack>, Serializer.Deserialize<Effect_Attack>);
         PhotonPeer.RegisterType(typeof(Buff), (byte)t--, Serializer.Serialize<Buff>, Serializer.Deserialize<Buff>);
         PhotonPeer.RegisterType(typeof(Buff_Instant), (byte)t--, Serializer.Serialize<Buff_Instant>, Serializer.Deserialize<Buff_Instant>);
         PhotonPeer.RegisterType(typeof(Buff_Duration), (byte)t--, Serializer.Serialize<Buff_Duration>, Serializer.Deserialize<Buff_Duration>);
+        PhotonPeer.RegisterType(typeof(Buff_Attack), (byte)t--, Serializer.Serialize<Buff_Duration>, Serializer.Deserialize<Buff_Attack>);
         PhotonPeer.RegisterType(typeof(Ability), (byte)t--, Serializer.Serialize<Ability>, Serializer.Deserialize<Ability>);
         PhotonPeer.RegisterType(typeof(Ability_Attack), (byte)t--, Serializer.Serialize<Ability_Attack>, Serializer.Deserialize<Ability_Attack>);
         PhotonPeer.RegisterType(typeof(Ability_Absorb), (byte)t--, Serializer.Serialize<Ability_Absorb>, Serializer.Deserialize<Ability_Absorb>);
+
         PhotonNetwork.JoinLobby(TypedLobby.Default);
     }
 

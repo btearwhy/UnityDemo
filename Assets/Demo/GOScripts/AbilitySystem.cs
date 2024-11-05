@@ -22,6 +22,12 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
         abilities = new List<Ability>();
         abilitiesOnHeld = new List<int>();
     }
+
+    internal void SetAttackAbility(Ability ability)
+    {
+        abilities[0] = ability;
+    }
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -30,13 +36,18 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
 
 
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         abilitiesOnHeld.ForEach(v => {
             abilities[v].Held();
         });
+    }
+    
+    public Ability_Attack GetAttackAbility()
+    {
+        return abilities[0] as Ability_Attack;
     }
 
     internal void ActionEnded(int abilityNo)
@@ -93,4 +104,8 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
         abilities[actionNo].Released();
     }
 
+    public static T Instantiate<T>(string abilityDataName) where T:Ability
+    {
+        return (T)((Ability_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", abilityDataName)).CreateInstance();
+    }
 }

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1806111272
+CRC: 3865403624
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: e1f9bb5bb1ff9cc9043e70910d6a67a9
+    Hash: 11a9dd9c9b2a5a9a7dfca6b2dc68e87b
   TypeTreeHash:
     serializedVersion: 2
     Hash: b35fa09a55f870313e6e8b69528973c7
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: e1f9bb5bb1ff9cc9043e70910d6a67a9
+    Hash: 11a9dd9c9b2a5a9a7dfca6b2dc68e87b
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -146,6 +146,7 @@ Assets:
 - Assets/Demo/UI/HealthBar.prefab
 - Assets/Demo/UI/ScoreItem.prefab
 - Assets/Demo/UI/BattleHUD.prefab
+- Assets/Demo/UI/AbsorbBar.prefab
 - Assets/Demo/UI/Canvas_Settings.prefab
 - Assets/Demo/UI/UI_Main.prefab
 Dependencies: []
