@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3100328444
+CRC: 2466268747
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7669e75a6d0c1c3bdc4cf79b1b1cbd27
+    Hash: 16dd8c1fd84fc68c8d23a7be033db5fc
   TypeTreeHash:
     serializedVersion: 2
     Hash: fc04ec1329c25dc380741d3c8b4db157
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 7669e75a6d0c1c3bdc4cf79b1b1cbd27
+    Hash: 16dd8c1fd84fc68c8d23a7be033db5fc
 HashAppended: 0
 ClassTypes:
 - Class: 114
@@ -23,4 +23,4 @@ Assets:
 - Assets/Demo/Data/WOOD.asset
 - Assets/Demo/Data/STONE.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/buffs
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/buffs

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2579589665
+CRC: 623517580
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ad0555be4170e96bcb08f6ccc2da30ca
+    Hash: 9f833acc848674762f602407334f8d80
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 18f00f7aeeceabe64932481ae4f0a9fb
+    Hash: b007d34939d340c89191f22da939dece
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: ad0555be4170e96bcb08f6ccc2da30ca
+    Hash: 9f833acc848674762f602407334f8d80
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -82,6 +82,6 @@ Assets:
 - Assets/Demo/Data/AttackAbility_Wood.asset
 - Assets/Demo/Data/AttackAbility.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/effects
-- D:/3D mobile/Assets/StreamingAssets/lines
-- D:/3D mobile/Assets/StreamingAssets/ui
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/effects
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/lines
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/ui
