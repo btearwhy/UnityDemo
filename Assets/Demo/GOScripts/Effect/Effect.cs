@@ -30,15 +30,26 @@ public class Effect
 
     public virtual void Apply(GameObject instigator, GameObject target)
     {
-        foreach(Buff buff in buffs)
+        if(instigator.TryGetComponent<BattleSystem>(out BattleSystem battleSystemInstigator))
         {
-            if (buff.effectOnSelf)
+            foreach (Buff buff in buffs)
             {
-                instigator.GetComponent<BattleSystem>().AddBuff(buff);
+                if (buff.effectOnSelf)
+                {
+                    buff.Init(instigator, instigator);
+                    battleSystemInstigator.GetComponent<BattleSystem>().AddBuff(buff);
+                }
             }
-            else
+        }
+        if (target.TryGetComponent<BattleSystem>(out BattleSystem battleSystemTarget))
+        {
+            foreach (Buff buff in buffs)
             {
-                target.GetComponent<BattleSystem>().AddBuff(buff);
+                if (!buff.effectOnSelf)
+                {
+                    buff.Init(instigator, target);
+                    battleSystemTarget.AddBuff(buff);
+                }
             }
         }
     }

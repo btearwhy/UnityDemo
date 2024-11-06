@@ -1,19 +1,21 @@
 ManifestFileVersion: 0
-CRC: 4150072024
+CRC: 290943565
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: aa87a6dcf6f90373d0a9bed71dd1b9f0
+    Hash: 5d8b5a136c4cc4aac183d70601fc1b63
   TypeTreeHash:
     serializedVersion: 2
-    Hash: b6d87500f2057f3c04968ee8884370ca
+    Hash: 4154bf0ae04e135cf215e7add9940aed
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: aa87a6dcf6f90373d0a9bed71dd1b9f0
+    Hash: 5d8b5a136c4cc4aac183d70601fc1b63
 HashAppended: 0
 ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 27c435fcc3041cd4abccb2da68312071, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44aa8f5a5acada449b3833a8ec22debd, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: d331fc6cf137d354bb70f12f9bfb56f3, type: 3}
 - Class: 115
@@ -21,5 +23,7 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Data/Effect_Data.asset
+- Assets/Demo/Data/Effect_Decelerate.asset
 - Assets/Demo/Data/Effect_Attack_Data.asset
-Dependencies: []
+Dependencies:
+- D:/3D mobile/Assets/StreamingAssets/buffs

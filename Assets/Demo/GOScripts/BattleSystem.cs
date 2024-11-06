@@ -6,10 +6,26 @@ using UnityEngine;
 public class BattleSystem : MonoBehaviour
 {
     List<Buff> carriedBuffs;
+    List<Color> _emisionColors = new List<Color>();
+    SkinnedMeshRenderer[] meshRenderers;
+
+    public int LastHitActorNr { get; internal set; }
 
     private void Awake()
     {
+        LastHitActorNr = -1;
         carriedBuffs = new List<Buff>();
+        _emisionColors = new List<Color>();
+        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        foreach (SkinnedMeshRenderer meshRender in meshRenderers)
+        {
+            foreach (Material material in meshRender.materials)
+            {
+                material.EnableKeyword("_EmissionColor");
+                _emisionColors.Add(material.GetColor("_EmissionColor"));
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -26,12 +42,14 @@ public class BattleSystem : MonoBehaviour
 
     public void AddBuff(Buff buff)
     {
+        Debug.Log(gameObject + " acqurie buff " + buff);
         carriedBuffs.Add(buff);
         buff.Added();
     }
 
     public void RemoveBuff(Buff buff)
     {
+        Debug.Log(gameObject + " remove buff " + buff);
         carriedBuffs.Remove(buff);
         buff.Removed();
     }
@@ -52,19 +70,15 @@ public class BattleSystem : MonoBehaviour
 
     public void HitFlash(Color color, float interval = 0.2f)
     {
-        StartCoroutine(HitFlashCoroutine(gameObject, color, interval));
+        StartCoroutine(HitFlashCoroutine(color, interval));
     } 
 
-    IEnumerator HitFlashCoroutine(GameObject target, Color color, float interval)
+    IEnumerator HitFlashCoroutine(Color color, float interval)
     {
-        SkinnedMeshRenderer[] meshRenderers = target.GetComponentsInChildren<SkinnedMeshRenderer>();
-        List<Color> colors = new List<Color>();
         foreach (SkinnedMeshRenderer meshRender in meshRenderers)
         {
             foreach (Material material in meshRender.materials)
             {
-                material.EnableKeyword("_EmissionColor");
-                colors.Add(material.GetColor("_EmissionColor"));
                 material.SetColor("_EmissionColor", color);
             }
         }
@@ -76,7 +90,7 @@ public class BattleSystem : MonoBehaviour
         {
             foreach (Material material in meshRender.materials)
             {
-                material.SetColor("_EmissionColor", colors[index]);
+                material.SetColor("_EmissionColor", _emisionColors[index]);
                 index++;
             }
         }

@@ -18,7 +18,7 @@ MonoBehaviour:
   animReleaseStateName: RightHandAttackRelease
   detectRange: 3
   detectRadius: 0.5
-  chargeSpeed: 10
+  chargeSpeed: 1
   slotsNr: 3
   slotBackgroundImage: {fileID: 5038588645687554739, guid: 03b2ee548a4aa9e4dbe15c0749da6594,
     type: 3}

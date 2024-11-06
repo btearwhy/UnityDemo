@@ -23,7 +23,18 @@ public class PlayerController : MonoBehaviour
 
     public InputActions inputActions;
 
+    public Vector2 MoveInput;
 
+    
+    public FloatingJoystick joyStick;
+
+    private Finger MovementFinger;
+    private Vector2 MovementAmount;
+
+    private Finger CameraFinger;
+    private Vector2 CameraAmount;
+    private Vector2 CameraFirstTouchedPos;
+    private float CameraFingerMoveMaxDistance = 150;
     private void Awake()
     {
 
@@ -102,7 +113,7 @@ public class PlayerController : MonoBehaviour
         if(TouchedFinger == MovementFinger)
         {
             Vector2 knobPosition;
-            float maxMovement = joyStickSize.x / .2f;
+            float maxMovement = joyStick.joyStickSize.x / 2f;
             ETouch.Touch currentTouch = TouchedFinger.currentTouch;
 
             if(Vector2.Distance(currentTouch.screenPosition, joyStick.RectTransform.anchoredPosition) > maxMovement)
@@ -116,6 +127,20 @@ public class PlayerController : MonoBehaviour
             joyStick.Knob.anchoredPosition = knobPosition;
             MovementAmount = knobPosition / maxMovement;
         }
+        else if(TouchedFinger == CameraFinger)
+        {
+            Vector2 virtualPosition;
+            ETouch.Touch currentTouch = TouchedFinger.currentTouch;
+            if(Vector2.Distance(currentTouch.screenPosition, CameraFirstTouchedPos) > CameraFingerMoveMaxDistance)
+            {
+                virtualPosition = (currentTouch.screenPosition - CameraFirstTouchedPos).normalized * CameraFingerMoveMaxDistance;
+            }
+            else
+            {
+                virtualPosition = currentTouch.screenPosition - CameraFirstTouchedPos;
+            }
+            CameraAmount = virtualPosition / CameraFingerMoveMaxDistance;
+        }
     }
 
     private void HandleFingerUp(Finger TouchedFinger)
@@ -123,9 +148,15 @@ public class PlayerController : MonoBehaviour
         if(TouchedFinger == MovementFinger)
         {
             MovementFinger = null;
-            joyStick.Knob.anchoredPosition = Vector2.zero;
-            joyStick.Knob.gameObject.SetActive(false);
+            joyStick.RectTransform.anchoredPosition = Vector2.zero;
+            joyStick.gameObject.SetActive(false);
             MovementAmount = Vector2.zero;
+        }
+        else if(TouchedFinger == CameraFinger)
+        {
+            CameraFinger = null;
+            CameraFirstTouchedPos = Vector2.zero;
+            CameraAmount = Vector2.zero;
         }
     }
 
@@ -136,25 +167,31 @@ public class PlayerController : MonoBehaviour
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
             joyStick.gameObject.SetActive(true);
-            joyStick.RectTransform.sizeDelta = joyStickSize;
+            joyStick.RectTransform.sizeDelta = joyStick.joyStickSize;
             joyStick.RectTransform.anchoredPosition = ClampStartPosition(TouchedFinger.screenPosition);
+        }
+        if(CameraFinger == null && TouchedFinger.screenPosition.x > Screen.width / 2.0f)
+        {
+            CameraFinger = TouchedFinger;
+            CameraAmount = Vector2.zero;
+            CameraFirstTouchedPos = TouchedFinger.screenPosition;
         }
     }
 
     private Vector2 ClampStartPosition(Vector2 startPosition)
     {
-        if(startPosition.x < joyStickSize.x / 2)
+        if(startPosition.x < joyStick.joyStickSize.x / 2)
         {
-            startPosition.x = joyStickSize.x / 2;
+            startPosition.x = joyStick.joyStickSize.x / 2;
         }
 
-        if(startPosition.y <　joyStickSize.y / 2)
+        if(startPosition.y < joyStick.joyStickSize.y / 2)
         {
-            startPosition.y = joyStickSize.y / 2;
+            startPosition.y = joyStick.joyStickSize.y / 2;
         }
-        else if(startPosition.y > Screen.height - joyStickSize.y / 2)
+        else if(startPosition.y > Screen.height - joyStick.joyStickSize.y / 2)
         {
-            startPosition.y = Screen.height - joyStickSize.y / 2;
+            startPosition.y = Screen.height - joyStick.joyStickSize.y / 2;
         }
 
         return startPosition;
@@ -204,6 +241,7 @@ public class PlayerController : MonoBehaviour
     private void MovementControl()
     {
         Vector2 moveVector2f = inputActions.KeyboardandMouse.Movement.ReadValue<Vector2>();
+        if(moveVector2f == Vector2.zero) moveVector2f = MovementAmount;
         if (moveVector2f != Vector2.zero)
         {
             Vector3 fowardDirection = Vector3.Normalize(Vector3.Scale(-transform.up, new Vector3(1, 0, 1)));
@@ -221,7 +259,8 @@ public class PlayerController : MonoBehaviour
 
     private void CameraControl()
     {
-        Vector2 cameraVector2f = inputActions.KeyboardandMouse.CameraControl.ReadValue<Vector2>();
+        /*Vector2 cameraVector2f = inputActions.KeyboardandMouse.CameraControl.ReadValue<Vector2>();*/
+        Vector2 cameraVector2f = CameraAmount;
         transform.position = character.transform.position;
         cameraHorizontal += cameraVector2f.x * rotateSpeed * Time.deltaTime;
         armLength -= cameraVector2f.y * zoomSpeed * Time.deltaTime;
@@ -232,12 +271,6 @@ public class PlayerController : MonoBehaviour
         }
         transform.localRotation = Quaternion.Euler(cameraVertical, cameraHorizontal, cameraTilt);
     }
-    public Vector2 MoveInput;
 
-    private Vector2 joyStickSize = new Vector2(300, 300);
-    private FloatingJoystick joyStick;
-
-    private Finger MovementFinger;
-    private Vector2 MovementAmount;
 
 }

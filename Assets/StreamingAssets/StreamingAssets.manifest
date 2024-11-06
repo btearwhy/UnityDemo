@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1178910347
+CRC: 2442549858
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -33,4 +33,5 @@ AssetBundleManifest:
         Dependency_0: buffs
     Info_8:
       Name: effects
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: buffs

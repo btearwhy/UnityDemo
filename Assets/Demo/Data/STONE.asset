@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: STONE
   m_EditorClassIdentifier: 
   element: 1
-  buff: {fileID: 11400000, guid: 6623c4ee15f0a6845be1d800a6c6bfe6, type: 2}
-  image: {fileID: 7737292225741504696, guid: 6b8b0d0850e8999449feff0f0615d7ac, type: 3}
+  buff: {fileID: 11400000, guid: a60599b7a14aaeb418e214b9d602ac69, type: 2}

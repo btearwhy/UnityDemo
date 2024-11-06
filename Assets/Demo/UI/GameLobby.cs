@@ -58,6 +58,7 @@ public class GameLobby : MonoBehaviourPunCallbacks
         PhotonPeer.RegisterType(typeof(Buff_Instant), (byte)t--, Serializer.Serialize<Buff_Instant>, Serializer.Deserialize<Buff_Instant>);
         PhotonPeer.RegisterType(typeof(Buff_Duration), (byte)t--, Serializer.Serialize<Buff_Duration>, Serializer.Deserialize<Buff_Duration>);
         PhotonPeer.RegisterType(typeof(Buff_Attack), (byte)t--, Serializer.Serialize<Buff_Duration>, Serializer.Deserialize<Buff_Attack>);
+        PhotonPeer.RegisterType(typeof(Buff_Decelerate), (byte)t--, Serializer.Serialize<Buff_Decelerate>, Serializer.Deserialize<Buff_Decelerate>);
         PhotonPeer.RegisterType(typeof(Ability), (byte)t--, Serializer.Serialize<Ability>, Serializer.Deserialize<Ability>);
         PhotonPeer.RegisterType(typeof(Ability_Attack), (byte)t--, Serializer.Serialize<Ability_Attack>, Serializer.Deserialize<Ability_Attack>);
         PhotonPeer.RegisterType(typeof(Ability_Absorb), (byte)t--, Serializer.Serialize<Ability_Absorb>, Serializer.Deserialize<Ability_Absorb>);

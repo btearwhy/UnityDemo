@@ -89,6 +89,7 @@ public class Ability_Attack : Ability
             parameters[i] = effect;
             PhotonNetwork.Instantiate(projectileName, trans_projectileSpawnSocket.position, Quaternion.AngleAxis(initialAngle, Vector3.Cross(character.transform.forward, character.transform.up)) * character.transform.rotation, 0, parameters);
         }
+        OnFired?.Invoke();
     }
 
     internal override void Pressed()

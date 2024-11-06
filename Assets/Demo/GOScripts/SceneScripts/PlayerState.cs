@@ -1,7 +1,9 @@
 ﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerState
 {
@@ -9,7 +11,10 @@ public class PlayerState
     private static PlayerState playerState;
 
     public int score;
+    
     private PlayerController playerController;
+    public UI_Controller_BattleHUD HUD;
+    private Character character;
     private PlayerState() {
         gameRoom = GameRoom.gameRoom;
     }
@@ -37,5 +42,65 @@ public class PlayerState
         return gameObject == GetInstance().playerController.character;
     }
 
-    
+    internal void Respawn()
+    {
+        AttachController(GetController(), SpawnCharacter());
+        playerController.enabled = true;
+        InitHUD();
+    }
+
+    public void SetCharacter(Character character)
+    {
+        this.character = character;
+    }
+    public GameObject SpawnCharacter()
+    {
+
+        List<Vector3> spawns = gameRoom.maps[gameRoom.curMap].spawnPositions;
+        
+        
+        GameObject characterObject = PhotonNetwork.Instantiate(character.modelPrefab.name, spawns[UnityEngine.Random.Range(0, spawns.Count)], Quaternion.identity, 0, new object[] { character.characterName });
+        
+        foreach (Ability_Data ability_data in character.abilities)
+        {
+            characterObject.GetComponent<AbilitySystem>().GrantAbility(ability_data.CreateInstance());
+        }
+
+        
+        return characterObject;
+    }
+
+    public void AttachController(PlayerController playerController, GameObject characterObject)
+    {
+        playerController.character = characterObject;
+        SetController(playerController);
+    }
+
+    public void CreateHUD()
+    {
+
+        HUD = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "BattleHUD")).GetComponent<UI_Controller_BattleHUD>();
+        InitHUD();
+    }
+    public void InitHUD()
+    {
+        GameObject characterObject = playerController.character;
+        AttributeSet attributeSet = characterObject.GetComponent<AttributeSet>();
+        GameObject healthBar = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "HealthBar")).transform.GetChild(0).GetChild(0).gameObject;
+        attributeSet.OnCurrentHealthChanged += (health) =>
+        {
+            healthBar.GetComponent<Image>().fillAmount = health / attributeSet.maxHealth;
+        };
+
+        attributeSet.OnKilled += (id1, id2) => {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                if (id1 != -1)
+                    gameRoom.AddScore(id1, id2);
+            }
+        };
+
+        //battleHUD.GetComponent<Canvas>().worldCamera = Camera.main;
+        playerController.joyStick = HUD.panel_move.GetComponent<FloatingJoystick>();
+    }
 }

@@ -6,8 +6,7 @@ using UnityEngine.VFX;
 
 public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
 {
-    public VisualEffectAsset visualEffectAsset;
-    public VisualEffectAsset impactVisualEffectAsset;
+    public GameObject FlyingVisual;
     public GameObject ImpactVisual;
     public AudioSource flyingAudio;
     public AudioSource impactAudio;
@@ -16,10 +15,17 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
     public float effectRange;
     public float initSpeed;
     public float impactForce;
-    
+    public float explosionDelay;
     public List<Effect> effects;
+
+    private bool collided;
     private void Start()
     {
+        collided = false;
+        if(FlyingVisual != null)
+        {
+            Instantiate(FlyingVisual, transform);
+        }
         if(flyingAudio != null)
         {
             flyingAudio.Play();
@@ -35,9 +41,10 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
             impactAudio.Play();
         }
         
-        if (collision.collider.gameObject != instigator)
+        if (collision.collider.gameObject != instigator && !collided)
         {
-            Invoke("Explode", 2.0f);
+            collided = true;
+            Invoke("Explode", explosionDelay);
         }
     }
 
@@ -47,6 +54,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, effectRange);
         foreach (var hitCollider in hitColliders)
         {
+            
             if (hitCollider.gameObject == gameObject) continue;
             if (hitCollider.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {

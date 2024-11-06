@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4892263782881683710}
   - component: {fileID: 3653056710070130473}
   - component: {fileID: 6880871311801738386}
+  - component: {fileID: 586013667149538193}
   m_Layer: 0
   m_Name: Ground_C1
   m_TagString: Untagged
@@ -90,3 +91,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &586013667149538193
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819637588901140087}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6611562796582349096, guid: 32812f864ffc68f45aa97b19014b7867, type: 3}

@@ -50,9 +50,10 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public List<MapType> maps;
     public int curMap;
 
-    public int winCondition;
-    public string endingScene;
-
+    public int winCondition = -20;
+    public float timeCondition = 60f;
+    public string endingScene = "GameLobby";
+    
     public List<Character> characters;
     public int chosenCharacter;
 
@@ -107,6 +108,9 @@ public class GameRoom : MonoBehaviourPunCallbacks
     IEnumerator InitWhenConnected()
     {
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
+        winCondition = -20;
+        endingScene = "GameLobby";
+
         players = PhotonNetwork.PlayerList;
         maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
         OnInit.Invoke();
@@ -289,6 +293,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
             { "score", newScore }
         };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+        
         if (newScore >= winCondition)
         {
             Debug.Log("end with" + newScore);

@@ -27,7 +27,7 @@ public class Ability_Absorb : Ability
     private GameObject progressPresent;
 
     [field: NonSerialized]
-    private Image slotBackgroundImage;
+    private List<Image> slotBackgroundImages;
 
 
     [field: NonSerialized]
@@ -38,9 +38,11 @@ public class Ability_Absorb : Ability
     [field: NonSerialized]
     public float percentage;
     [field: NonSerialized]
-    public Element? element;
+    public List<Element?> elements;
     [field: NonSerialized]
     public int curBuffNum;
+    [field: NonSerialized]
+    public int curPos;
 
     public Ability_Absorb() { }
 
@@ -65,14 +67,21 @@ public class Ability_Absorb : Ability
         ability_data = (Ability_Absorb_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
         
         progressPresent = GameObject.Instantiate(ability_data.slotBarCanvas);
-        slotBackgroundImage = progressPresent.transform.GetChild(0).gameObject.GetComponent<Image>();
+        slotBackgroundImages = new List<Image>();
+        elements = new List<Element?>();
+        for (int i = 0; i < slotsNr; i++)
+        {
+            slotBackgroundImages.Add(GameObject.Instantiate(ability_data.slotBackgroundImage, progressPresent.transform.GetChild(0)).GetComponent<Image>());
+            elements.Add(null);
+        }
         //slotBackgroundImage = GameObject.Instantiate(ability_data.slotBackgroundImage, progressPresent.transform).GetComponent<Image>();
 
         progressPresent.SetActive(true);
         percentage = 0.0f;
-        element = null;
+
         slotImage = null;
         curBuffNum = 0;
+        curPos = 0;
     }
 
     internal override void Pressed()
@@ -98,7 +107,7 @@ public class Ability_Absorb : Ability
             if (hitObject.TryGetComponent<WorldProperty>(out WorldProperty worldProperty))
             {
                 float amount = Time.deltaTime * chargeSpeed;
-                if(element == worldProperty.element)
+                if(elements[curPos] == worldProperty.element)
                 {
                     percentage += amount;
                     if(percentage >= 1.0f)
@@ -109,13 +118,36 @@ public class Ability_Absorb : Ability
                         Effect effect_Buff = new Effect(buff);
                         Buff_Instant buff_Instant = new Buff_Instant(1, effect_Buff, true);
                         buff.Init(character, character);
-                        buff.OnRemoved += () => { curBuffNum--; };
+                        Image curImage = slotImage;
+                        int tmp = curPos;
+                        buff.OnRemoved += () => {
+                            if(curBuffNum == slotsNr)
+                            {
+                                curPos = tmp;
+                            }
+                            GameObject.Destroy(curImage);
+                            elements[tmp] = null;
+                            curBuffNum--;
+                        };
                         character.GetComponent<BattleSystem>().AddBuff(buff);
-                        
+
+                        slotImage.fillAmount = 1.0f;
                         percentage -= 1.0f;
+                        
                         curBuffNum++;
+                        slotImage = null;
+                        if(curBuffNum != slotsNr)
+                        {
+                            while (elements[curPos] != null)
+                            {
+                                curPos = (curPos + 1) % slotsNr;
+                            }
+                        }
                     }
-                    slotImage.fillAmount = percentage;
+                    else
+                    {
+                        slotImage.fillAmount = percentage;
+                    }
                 }
                 else
                 {
@@ -123,9 +155,9 @@ public class Ability_Absorb : Ability
                     {
                         GameObject.Destroy(slotImage);
                     }
-                    element = worldProperty.element;
+                    elements[curPos] = worldProperty.element;
                     percentage = amount;
-                    slotImage = GameObject.Instantiate(ability_data.dictSlotImages[element.Value], slotBackgroundImage.transform).GetComponent<Image>();
+                    slotImage = GameObject.Instantiate(ability_data.dictSlotImages[worldProperty.element], slotBackgroundImages[curPos].transform).GetComponent<Image>();
                     slotImage.fillAmount = percentage;
                 }
             }

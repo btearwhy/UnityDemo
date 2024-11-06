@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4801094834027345461}
   - component: {fileID: 987495695622336939}
   - component: {fileID: 5700660649010603886}
+  - component: {fileID: 5763021963375990635}
   m_Layer: 0
   m_Name: Tip_Board_3
   m_TagString: Untagged
@@ -86,3 +87,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5763021963375990635
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134916880053487179}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38829002, y: 2.0364764, z: 2.068}
+  m_Center: {x: 0.006749004, y: 0.96257854, z: 0}

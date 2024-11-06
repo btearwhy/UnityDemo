@@ -9,7 +9,7 @@ public class Character : ScriptableObject
     public Sprite avator;
     public GameObject modelPrefab;
 
-
+    public float maxSpeed;
     public float maxHealth;
     public float attack;
     public float defense;

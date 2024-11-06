@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,10 @@ public class UI_Controller_BattleHUD : MonoBehaviour
     public Button button_back;
     public Button button_score;
     public Button button_setting;
+    public TMP_Text text_time;
+    public GameObject panel_move;
+    public GameObject button_attack;
+    public GameObject button_skill;
 
     public string canvas_score;
     public string canvas_setting;
@@ -52,7 +57,11 @@ public class UI_Controller_BattleHUD : MonoBehaviour
         {
             PhotonNetwork.LeaveRoom();
         });
-        button_score.onClick.AddListener(() => scoreboard.SetActive(!scoreboard.activeSelf));
+        button_score.onClick.AddListener(() =>
+        {
+            Debug.Log("clocked score");
+            scoreboard.SetActive(!scoreboard.activeSelf);
+        });
         button_setting.onClick.AddListener(() => setting.SetActive(!setting.activeSelf));
     }
 

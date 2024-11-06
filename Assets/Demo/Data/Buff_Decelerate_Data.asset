@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Buff_Decelerate_Data
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
+  effectOnSelf: 0
   duration: 5
-  percentage: 50
+  percentage: 0.9

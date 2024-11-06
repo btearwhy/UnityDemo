@@ -12,4 +12,19 @@ public class Buff_Duration : Buff
     {
         Duration = duration;
     }
+
+    public override void Added()
+    {
+        base.Added();
+        BattleSystem battleSystem = Target.GetComponent<BattleSystem>();
+        battleSystem.StartCoroutine(TimeElapse(Duration));
+
+    }
+
+    IEnumerator TimeElapse(float time)
+    {
+        yield return new WaitForSeconds(time);
+        BattleSystem battleSystem = Target.GetComponent<BattleSystem>();
+        battleSystem.RemoveBuff(this);
+    }
 }

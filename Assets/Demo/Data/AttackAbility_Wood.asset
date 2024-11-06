@@ -18,7 +18,7 @@ MonoBehaviour:
   animReleaseStateName: RightHandAttackRelease
   fireSocket: c_index3.r
   fireAudio: {fileID: 0}
-  projectilePrefab: {fileID: 9097458414496180448, guid: 6419bd5bb5b501c49a3fd09dada37b61,
+  projectilePrefab: {fileID: 9097458414496180448, guid: 0f1fd2c843a30ae488d82b721c6962ec,
     type: 3}
   projectileGravity: 0
   projectileSpeed: 10

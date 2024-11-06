@@ -38,10 +38,12 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
 
     private void Start()
     {
-        health = maxHealth;
         currentHealth = health;
         currentAttack = attack;
         currentDefense = defense;
+        currentMaxSpeed = maxSpeed;
+        SetMaxSpeed(maxSpeed);
+        SetCurrentHealth(maxHealth);
     }
 
 
@@ -49,11 +51,15 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
     {
         
         float prediectedCurrentHealth = currentHealth - damage;
+        if(TryGetComponent<BattleSystem>(out BattleSystem battleSystem) && instigator.TryGetComponent<PhotonView>(out PhotonView photonView))
+        {
+            battleSystem.LastHitActorNr = photonView.ControllerActorNr;
+        }
         if (prediectedCurrentHealth <= 0)
         {
-            if (TryGetComponent<PhotonView>(out PhotonView photonviewTarget) && TryGetComponent<PhotonView>(out PhotonView photonViewInstigator))
+            if (TryGetComponent<BattleSystem>(out BattleSystem battleSystemSelf) && TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
             {
-                OnKilled?.Invoke(photonViewInstigator.ControllerActorNr, photonviewTarget.ControllerActorNr);
+                OnKilled?.Invoke(battleSystemSelf.LastHitActorNr,  photonviewSelf.ControllerActorNr);
             }
         }
         SetCurrentHealth(prediectedCurrentHealth);
@@ -80,7 +86,7 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SetMaxSpeed_RPC", RpcTarget.All, currentMaxSpeed);
+            photonView.RPC("SetMaxSpeed_RPC", RpcTarget.All, maxSpeed);
         }
     }
 
@@ -102,10 +108,16 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
             IEnumerator DestroyAfterSeconds(float seconds)
             {
                 yield return new WaitForSeconds(seconds);
+                PlayerState.GetInstance().Respawn();
                 PhotonNetwork.Destroy(gameObject);
             }
             StartCoroutine(DestroyAfterSeconds(5));
         }
+        
+    }
+    
+    private void OnDestroy()
+    {
         
     }
 
@@ -116,5 +128,6 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         maxHealth = character.maxHealth;
         attack = character.attack;
         defense = character.defense;
+        maxSpeed = character.maxSpeed;
     }
 }

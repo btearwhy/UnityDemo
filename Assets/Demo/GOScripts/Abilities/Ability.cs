@@ -8,6 +8,7 @@ public class Ability
 {
     public delegate void EventHandler();
     public EventHandler OnEnded;
+    public EventHandler OnFired;
 
     public string animStartStateName;
     public string animHeldStateName;
