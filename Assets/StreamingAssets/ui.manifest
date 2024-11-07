@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3006670400
+CRC: 2374170317
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d788060b9669ea3b7a6c9fe04c2bc630
+    Hash: 641e1fde0ac7289c38c705ebed9c1c26
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2d4b1de72f0b85706681341117e7afcd
+    Hash: b3b7b32ddc85df0754a235822acb3cb5
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: d788060b9669ea3b7a6c9fe04c2bc630
+    Hash: 641e1fde0ac7289c38c705ebed9c1c26
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -55,6 +55,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 51ec210f9aa616a4f9f1c6ff1bcba9f6, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 6a4e5332d88d1cd40808b82f4a9a54cf, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
@@ -73,7 +75,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 584ad0d0bd8d40949913d67fbc21e3be, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 6a4e5332d88d1cd40808b82f4a9a54cf, type: 3}
+  Script: {fileID: 11500000, guid: d3d8dc67dabc90646b7855b87525113b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b891242c3f1432e4f8a257ea6f72ec4c, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -97,8 +101,6 @@ SerializeReferenceClassIdentifiers:
   ClassName: TMPro.TMP_Character
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_Dropdown/DropdownEvent
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_Dropdown/OptionData
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_Dropdown/OptionDataList
 - AssemblyName: Unity.TextMeshPro
@@ -149,10 +151,8 @@ SerializeReferenceClassIdentifiers:
   ClassName: UnityEngine.UI.Toggle/ToggleEvent
 Assets:
 - Assets/Demo/UI/Scoreboard.prefab
-- Assets/Demo/UI/HealthBar.prefab
 - Assets/Demo/UI/ScoreItem.prefab
 - Assets/Demo/UI/BattleHUD.prefab
-- Assets/Demo/UI/AbsorbBar.prefab
 - Assets/Demo/UI/Canvas_Settings.prefab
 - Assets/Demo/UI/UI_Main.prefab
 Dependencies: []

@@ -52,8 +52,10 @@ public class Ability_Absorb : Ability
 
     public override void Initialize()
     {
-        base.Initialize();
         Ability_Absorb_Data ability_absorb_data = (Ability_Absorb_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
+        this.animStartStateName = ability_absorb_data.animStartStateName;
+        this.animHeldStateName = ability_absorb_data.animHeldStateName;
+        this.animReleaseStateName = ability_absorb_data.animReleaseStateName;
         this.detectRadius = ability_absorb_data.detectRadius;
         this.detectRange = ability_absorb_data.detectRange;
         this.chargeSpeed = ability_absorb_data.chargeSpeed;
@@ -68,7 +70,7 @@ public class Ability_Absorb : Ability
         ability_data = (Ability_Absorb_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
 
 
-        progressPresent = GameObject.Instantiate(ability_data.slotBarCanvas);
+        progressPresent = GameObject.Instantiate(ability_data.slotBarCanvas, PlayerState.GetInstance().HUD.SkillUIPlaceHolder.transform);
         if (!character.GetComponent<PhotonView>().IsMine)
         {
             progressPresent.SetActive(false);
@@ -78,7 +80,7 @@ public class Ability_Absorb : Ability
         elements = new List<Element?>();
         for (int i = 0; i < slotsNr; i++)
         {
-            slotBackgroundImages.Add(GameObject.Instantiate(ability_data.slotBackgroundImage, progressPresent.transform.GetChild(0)).GetComponent<Image>());
+            slotBackgroundImages.Add(GameObject.Instantiate(ability_data.slotBackgroundImage, progressPresent.transform).GetComponent<Image>());
             elements.Add(null);
         }
         //slotBackgroundImage = GameObject.Instantiate(ability_data.slotBackgroundImage, progressPresent.transform).GetComponent<Image>();
@@ -176,6 +178,7 @@ public class Ability_Absorb : Ability
 
     }
 
+    
     internal override void Released()
     {
         //base.Released();

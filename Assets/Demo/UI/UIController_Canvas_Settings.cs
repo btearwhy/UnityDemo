@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class UIController_Canvas_Settings : MonoBehaviour
 {
@@ -19,6 +20,27 @@ public class UIController_Canvas_Settings : MonoBehaviour
         GetComponent<Canvas>().worldCamera = Camera.main;
 
         buttonBack.onClick.AddListener(() => gameObject.SetActive(false));
+
+        dropdownLanguage.ClearOptions();
+        IEnumerable<TMP_Dropdown.OptionData> characterOptions = from language in System.Enum.GetNames(typeof(LanguageManager.LanguageType))
+                                                                select new TMP_Dropdown.OptionData(language);
+        dropdownLanguage.AddOptions(characterOptions.ToList());
+        dropdownLanguage.onValueChanged.AddListener((nr) =>
+        {
+            LanguageManager.ChangeLanguage((LanguageManager.LanguageType)nr);
+        }
+        );
+
+        sliderMusic.onValueChanged.AddListener((value) =>
+        {
+            //改音量
+        });
+        
+        sliderSound.onValueChanged.AddListener((value) =>
+        {
+            //改音量
+        });
+
     }
 
     // Update is called once per frame

@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
-        if(MovementFinger == null && TouchedFinger.screenPosition.x < Screen.width / 2.0f)
+        if(MovementFinger == null && TouchedFinger.screenPosition.x < Screen.width / 2.0f && TouchedFinger.screenPosition.y  < Screen.height * 2.0f / 3.0f)
         {
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;

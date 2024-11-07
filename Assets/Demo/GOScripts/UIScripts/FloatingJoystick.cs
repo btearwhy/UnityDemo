@@ -6,7 +6,7 @@ public class FloatingJoystick : MonoBehaviour
 {
     public RectTransform RectTransform;
     public RectTransform Knob;
-    public Vector2 joyStickSize = new Vector2(300, 300);
+    public Vector2 joyStickSize;
     private void Awake()
     {
         RectTransform = GetComponent<RectTransform>();

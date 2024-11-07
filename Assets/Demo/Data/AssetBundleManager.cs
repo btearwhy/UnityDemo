@@ -32,6 +32,7 @@ public class AssetBundleManager : ScriptableObject
             assetBundleManager.assetBundleNames.Add("effects");
             assetBundleManager.assetBundleNames.Add("buffs");
             assetBundleManager.assetBundleNames.Add("elements");
+            assetBundleManager.assetBundleNames.Add("languages");
             assetBundleManager.basePath = Application.streamingAssetsPath;
             assetBundleManager.Init();
         }

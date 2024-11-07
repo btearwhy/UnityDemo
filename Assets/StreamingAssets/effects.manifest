@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1459099582
+CRC: 2538650940
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1d2cfdb1d14fb312780b8bd0d3fea739
+    Hash: 4f1f428685180f86c8c163f16134459a
   TypeTreeHash:
     serializedVersion: 2
     Hash: 4154bf0ae04e135cf215e7add9940aed
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 1d2cfdb1d14fb312780b8bd0d3fea739
+    Hash: 4f1f428685180f86c8c163f16134459a
 HashAppended: 0
 ClassTypes:
 - Class: 114
@@ -26,4 +26,4 @@ Assets:
 - Assets/Demo/Data/Effect_Decelerate.asset
 - Assets/Demo/Data/Effect_Attack_Data.asset
 Dependencies:
-- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/buffs
+- D:/3D mobile/Assets/StreamingAssets/buffs

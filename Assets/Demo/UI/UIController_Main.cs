@@ -9,6 +9,7 @@ public class UIController_Main : MonoBehaviour
     public string sceneName;
     public Button buttonStart;
     public Button buttonSettings;
+    public GameObject Setting;
     public Button buttonQuit;
     // Start is called before the first frame update
     void Start()
@@ -17,11 +18,7 @@ public class UIController_Main : MonoBehaviour
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
         });
-        buttonSettings.onClick.AddListener(() =>
-        {
-            GameObject gameObject = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "Canvas_Settings"));
-            gameObject.SetActive(true);
-        });
+
         buttonQuit.onClick.AddListener(Application.Quit);
     }
 

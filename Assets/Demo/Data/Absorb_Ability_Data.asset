@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d1063e4aef8f1429d553d97e62cccc, type: 3}
   m_Name: Absorb_Ability_Data
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 65a16ecc28bddba4388f3c2fb7d3989e, type: 3}
   animStartStateName: RightHandAttack
   animHeldStateName: RightHandAttackCharge
   animReleaseStateName: RightHandAttackRelease
-  detectRange: 3
+  detectRange: 2
   detectRadius: 0.5
   chargeSpeed: 1
   slotsNr: 3
   slotBackgroundImage: {fileID: 5038588645687554739, guid: 03b2ee548a4aa9e4dbe15c0749da6594,
     type: 3}
-  slotBarCanvas: {fileID: 7815735248093279669, guid: 8d6d357b9935a744e8aa1d35101d57c0,
+  slotBarCanvas: {fileID: 7431605248844079147, guid: 1467ea36104695149af27e6035382f71,
     type: 3}
   elements: 0000000001000000
   slotImages:

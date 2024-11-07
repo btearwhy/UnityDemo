@@ -69,4 +69,9 @@ public class Ability
     }
 
     internal virtual void End() { }
+
+    internal virtual Ability_Data GetProtoData()
+    {
+        return (Ability_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
+    }
 }

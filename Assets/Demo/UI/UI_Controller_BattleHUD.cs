@@ -12,10 +12,12 @@ public class UI_Controller_BattleHUD : MonoBehaviour
     public Button button_score;
     public Button button_setting;
     public TMP_Text text_time;
-    public GameObject panel_move;
+    public GameObject JoystickPanel;
+    public GameObject HealthBar;
+    public GameObject SkillUIPlaceHolder;
     public Button button_attack;
     public Button button_skill;
-
+    public FloatingJoystick joystick;
     public string canvas_score;
     public string canvas_setting;
     GameObject scoreboard;
@@ -24,6 +26,11 @@ public class UI_Controller_BattleHUD : MonoBehaviour
     
     GameRoom gameRoom;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        joystick = JoystickPanel.GetComponent<FloatingJoystick>();
+    }
+
     void Start()
     {
         HUD.worldCamera = Camera.main;

@@ -23,7 +23,7 @@ public class UI_Controller_GameRoom : MonoBehaviour
     public Button button_leave;
     public Button button_ready;
     public TMP_Text text_button_ready;
-
+    public TMP_Text text_button_start;
     private string chosenMap;
     private List<GameObject> seats;
 
@@ -88,7 +88,8 @@ public class UI_Controller_GameRoom : MonoBehaviour
     private void MasterView()
     {
         dropdown_maps.enabled = true;
-        text_button_ready.text = "start";
+        text_button_ready.enabled = false;
+        text_button_start.enabled = true;
         button_ready.enabled = false;
         button_ready.onClick.RemoveAllListeners();
         button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName));
@@ -97,7 +98,8 @@ public class UI_Controller_GameRoom : MonoBehaviour
 
     private void ClientView()
     {
-        text_button_ready.text = "ready";
+        text_button_ready.enabled = true;
+        text_button_start.enabled = false;
         button_ready.onClick.RemoveAllListeners();
         button_ready.onClick.AddListener(() => gameRoom.Ready(!gameRoom.IsReady()));
 

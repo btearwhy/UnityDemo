@@ -8,6 +8,14 @@ public class UIInit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", MainUI));
+        GameObject Setting = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "Canvas_Settings"));
+        GameObject MainObj = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", MainUI));
+        UIController_Main Main = MainObj.GetComponentInChildren<UIController_Main>();
+        Main.Setting = Setting;
+        Main.buttonSettings.onClick.AddListener(() =>
+        {
+            Setting.SetActive(!Setting.activeSelf);
+        });
+        Setting.SetActive(false);
     }
 }

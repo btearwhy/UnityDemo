@@ -17,11 +17,12 @@ public class LevelInitializer : MonoBehaviour
         gameRoom = GameRoom.gameRoom;
         remainingTime = gameRoom.timeCondition;
         playerState = PlayerState.GetInstance();
+        playerState.CreateHUD();
         playerState.SetCharacter(gameRoom.characters[gameRoom.chosenCharacter]);
         GameObject characterObj = playerState.SpawnCharacter();
-        PlayerController controller = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("controllers", "PlayerController")).GetComponent<PlayerController>();
+        PlayerController controller = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("controllers", "PlayerController")).GetComponent<PlayerController>();
         playerState.AttachController(controller, characterObj);
-        playerState.CreateHUD();
+        playerState.InitHUD();
     }
 
 
