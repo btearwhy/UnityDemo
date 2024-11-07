@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -94,6 +95,11 @@ public class BattleSystem : MonoBehaviour
                 index++;
             }
         }
+    }
+
+    internal bool WasDamaged()
+    {
+        return LastHitActorNr != -1 && LastHitActorNr != GetComponent<PhotonView>().ControllerActorNr;
     }
 
     public static void AttachBuffToEffect(ref Effect effect, Buff_Instant buff)

@@ -59,7 +59,10 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         {
             if (TryGetComponent<BattleSystem>(out BattleSystem battleSystemSelf) && TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
             {
-                OnKilled?.Invoke(battleSystemSelf.LastHitActorNr,  photonviewSelf.ControllerActorNr);
+                if (battleSystemSelf.WasDamaged())
+                {
+                    OnKilled?.Invoke(battleSystemSelf.LastHitActorNr,  photonviewSelf.ControllerActorNr);
+                }
             }
         }
         SetCurrentHealth(prediectedCurrentHealth);
@@ -102,9 +105,9 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
         GetComponentInChildren<Animator>().Play("Death");
         OnDied?.Invoke();
 
-        PlayerState.GetInstance().GetController().enabled = false;
         if (photonView.IsMine)
         {
+            PlayerState.GetInstance().GetController().enabled = false;
             IEnumerator DestroyAfterSeconds(float seconds)
             {
                 yield return new WaitForSeconds(seconds);

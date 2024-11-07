@@ -108,7 +108,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     IEnumerator InitWhenConnected()
     {
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        winCondition = -20;
+        winCondition = 50;
         endingScene = "GameLobby";
 
         players = PhotonNetwork.PlayerList;
@@ -285,18 +285,18 @@ public class GameRoom : MonoBehaviourPunCallbacks
         Player killer = PhotonNetwork.CurrentRoom.GetPlayer(killerName);
         int scoreOriginal = (int)killer.CustomProperties["score"];
         int scoreAdd = score;
-        if (killerName == victimName) scoreAdd = -score / 2;
         int newScore = scoreOriginal + scoreAdd;
 
         Hashtable playerProperties = new Hashtable
         {
             { "score", newScore }
         };
-        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+        killer.SetCustomProperties(playerProperties);
         
         if (newScore >= winCondition)
         {
             Debug.Log("end with" + newScore);
+            //结算 但此方法仅master执行，最好做一个结算界面再结束。
             PhotonNetwork.LoadLevel(endingScene);
         }
         /* photonView.RPC("AddScoreRPC", RpcTarget.All, actorName, score);*/

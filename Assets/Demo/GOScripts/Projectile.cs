@@ -68,9 +68,19 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
                 effect.Apply(instigator, hitCollider.gameObject);
             }
         }
+
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.Destroy(gameObject);
+            IEnumerator DestroyDelay(GameObject gameObject)
+            {
+                yield return new WaitForSeconds(1.0f);
+                PhotonNetwork.Destroy(gameObject);
+            }
+            StartCoroutine(DestroyDelay(gameObject));
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 

@@ -96,17 +96,26 @@ public class PlayerState
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                if (id1 != -1)
-                    gameRoom.AddScore(id1, id2);
+                gameRoom.AddScore(id1, id2);
             }
         };
         AbilitySystem abilitySystem = characterObject.GetComponent<AbilitySystem>();
-        HUD.button_attack.GetComponent<LongPressEventTrigger>().onLongPress.AddListener(() => abilitySystem.ActionHeld(0));
-        HUD.button_skill.GetComponent<LongPressEventTrigger>().onLongPress.AddListener(() => abilitySystem.ActionHeld(1));
-        HUD.button_attack.GetComponent<LongPressEventTrigger>().onPressReleased.AddListener(() => abilitySystem.ActionReleased(0));
-        HUD.button_skill.GetComponent<LongPressEventTrigger>().onPressReleased.AddListener(() => abilitySystem.ActionReleased(1));
-        HUD.button_attack.GetComponent<LongPressEventTrigger>().onShortPress.AddListener(() => abilitySystem.ActionPressed(0));
-        HUD.button_skill.GetComponent<LongPressEventTrigger>().onShortPress.AddListener(() => abilitySystem.ActionPressed(1));
+        //复活后之前的listenner没取消
+        LongPressEventTrigger attackPressEventTrigger = HUD.button_attack.GetComponent<LongPressEventTrigger>();
+        LongPressEventTrigger skillPressEventTrigger = HUD.button_skill.GetComponent<LongPressEventTrigger>();
+        attackPressEventTrigger.onLongPress.RemoveAllListeners();
+        skillPressEventTrigger.onLongPress.RemoveAllListeners();
+        attackPressEventTrigger.onPressReleased.RemoveAllListeners();
+        skillPressEventTrigger.onPressReleased.RemoveAllListeners();
+        attackPressEventTrigger.onShortPress.RemoveAllListeners();
+        skillPressEventTrigger.onShortPress.RemoveAllListeners();
+
+        attackPressEventTrigger.onLongPress.AddListener(() => abilitySystem.ActionHeld(0));
+        skillPressEventTrigger.onLongPress.AddListener(() => abilitySystem.ActionHeld(1));
+        attackPressEventTrigger.onPressReleased.AddListener(() => abilitySystem.ActionReleased(0));
+        skillPressEventTrigger.onPressReleased.AddListener(() => abilitySystem.ActionReleased(1));
+        attackPressEventTrigger.onShortPress.AddListener(() => abilitySystem.ActionPressed(0));
+        skillPressEventTrigger.onShortPress.AddListener(() => abilitySystem.ActionPressed(1));
         //battleHUD.GetComponent<Canvas>().worldCamera = Camera.main;
 
         HUD.button_attack.GetComponent<Image>().sprite = abilitySystem.abilities[0].GetProtoData().icon;
