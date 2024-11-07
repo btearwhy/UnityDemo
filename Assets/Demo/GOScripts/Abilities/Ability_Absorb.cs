@@ -73,6 +73,7 @@ public class Ability_Absorb : Ability
         {
             progressPresent.SetActive(false);
         }
+        else progressPresent.SetActive(true);
         slotBackgroundImages = new List<Image>();
         elements = new List<Element?>();
         for (int i = 0; i < slotsNr; i++)
@@ -82,7 +83,7 @@ public class Ability_Absorb : Ability
         }
         //slotBackgroundImage = GameObject.Instantiate(ability_data.slotBackgroundImage, progressPresent.transform).GetComponent<Image>();
 
-        progressPresent.SetActive(true);
+
         percentage = 0.0f;
 
         slotImage = null;

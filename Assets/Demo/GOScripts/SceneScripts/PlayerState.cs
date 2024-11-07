@@ -99,7 +99,13 @@ public class PlayerState
                     gameRoom.AddScore(id1, id2);
             }
         };
-
+        AbilitySystem abilitySystem = characterObject.GetComponent<AbilitySystem>();
+        HUD.button_attack.GetComponent<LongPressEventTrigger>().onLongPress.AddListener(() => abilitySystem.ActionHeld(0));
+        HUD.button_skill.GetComponent<LongPressEventTrigger>().onLongPress.AddListener(() => abilitySystem.ActionHeld(1));
+        HUD.button_attack.GetComponent<LongPressEventTrigger>().onPressReleased.AddListener(() => abilitySystem.ActionReleased(0));
+        HUD.button_skill.GetComponent<LongPressEventTrigger>().onPressReleased.AddListener(() => abilitySystem.ActionReleased(1));
+        HUD.button_attack.GetComponent<LongPressEventTrigger>().onShortPress.AddListener(() => abilitySystem.ActionPressed(0));
+        HUD.button_skill.GetComponent<LongPressEventTrigger>().onShortPress.AddListener(() => abilitySystem.ActionPressed(1));
         //battleHUD.GetComponent<Canvas>().worldCamera = Camera.main;
         playerController.joyStick = HUD.panel_move.GetComponent<FloatingJoystick>();
     }

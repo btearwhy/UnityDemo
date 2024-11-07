@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3306724110
+CRC: 3852216975
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1d7c53f1a39d8e8837aee43ade3e0488
+    Hash: e3214824bb60510ecc00e6287b296b17
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3b96d6a0795debfe07241eb6b3696432
+    Hash: 29126a93fc4f7e8f7cfa9f14b1804e82
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 1d7c53f1a39d8e8837aee43ade3e0488
+    Hash: e3214824bb60510ecc00e6287b296b17
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -72,4 +72,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/Data/BountyHunter.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/abilities
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities
