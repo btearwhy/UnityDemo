@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,8 +66,13 @@ public class Ability_Absorb : Ability
 
 
         ability_data = (Ability_Absorb_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", data);
-        
+
+
         progressPresent = GameObject.Instantiate(ability_data.slotBarCanvas);
+        if (!character.GetComponent<PhotonView>().IsMine)
+        {
+            progressPresent.SetActive(false);
+        }
         slotBackgroundImages = new List<Image>();
         elements = new List<Element?>();
         for (int i = 0; i < slotsNr; i++)

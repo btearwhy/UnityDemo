@@ -45,7 +45,7 @@ public class PlayerLocal
 
 public class GameRoom : MonoBehaviourPunCallbacks
 {
-    public int score = 20;
+    public int score = 30;
     public int maxPlayers = 10;
     public List<MapType> maps;
     public int curMap;

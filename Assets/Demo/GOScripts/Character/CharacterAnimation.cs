@@ -21,4 +21,14 @@ public class CharacterAnimation : MonoBehaviour
     {
         abilitySystem.abilities[animationEvent.intParameter].HandleAnimationEvent(animationEvent.stringParameter);
     }
+
+    public void FootStepSound()
+    {
+
+    }
+
+    public void RunStepSound()
+    {
+
+    }
 }
