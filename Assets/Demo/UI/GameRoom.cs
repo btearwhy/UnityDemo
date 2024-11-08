@@ -108,8 +108,8 @@ public class GameRoom : MonoBehaviourPunCallbacks
     IEnumerator InitWhenConnected()
     {
         yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        winCondition = 50;
-        endingScene = "GameLobby";
+        winCondition = 100;
+        endingScene = "Main";
 
         players = PhotonNetwork.PlayerList;
         maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;

@@ -35,6 +35,11 @@ public class LanguageManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        UpdateLanguage();
+    }
+
     internal static string GetById(int languageId)
     {
         return ((TextTable)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("languages", type.ToString())).texts[languageId];

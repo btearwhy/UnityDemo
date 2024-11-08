@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1568687841
+CRC: 2553781078
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6446b59cdecde574372f190a253c1b53
+    Hash: c1b6b6fb0db098f017548c2f82418266
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 29126a93fc4f7e8f7cfa9f14b1804e82
+    Hash: 0255fb9592e37188e2aaa1f0a55ed8c6
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 6446b59cdecde574372f190a253c1b53
+    Hash: c1b6b6fb0db098f017548c2f82418266
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -45,11 +45,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 5f331a1db6f2b6248bd5b63cfa56ecb2, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: abc8dca246d55e248b6b384e7e71ab00, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: e6ace4006c47f4c48829043f2e2409f1, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 77208b26b0aa4dd4ea54427770c8f732, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 81a7e11d2e83bce4c8311f5bd8cf672c, type: 3}
 - Class: 114
@@ -62,6 +62,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 137
   Script: {instanceID: 0}
+- Class: 143
+  Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
@@ -72,4 +74,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/Data/BountyHunter.asset
 Dependencies:
-- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities
+- D:/3D mobile/Assets/StreamingAssets/abilities

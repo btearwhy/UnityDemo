@@ -37,17 +37,32 @@ public class PunRigidBodySync : MonoBehaviourPun, IPunObservable
             velocity = (Vector3)stream.ReceiveNext();
             angularVelocity = (Vector3)stream.ReceiveNext();
             valuesReceived = true;
+/*            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+            latestPos += (gameObject.transform.forward) * GetComponent<Movement_Kine>().speed;*/
         }
     }
 
     // Update is called once per frame
-    void Update()
+    /*    void Update()
+        {
+            if (!photonView.IsMine && valuesReceived)
+            {
+                //Update Object position and Rigidbody parameters
+                transform.position = Vector3.Lerp(transform.position, latestPos, 100 * Time.deltaTime);
+                transform.rotation = Quaternion.Lerp(transform.rotation, latestRot, 100 *  Time.deltaTime);
+                r.velocity = velocity;
+                r.angularVelocity = angularVelocity;
+
+            }
+        }*/
+
+    public void FixedUpdate()
     {
         if (!photonView.IsMine && valuesReceived)
         {
             //Update Object position and Rigidbody parameters
-            transform.position = Vector3.Lerp(transform.position, latestPos, 100 * Time.deltaTime);
-            transform.rotation = Quaternion.Lerp(transform.rotation, latestRot, 100 *  Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, latestPos, Time.fixedDeltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, latestRot, 100.0f * Time.fixedDeltaTime);
             r.velocity = velocity;
             r.angularVelocity = angularVelocity;
 

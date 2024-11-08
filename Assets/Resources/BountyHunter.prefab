@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 71959284881169101}
   - component: {fileID: -8295403757346959182}
   - component: {fileID: 7865968114549656518}
+  - component: {fileID: 3340923687700931161}
   m_Layer: 0
   m_Name: BountyHunter
   m_TagString: Untagged
@@ -63,16 +64,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3769354870167962771}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abc8dca246d55e248b6b384e7e71ab00, type: 3}
+  m_Script: {fileID: 11500000, guid: 77208b26b0aa4dd4ea54427770c8f732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 0
   canRotate: 0
   maxSpeed: 10
   speed: 0
-  accelerate: 7
+  accelerate: 5
   decelerate: 9.5
-  turnSpeed: 1000
+  turnSpeed: 800
   shouldStop: 0
 --- !u!114 &4207489905532019253
 MonoBehaviour:
@@ -174,6 +175,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d2dd7ca794f08f4aa1151094564e194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &3340923687700931161
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3769354870167962771}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Height: 1.88
+  m_Radius: 0.31
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1001 &5407184375078991592
 PrefabInstance:
   m_ObjectHideFlags: 0

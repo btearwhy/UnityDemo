@@ -47,7 +47,7 @@ public class UI_Controller_BattleHUD : MonoBehaviour
         {
             scoreboard.GetComponent<UI_Controller_Scoreboard>().AddItem(entry.Value);
         }
-
+                
         gameRoom.OnScoreChanged += (newRoomProperty) =>
         {
             roomProperty = newRoomProperty;
@@ -55,7 +55,7 @@ public class UI_Controller_BattleHUD : MonoBehaviour
             players.AddRange(roomProperty.playersMap.Values);
             players.Sort((p1, p2) =>
             {
-                return p1.score - p2.score;
+                return p2.score - p1.score;
             });
 
             scoreboard.GetComponent<UI_Controller_Scoreboard>().UpdateScore(players);

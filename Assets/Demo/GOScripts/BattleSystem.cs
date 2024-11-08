@@ -32,7 +32,22 @@ public class BattleSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
+        {
+            attributeSet.OnDied += () =>
+            {
+                if (TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
+                {
+                    if (WasDamaged())
+                    {
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+                            GameRoom.gameRoom.AddScore(LastHitActorNr, photonviewSelf.ControllerActorNr);
+                        }
+                    }
+                }
+            };
+        }
     }
 
     // Update is called once per frame
@@ -99,6 +114,8 @@ public class BattleSystem : MonoBehaviour
 
     internal bool WasDamaged()
     {
+        int la = LastHitActorNr;
+        int actor = GetComponent<PhotonView>().ControllerActorNr;
         return LastHitActorNr != -1 && LastHitActorNr != GetComponent<PhotonView>().ControllerActorNr;
     }
 

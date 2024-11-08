@@ -92,13 +92,7 @@ public class PlayerState
             HUD.HealthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = health / attributeSet.maxHealth;
         };
 
-        attributeSet.OnKilled += (id1, id2) =>
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                gameRoom.AddScore(id1, id2);
-            }
-        };
+
         AbilitySystem abilitySystem = characterObject.GetComponent<AbilitySystem>();
         //复活后之前的listenner没取消
         LongPressEventTrigger attackPressEventTrigger = HUD.button_attack.GetComponent<LongPressEventTrigger>();
@@ -124,5 +118,4 @@ public class PlayerState
 
     }
 
-    
 }

@@ -35,7 +35,6 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
     public delegate void DeathHandler();
     public event DeathHandler OnDied;
 
-
     private void Start()
     {
         currentHealth = health;
@@ -49,21 +48,11 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
 
     internal void DealDamage(GameObject instigator, float damage)
     {
-        
+        if (!isActiveAndEnabled) return;
         float prediectedCurrentHealth = currentHealth - damage;
         if(TryGetComponent<BattleSystem>(out BattleSystem battleSystem) && instigator.TryGetComponent<PhotonView>(out PhotonView photonView))
         {
             battleSystem.LastHitActorNr = photonView.ControllerActorNr;
-        }
-        if (prediectedCurrentHealth <= 0)
-        {
-            if (TryGetComponent<BattleSystem>(out BattleSystem battleSystemSelf) && TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
-            {
-                if (battleSystemSelf.WasDamaged())
-                {
-                    OnKilled?.Invoke(battleSystemSelf.LastHitActorNr,  photonviewSelf.ControllerActorNr);
-                }
-            }
         }
         SetCurrentHealth(prediectedCurrentHealth);
 
@@ -104,7 +93,7 @@ public class AttributeSet : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallb
     {
         GetComponentInChildren<Animator>().Play("Death");
         OnDied?.Invoke();
-
+        enabled = false;
         if (photonView.IsMine)
         {
             PlayerState.GetInstance().GetController().enabled = false;
