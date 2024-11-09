@@ -12,6 +12,7 @@ public class BattleSystem : MonoBehaviour
 
     public int LastHitActorNr { get; internal set; }
 
+    
     private void Awake()
     {
         LastHitActorNr = -1;

@@ -72,7 +72,7 @@ MonoBehaviour:
   maxSpeed: 10
   speed: 0
   accelerate: 5
-  decelerate: 9.5
+  decelerate: 8
   turnSpeed: 800
   shouldStop: 0
 --- !u!114 &4207489905532019253

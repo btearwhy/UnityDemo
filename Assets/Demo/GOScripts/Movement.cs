@@ -14,8 +14,10 @@ public class Movement : MonoBehaviourPun
     public float turnSpeed;
     public bool shouldStop;
 
+    private Rigidbody rigidbody;
     public void Awake()
     {
+
         if(TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
         {
             attributeSet.OnCurrentMaxSpeedChanged += (maxSpeed) =>
@@ -33,6 +35,7 @@ public class Movement : MonoBehaviourPun
     // Start is called before the first frame update
     private void Start()
     {
+        rigidbody = GetComponent<Rigidbody>();
         canMove = true;
         canRotate = true;
         shouldStop = false;
@@ -46,10 +49,10 @@ public class Movement : MonoBehaviourPun
             transform.GetChild(0).GetComponent<Animator>().SetFloat("Forward", speed / maxSpeed);
             Vector3 crossResult = Vector3.Cross(transform.forward, direction);
             //transform.GetChild(0).GetComponent<Animator>().SetFloat("Turn", Vector3.Dot(Vector3.up, crossResult) * crossResult.magnitude);
-            if (canRotate)
+/*            if (canRotate)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), turnSpeed * Time.deltaTime);
-            }
+            }*/
 
             if (shouldStop)
             {
@@ -63,11 +66,29 @@ public class Movement : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            transform.Translate(direction * speed * Time.fixedDeltaTime, Space.World);
+            float ratio = 1.0f;
+            if (Physics.Raycast(gameObject.transform.position, direction, out RaycastHit hit, 5.0f))
+            {
+
+                ratio = Mathf.Cos(Vector3.Angle(hit.normal, Vector3.up));
+                if(ratio < Mathf.Cos(Mathf.Deg2Rad * 45))
+                {
+                    ratio = 1;
+                }
+            }
+            if (rigidbody.velocity.y <= 0)
+            {
+                rigidbody.velocity = new Vector3(direction.x * speed / ratio, rigidbody.velocity.y, direction.z * speed / ratio);
+            }
+            else rigidbody.velocity = direction * speed / ratio;
         }
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), turnSpeed * Time.fixedDeltaTime);
+        if (canRotate)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction, Vector3.up), turnSpeed * Time.fixedDeltaTime);
+        }
     }
 
+    
     public void Decelerate()
     {
         speed -= decelerate * Time.deltaTime;
@@ -83,7 +104,7 @@ public class Movement : MonoBehaviourPun
         }
         direction = moveDirection;
 
-
+        
 
     }
 
