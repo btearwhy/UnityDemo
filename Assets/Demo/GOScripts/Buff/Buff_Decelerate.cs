@@ -14,10 +14,10 @@ public class Buff_Decelerate : Buff_Duration
         Percentage = percentage;
     }
 
-    public override void Added()
+   /* public override void Added()
     {
         base.Added();
-        
+
         if (Target.TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
         {
             delta = attributeSet.maxSpeed * Percentage;
@@ -29,9 +29,9 @@ public class Buff_Decelerate : Buff_Duration
     {
         base.Removed();
 
-        if(Target.TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
+        if (Target.TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
         {
             attributeSet.SetMaxSpeed(attributeSet.currentMaxSpeed + delta);
         }
-    }
+    }*/
 }

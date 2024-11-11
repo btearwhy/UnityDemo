@@ -26,6 +26,6 @@ MonoBehaviour:
   minAttackRange: 4
   maxAttackRange: 10
   attackRangeChargeSpeed: 6
-  effect_Data: {fileID: 11400000, guid: c52b2b1e66240bf4e842313ee1041a20, type: 2}
+  effect_Data: {fileID: 11400000, guid: 44c61af5c58f3c44381e0f2d016da3c5, type: 2}
   lineRenderer: {fileID: 481126304768689868, guid: 158489636c6d50d4290c11b03aa00742,
     type: 3}

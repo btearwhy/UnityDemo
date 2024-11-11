@@ -13,9 +13,6 @@ public class Ability_Absorb : Ability
     public float chargeSpeed;
     public int slotsNr;
 
-    [field: NonSerialized]
-    private Dictionary<Element, Buff> element2BuffName;
-
 
     /*    [field: NonSerialized]
         private Element?[] elements;*/
@@ -122,14 +119,12 @@ public class Ability_Absorb : Ability
                     if(percentage >= 1.0f)
                     {
                         var ele = AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("elements", worldProperty.element.ToString());
-                        Buff_Data buff_data = ((Element_Data)ele).buff;
-                        Buff buff = buff_data.CreateInstance();
-                        Effect effect_Buff = new Effect(buff);
-                        Buff_Instant buff_Instant = new Buff_Instant(1, effect_Buff, true);
-                        buff.Init(character, character);
+                        Effect effect = ((Element_Data)ele).effect.CreateInstance();
+
+
                         Image curImage = slotImage;
                         int tmp = curPos;
-                        buff.OnRemoved += () => {
+                        effect.OnRemoved += () => {
                             if(curBuffNum == slotsNr)
                             {
                                 curPos = tmp;
@@ -138,7 +133,9 @@ public class Ability_Absorb : Ability
                             elements[tmp] = null;
                             curBuffNum--;
                         };
-                        character.GetComponent<BattleSystem>().AddBuff(buff);
+
+                        BattleSystem battle = character.GetComponent<BattleSystem>();
+                        battle.ApplyEffect(effect, character);
 
                         slotImage.fillAmount = 1.0f;
                         percentage -= 1.0f;

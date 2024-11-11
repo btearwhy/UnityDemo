@@ -22,9 +22,9 @@ public class RisingWater : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
+        if(collision.gameObject.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
         {
-            attributeSet.DealDamage(gameObject, 1e+7f);
+            battleSystem.DealDamage(gameObject, 1e+7f);
         }
     }
 }

@@ -25,6 +25,6 @@ public class Buff_Duration : Buff
     {
         yield return new WaitForSeconds(time);
         BattleSystem battleSystem = Target.GetComponent<BattleSystem>();
-        battleSystem.RemoveBuff(this);
+        //battleSystem.RemoveEffect(this);
     }
 }

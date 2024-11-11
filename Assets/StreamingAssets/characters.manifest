@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2553781078
+CRC: 967175653
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c1b6b6fb0db098f017548c2f82418266
+    Hash: 0b3d436e65cee18f66016ec5cf97b953
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 0255fb9592e37188e2aaa1f0a55ed8c6
+    Hash: b5baf8d88a0f2c2d39f0214245608c95
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: c1b6b6fb0db098f017548c2f82418266
+    Hash: 0b3d436e65cee18f66016ec5cf97b953
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -27,6 +27,12 @@ ClassTypes:
 - Class: 54
   Script: {instanceID: 0}
 - Class: 74
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
   Script: {instanceID: 0}
 - Class: 90
   Script: {instanceID: 0}
@@ -62,11 +68,13 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 137
   Script: {instanceID: 0}
-- Class: 143
-  Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: Attribute
+- AssemblyName: Assembly-CSharp
+  ClassName: AttributeData
 - AssemblyName: PhotonUnityNetworking
   ClassName: Photon.Pun.PhotonAnimatorView/SynchronizedLayer
 - AssemblyName: PhotonUnityNetworking
@@ -74,4 +82,4 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/Data/BountyHunter.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/abilities
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities

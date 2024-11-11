@@ -18,3 +18,4 @@ MonoBehaviour:
   introduction: ' 2testmap 2'
   spawnPositions:
   - {x: 0, y: 5, z: 0}
+  backgoundMusic: {fileID: 8300000, guid: bea93a38b71b64b598109b3a3b1a0048, type: 3}

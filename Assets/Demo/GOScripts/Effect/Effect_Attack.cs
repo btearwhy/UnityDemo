@@ -4,37 +4,34 @@ using UnityEngine;
 using System;
 
 [System.Serializable]
-public class Effect_Attack : Effect
+public class Effect_Attack : Effect_Instant
 {
 
     public Effect_Attack() { }
-    public Effect_Attack(string data)
-    {
-        this.data = data;
-        Initialize();
-    }
 
+    public Effect_Attack(string name) :base(name){ }
     public override void Initialize()
     {
         base.Initialize();
     }
     // Start is called before the first frame update
 
-    public override void Apply(GameObject instigator, GameObject target)
-    {
-        base.Apply(instigator, target);
 
-        if (target.TryGetComponent<AttributeSet>(out AttributeSet targetAttributeSet) && instigator.TryGetComponent<AttributeSet>(out AttributeSet instigatorAttributeSet))
+    public override void Apply()
+    {
+        base.Apply();
+
+        if (Context.Target.TryGetComponent<AttributeSet>(out AttributeSet targetAttributeSet) && Context.Instigator.TryGetComponent<AttributeSet>(out AttributeSet instigatorAttributeSet))
         {
-            float damage = instigatorAttributeSet.attack - targetAttributeSet.defense;
+            float damage = instigatorAttributeSet.GetCurrentValue(AttributeType.Attack) - targetAttributeSet.GetCurrentValue(AttributeType.Defense);
             if (damage > 0)
             {
-                if (target.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
+                if (Context.Target.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
                 {
                     battleSystem.HitFlash(Color.white);
+                    battleSystem.DealDamage(Context.Instigator, damage);
                 }
             }
-            targetAttributeSet.DealDamage(instigator, damage);
         }
     }
 }

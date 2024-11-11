@@ -24,7 +24,7 @@ public class Buff
     public Buff(bool effectOnSelf) {
         this.effectOnSelf = effectOnSelf;
     }
-    public Buff(Buff_Data buff_data) { }
+
 
     public virtual void Apply()
     {

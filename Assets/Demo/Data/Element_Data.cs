@@ -7,6 +7,6 @@ public class Element_Data : ScriptableObject
 {
     public Element element;
 
-    public Buff_Data buff;
+    public Effect_Data effect;
 
 }

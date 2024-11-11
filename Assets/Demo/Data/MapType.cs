@@ -10,4 +10,5 @@ public class MapType : ScriptableObject
     public Sprite image;
     public string introduction;
     public List<Vector3> spawnPositions;
+    public AudioClip backgoundMusic;
 }

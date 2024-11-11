@@ -15,6 +15,7 @@ public class PlayerState
     private PlayerController playerController;
     public UI_Controller_BattleHUD HUD;
     private Character character;
+    private FloatingJoystick joyStick;
     private PlayerState() {
         gameRoom = GameRoom.gameRoom;
     }
@@ -79,22 +80,21 @@ public class PlayerState
     {
 
         HUD = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "BattleHUD")).GetComponent<UI_Controller_BattleHUD>();
-        /* GameObject healthBar = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "HealthBar")).transform.GetChild(0).GetChild(0).gameObject;
-         FloatingJoystick joyStick = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "Canvas_LeftJoystick")).transform.GetChild(0).GetComponent<FloatingJoystick>();*/
+        joyStick = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", "Canvas_Joystick")).transform.GetChild(0).GetComponent<FloatingJoystick>();
     }
     public void InitHUD()
     {
         GameObject characterObject = playerController.character;
         AttributeSet attributeSet = characterObject.GetComponent<AttributeSet>();
 
-        attributeSet.OnCurrentHealthChanged += (health) =>
+        attributeSet.OnHealthChanged += (health) =>
         {
-            HUD.HealthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = health / attributeSet.maxHealth;
+            HUD.HealthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = health / attributeSet.GetCurrentValue(AttributeType.MaxHealth);
         };
 
 
         AbilitySystem abilitySystem = characterObject.GetComponent<AbilitySystem>();
-        //复活后之前的listenner没取消
+
         LongPressEventTrigger attackPressEventTrigger = HUD.button_attack.GetComponent<LongPressEventTrigger>();
         LongPressEventTrigger skillPressEventTrigger = HUD.button_skill.GetComponent<LongPressEventTrigger>();
         attackPressEventTrigger.onLongPress.RemoveAllListeners();
@@ -114,7 +114,7 @@ public class PlayerState
 
         HUD.button_attack.GetComponent<Image>().sprite = abilitySystem.abilities[0].GetProtoData().icon;
         HUD.button_skill.GetComponent<Image>().sprite = abilitySystem.abilities[1].GetProtoData().icon;
-        playerController.joyStick = HUD.joystick;
+        playerController.joyStick = joyStick;
 
     }
 

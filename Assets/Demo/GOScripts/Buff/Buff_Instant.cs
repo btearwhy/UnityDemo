@@ -44,7 +44,7 @@ public class Buff_Instant : Buff
 
         AbilitySystem abilitySystem = Target.GetComponent<AbilitySystem>();
         Ability_Attack ability = abilitySystem.GetAttackAbility();
-        ability.OnEnded += () => Target.GetComponent<BattleSystem>().RemoveBuff(this);
+        //ability.OnEnded += () => Target.GetComponent<BattleSystem>().RemoveEffect(this);
     }
 
     public override void Removed()

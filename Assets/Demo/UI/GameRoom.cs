@@ -295,16 +295,21 @@ public class GameRoom : MonoBehaviourPunCallbacks
         
         if (newScore >= winCondition)
         {
-            Debug.Log("end with" + newScore);
-            //结算 但此方法仅master执行，最好做一个结算界面再结束。
-            PhotonNetwork.LoadLevel(endingScene);
+            photonView.RPC("EndGame_RPC", RpcTarget.All);
         }
         /* photonView.RPC("AddScoreRPC", RpcTarget.All, actorName, score);*/
     }
 
-/*    [PunRPC]
-    public void AddScoreRPC(int actorName, int score)
+    [PunRPC]
+    public void EndGame_RPC()
     {
-        
-    }*/
+        PlayerState.GetInstance().HUD.GetComponent<UI_Controller_BattleHUD>().scoreboard.SetActive(true);
+        IEnumerator WaitSeconds(float seconds)
+        {
+            yield return new WaitForSeconds(seconds);
+            PhotonNetwork.LoadLevel(endingScene);
+        }
+        StartCoroutine(WaitSeconds(10f));
+
+    }
 }

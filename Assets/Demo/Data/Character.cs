@@ -1,7 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public struct AttributeData
+{
+    public AttributeType type;
+    public float value;
+}
 public class Character : ScriptableObject
 {
     // Start is called before the first frame update
@@ -9,10 +16,7 @@ public class Character : ScriptableObject
     public Sprite avator;
     public GameObject modelPrefab;
 
-    public float maxSpeed;
-    public float maxHealth;
-    public float attack;
-    public float defense;
+    public List<AttributeData> initialAttributes;
     public List<Ability_Data> abilities;
     
 }

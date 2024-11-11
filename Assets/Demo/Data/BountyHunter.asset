@@ -16,10 +16,17 @@ MonoBehaviour:
   avator: {fileID: 21300000, guid: 77c8e4db152f76042bcd8c7632b5f4dd, type: 3}
   modelPrefab: {fileID: 3769354870167962771, guid: b66899bedc15c6e40861818c753f3d6b,
     type: 3}
-  maxSpeed: 10
-  maxHealth: 100
-  attack: 40
-  defense: 0
+  initialAttributes:
+  - type: 1
+    value: 100
+  - type: 0
+    value: 100
+  - type: 2
+    value: 30
+  - type: 3
+    value: 10
+  - type: 4
+    value: 7.5
   abilities:
   - {fileID: 11400000, guid: 9fcc409cd5b3b8543a0d670736702ecf, type: 2}
   - {fileID: 11400000, guid: c29231593eaea59428c0a2ab00cffa1e, type: 2}

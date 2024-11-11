@@ -51,14 +51,20 @@ public class GameLobby : MonoBehaviourPunCallbacks
     {
         Debug.Log("OnConnectedToMaster");
         //After we connected to Master server, join the Lobby
-        char t = 'z';
+        char t = 'z'; 
+        PhotonPeer.RegisterType(typeof(EffectContainer), (byte)t--, Serializer.Serialize<EffectContainer>, Serializer.Deserialize<EffectContainer>);
         PhotonPeer.RegisterType(typeof(Effect), (byte)t--, Serializer.Serialize<Effect>, Serializer.Deserialize<Effect>);
         PhotonPeer.RegisterType(typeof(Effect_Attack), (byte)t--, Serializer.Serialize<Effect_Attack>, Serializer.Deserialize<Effect_Attack>);
-        PhotonPeer.RegisterType(typeof(Buff), (byte)t--, Serializer.Serialize<Buff>, Serializer.Deserialize<Buff>);
-        PhotonPeer.RegisterType(typeof(Buff_Instant), (byte)t--, Serializer.Serialize<Buff_Instant>, Serializer.Deserialize<Buff_Instant>);
-        PhotonPeer.RegisterType(typeof(Buff_Duration), (byte)t--, Serializer.Serialize<Buff_Duration>, Serializer.Deserialize<Buff_Duration>);
-        PhotonPeer.RegisterType(typeof(Buff_Attack), (byte)t--, Serializer.Serialize<Buff_Duration>, Serializer.Deserialize<Buff_Attack>);
-        PhotonPeer.RegisterType(typeof(Buff_Decelerate), (byte)t--, Serializer.Serialize<Buff_Decelerate>, Serializer.Deserialize<Buff_Decelerate>);
+        PhotonPeer.RegisterType(typeof(Effect_AttachAttack), (byte)t--, Serializer.Serialize<Effect_AttachAttack>, Serializer.Deserialize<Effect_AttachAttack>);
+
+        PhotonPeer.RegisterType(typeof(Effect_ChangeAttackAbility), (byte)t--, Serializer.Serialize<Effect_ChangeAttackAbility>, Serializer.Deserialize<Effect_ChangeAttackAbility>);
+        PhotonPeer.RegisterType(typeof(Effect_Duration), (byte)t--, Serializer.Serialize<Effect_Duration>, Serializer.Deserialize<Effect_Duration>);
+        PhotonPeer.RegisterType(typeof(Effect_Duration_AttributeChangePercentage), (byte)t--, Serializer.Serialize<Effect_Duration_AttributeChangePercentage>, Serializer.Deserialize<Effect_Duration_AttributeChangePercentage>);
+        PhotonPeer.RegisterType(typeof(Effect_Instant), (byte)t--, Serializer.Serialize<Effect_Instant>, Serializer.Deserialize<Effect_Instant>);
+
+
+
+
         PhotonPeer.RegisterType(typeof(Ability), (byte)t--, Serializer.Serialize<Ability>, Serializer.Deserialize<Ability>);
         PhotonPeer.RegisterType(typeof(Ability_Attack), (byte)t--, Serializer.Serialize<Ability_Attack>, Serializer.Deserialize<Ability_Attack>);
         PhotonPeer.RegisterType(typeof(Ability_Absorb), (byte)t--, Serializer.Serialize<Ability_Absorb>, Serializer.Deserialize<Ability_Absorb>);

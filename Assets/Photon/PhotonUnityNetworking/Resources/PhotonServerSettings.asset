@@ -48,6 +48,8 @@ MonoBehaviour:
   - GrantAbility_RPC
   - SetCurrentHealth_RPC
   - SetMaxSpeed_RPC
+  - SetAttribute_RPC
+  - EndGame_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

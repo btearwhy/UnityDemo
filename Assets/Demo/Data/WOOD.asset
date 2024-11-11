@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: WOOD
   m_EditorClassIdentifier: 
   element: 0
-  buff: {fileID: 11400000, guid: 50bfe2680d1a65b419985704284a5321, type: 2}
+  effect: {fileID: 11400000, guid: f474ceca442c95642837e21de080a70f, type: 2}

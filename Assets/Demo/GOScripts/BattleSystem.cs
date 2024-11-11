@@ -4,9 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleSystem : MonoBehaviour
+public class BattleSystem : MonoBehaviourPunCallbacks
 {
-    List<Buff> carriedBuffs;
+    public delegate void KillHandler(int killerID, int victimID);
+    public event KillHandler OnKilled;
+
+
+    EffectContainer ActiveEffectContainer { get; set; }
     List<Color> _emisionColors = new List<Color>();
     SkinnedMeshRenderer[] meshRenderers;
 
@@ -15,8 +19,8 @@ public class BattleSystem : MonoBehaviour
     
     private void Awake()
     {
+        ActiveEffectContainer = new EffectContainer();
         LastHitActorNr = -1;
-        carriedBuffs = new List<Buff>();
         _emisionColors = new List<Color>();
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -28,27 +32,20 @@ public class BattleSystem : MonoBehaviour
                 _emisionColors.Add(material.GetColor("_EmissionColor"));
             }
         }
+
+        GetComponent<AttributeSet>().OnHealthChanged += (value) =>
+        {
+            if (value <= 0.0f)
+            {
+                Die();
+            }
+        };
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
-        {
-            attributeSet.OnDied += () =>
-            {
-                if (TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
-                {
-                    if (WasDamaged())
-                    {
-                        if (PhotonNetwork.IsMasterClient)
-                        {
-                            GameRoom.gameRoom.AddScore(LastHitActorNr, photonviewSelf.ControllerActorNr);
-                        }
-                    }
-                }
-            };
-        }
+       
     }
 
     // Update is called once per frame
@@ -57,60 +54,61 @@ public class BattleSystem : MonoBehaviour
         
     }
 
-    public void AddBuff(Buff buff)
+    private void AddEffect(Effect effect)
     {
-        Debug.Log(gameObject + " acqurie buff " + buff);
-        carriedBuffs.Add(buff);
-        buff.Added();
+        Debug.Log(gameObject + " acqurie buff " + effect);
+        ActiveEffectContainer.Add(effect);
+        effect.Added();
     }
 
-    public void RemoveBuff(Buff buff)
+    public void RemoveEffect(Effect effect)
     {
-        Debug.Log(gameObject + " remove buff " + buff);
-        carriedBuffs.Remove(buff);
-        buff.Removed();
+        Debug.Log(gameObject + " remove buff " + effect);
+        ActiveEffectContainer.Remove(effect);
+        effect.Removed();
     }
 
-    public List<Buff_Instant> GetAttackAttachedBuff()
-    {
-        List<Buff_Instant> instantBuffs = new List<Buff_Instant>();
-        foreach(Buff buff in carriedBuffs)
-        {
-            if(buff is Buff_Instant)
-            {
-                instantBuffs.Add(buff as Buff_Instant);
-            }
-        }
-        return instantBuffs;
-    }
 
 
     public void HitFlash(Color color, float interval = 0.2f)
     {
+        IEnumerator HitFlashCoroutine(Color color, float interval)
+        {
+            foreach (SkinnedMeshRenderer meshRender in meshRenderers)
+            {
+                foreach (Material material in meshRender.materials)
+                {
+                    material.SetColor("_EmissionColor", color);
+                }
+            }
+
+            yield return new WaitForSeconds(interval);
+
+            int index = 0;
+            foreach (SkinnedMeshRenderer meshRender in meshRenderers)
+            {
+                foreach (Material material in meshRender.materials)
+                {
+                    material.SetColor("_EmissionColor", _emisionColors[index]);
+                    index++;
+                }
+            }
+        }
+
         StartCoroutine(HitFlashCoroutine(color, interval));
-    } 
+    }
 
-    IEnumerator HitFlashCoroutine(Color color, float interval)
+    internal List<Effect_AttachAttack> GetAttackAttachedEffects()
     {
-        foreach (SkinnedMeshRenderer meshRender in meshRenderers)
+        List<Effect_AttachAttack> effects = new List<Effect_AttachAttack>();
+        foreach(Effect effect in ActiveEffectContainer)
         {
-            foreach (Material material in meshRender.materials)
+            if(effect.GetType().IsAssignableFrom(typeof(Effect_AttachAttack)))
             {
-                material.SetColor("_EmissionColor", color);
+                effects.Add((Effect_AttachAttack)effect);
             }
         }
-
-        yield return new WaitForSeconds(interval);
-
-        int index = 0;
-        foreach (SkinnedMeshRenderer meshRender in meshRenderers)
-        {
-            foreach (Material material in meshRender.materials)
-            {
-                material.SetColor("_EmissionColor", _emisionColors[index]);
-                index++;
-            }
-        }
+        return effects;
     }
 
     internal bool WasDamaged()
@@ -120,21 +118,60 @@ public class BattleSystem : MonoBehaviour
         return LastHitActorNr != -1 && LastHitActorNr != GetComponent<PhotonView>().ControllerActorNr;
     }
 
-    public static void AttachBuffToEffect(ref Effect effect, Buff_Instant buff)
+
+    internal void ApplyEffect(Effect effect, GameObject instigator)
     {
-        effect.buffs.Add(buff);
-        buff.OnRemoved.Invoke();
+        effect.SetContext(instigator, gameObject);
+        if (typeof(Effect_Instant).IsAssignableFrom(effect.GetType()))
+        {
+            effect.Apply();
+        }
+        else if (typeof(Effect_Duration).IsAssignableFrom(effect.GetType())){
+            AddEffect(effect);
+        }
     }
 
-    internal Buff_Instant GetOneAttackAttachedBuff()
+    internal void DealDamage(GameObject instigator, float damage)
     {
-        foreach(Buff buff in carriedBuffs)
+        AttributeSet attributeSet = GetComponent<AttributeSet>();
+        if (!isActiveAndEnabled) return;
+        float prediectedCurrentHealth = attributeSet.GetCurrentValue(AttributeType.Health) - damage;
+        if (TryGetComponent<BattleSystem>(out BattleSystem battleSystem) && instigator.TryGetComponent<PhotonView>(out PhotonView photonView))
         {
-            if(buff is Buff_Instant)
+            battleSystem.LastHitActorNr = photonView.ControllerActorNr;
+        }
+        attributeSet.SetAttribute(AttributeType.Health, prediectedCurrentHealth);
+
+    }
+
+    private void Die()
+    {
+        enabled = false;
+        GetComponentInChildren<Animator>().Play("Death");
+
+        if (TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
+        {
+            if (WasDamaged())
             {
-                return buff as Buff_Instant;
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    GameRoom.gameRoom.AddScore(LastHitActorNr, photonviewSelf.ControllerActorNr);
+                }
             }
         }
-        return null;
+
+
+        if (photonView.IsMine)
+        {
+            PlayerState.GetInstance().GetController().enabled = false;
+            IEnumerator DestroyAfterSeconds(float seconds)
+            {
+                yield return new WaitForSeconds(seconds);
+                PlayerState.GetInstance().Respawn();
+                PhotonNetwork.Destroy(gameObject);
+            }
+            StartCoroutine(DestroyAfterSeconds(5));
+        }
+
     }
 }

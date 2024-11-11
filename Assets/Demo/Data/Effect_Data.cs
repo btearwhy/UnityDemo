@@ -7,10 +7,6 @@ using UnityEngine;
 
 public class Effect_Data : ScriptableObject
 {
-    public readonly string resourceName;
-
-    public List<Buff_Data> buffs_data;
-
     public virtual Effect CreateInstance()
     {
         return new Effect(name);

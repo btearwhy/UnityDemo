@@ -1,39 +1,36 @@
 ManifestFileVersion: 0
-CRC: 2451609540
+CRC: 730314806
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: controllers
-      Dependencies: {}
-    Info_1:
-      Name: abilities
-      Dependencies:
-        Dependency_0: lines
-        Dependency_1: effects
-    Info_2:
-      Name: maps
-      Dependencies: {}
-    Info_3:
       Name: ui
       Dependencies: {}
+    Info_1:
+      Name: maps
+      Dependencies: {}
+    Info_2:
+      Name: elements
+      Dependencies:
+        Dependency_0: effects
+    Info_3:
+      Name: abilities
+      Dependencies:
+        Dependency_0: effects
+        Dependency_1: lines
     Info_4:
+      Name: controllers
+      Dependencies: {}
+    Info_5:
+      Name: effects
+      Dependencies:
+        Dependency_0: abilities
+    Info_6:
       Name: characters
       Dependencies:
         Dependency_0: abilities
-    Info_5:
+    Info_7:
       Name: lines
       Dependencies: {}
-    Info_6:
-      Name: buffs
-      Dependencies: {}
-    Info_7:
-      Name: elements
-      Dependencies:
-        Dependency_0: buffs
     Info_8:
-      Name: effects
-      Dependencies:
-        Dependency_0: buffs
-    Info_9:
       Name: languages
       Dependencies: {}

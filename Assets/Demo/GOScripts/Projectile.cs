@@ -8,38 +8,36 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
 {
     public GameObject FlyingVisual;
     public GameObject ImpactVisual;
-    public AudioSource flyingAudio;
-    public AudioSource impactAudio;
+    public AudioClip FlyingAudio;
+    public AudioClip ImpactAudio;
 
     public GameObject instigator;
     public float effectRange;
     public float initSpeed;
     public float impactForce;
     public float explosionDelay;
-    public List<Effect> effects;
+
+    private AudioSource audioSource;
+    public EffectContainer EffectContainer { get; set; }
 
     private bool collided;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = FlyingAudio;
+        audioSource.Play();
         collided = false;
         if(FlyingVisual != null)
         {
             Instantiate(FlyingVisual, transform);
         }
-        if(flyingAudio != null)
-        {
-            flyingAudio.Play();
-        }
+        
         
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         //impactAudio.Play();
-        if (impactAudio != null)
-        {
-            impactAudio.Play();
-        }
         
         if (collision.collider.gameObject != instigator && !collided)
         {
@@ -50,6 +48,7 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
 
     public void Explode()
     {
+        audioSource.PlayOneShot(ImpactAudio, AudioManager.soundRatio);
         Instantiate(ImpactVisual, transform.position, Quaternion.identity);
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, effectRange);
         foreach (var hitCollider in hitColliders)
@@ -63,24 +62,25 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
                 force *= impactForce;
                 rigidbody.AddForce(force, ForceMode.Impulse);
             }
-            foreach (Effect effect in effects)
+            if(hitCollider.gameObject.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
             {
-                effect.Apply(instigator, hitCollider.gameObject);
+                foreach (Effect effect in EffectContainer)
+                {
+                    battleSystem.ApplyEffect(effect, instigator);
+                }
             }
-        }
 
+        }
+        gameObject.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
             IEnumerator DestroyDelay(GameObject gameObject)
             {
                 yield return new WaitForSeconds(1.0f);
+                gameObject.SetActive(true);
                 PhotonNetwork.Destroy(gameObject);
             }
             StartCoroutine(DestroyDelay(gameObject));
-        }
-        else
-        {
-            gameObject.SetActive(false);
         }
     }
 
@@ -92,9 +92,6 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
         instigator = PhotonView.Find(photonViewID).gameObject;
         GetComponent<Rigidbody>().velocity = (Vector3)parameters[1];
         GetComponent<Rigidbody>().useGravity = (bool)parameters[2];
-        for(int i = 3; i < parameters.Length; i++)
-        {
-            effects.Add((Effect)parameters[i]);
-        }
+        EffectContainer = (EffectContainer)parameters[3];
     }
 }

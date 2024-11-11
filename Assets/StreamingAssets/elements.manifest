@@ -1,21 +1,23 @@
 ManifestFileVersion: 0
-CRC: 1932979074
+CRC: 1108606309
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2f6bd4917986e14b3aed51c682366979
+    Hash: 139dc66ffacba606a8ce52ea8a2f060a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: fc04ec1329c25dc380741d3c8b4db157
+    Hash: e5d0d4106f81cb6cacb5ca26e5256eda
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 2f6bd4917986e14b3aed51c682366979
+    Hash: 139dc66ffacba606a8ce52ea8a2f060a
 HashAppended: 0
 ClassTypes:
 - Class: 114
+  Script: {fileID: 11500000, guid: d4b0e37617c85194ab279a857e2a26e9, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 18b22a4c6333b3546b6128da33c30ccb, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: ea91586e0f6c8914ebfb080c0a41946e, type: 3}
+  Script: {fileID: 11500000, guid: a4966d06f12c2ce4dbd3f3393c6360f8, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
@@ -23,4 +25,4 @@ Assets:
 - Assets/Demo/Data/WOOD.asset
 - Assets/Demo/Data/STONE.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/buffs
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/effects

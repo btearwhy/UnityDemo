@@ -33,12 +33,12 @@ public class UIController_Canvas_Settings : MonoBehaviour
 
         sliderMusic.onValueChanged.AddListener((value) =>
         {
-            //改音量
+            AudioManager.ChangeMusic(value);
         });
         
         sliderSound.onValueChanged.AddListener((value) =>
         {
-            //改音量
+            AudioManager.ChangeSound(value);
         });
 
     }

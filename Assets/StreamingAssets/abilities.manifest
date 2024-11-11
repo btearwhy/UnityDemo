@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 18623112
+CRC: 1710988759
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 44a47b759b85887fdaa0a7726ae9340b
+    Hash: ee0a8874181c924bd15b4843e90af705
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2d36c87d888f4ae2d05dc3e4a3b8f78a
+    Hash: 94cca18a63c9ce894a847a006f251626
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 44a47b759b85887fdaa0a7726ae9340b
+    Hash: ee0a8874181c924bd15b4843e90af705
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -29,6 +29,10 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 54
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
   Script: {instanceID: 0}
 - Class: 108
   Script: {instanceID: 0}
@@ -51,9 +55,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 9205bc1bbacc90040a998067b5643d16, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: d331fc6cf137d354bb70f12f9bfb56f3, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4307600fc5eab044886b84a57ce0391a, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 135
@@ -86,5 +90,5 @@ Assets:
 - Assets/Demo/Data/AttackAbility_Wood.asset
 - Assets/Demo/Data/AttackAbility.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/effects
-- D:/3D mobile/Assets/StreamingAssets/lines
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/effects
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/lines

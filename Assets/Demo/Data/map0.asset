@@ -19,3 +19,4 @@ MonoBehaviour:
   spawnPositions:
   - {x: 0, y: 10, z: 0}
   - {x: 5, y: 10, z: 0}
+  backgoundMusic: {fileID: 8300000, guid: 5b1ed8fbe89154eaf96723b6e5f0aad3, type: 3}

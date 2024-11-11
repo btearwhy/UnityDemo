@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 4184561151
+CRC: 3067790949
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 19c700d7260414eac47304521c15d54b
+    Hash: b4efa9c9904979717301b5e675ad5de6
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 92ebf64489659347ab68a927cab4bd2a
+    Hash: 767e0c0d9dea53c0feee88ef6cfd9e6d
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 19c700d7260414eac47304521c15d54b
+    Hash: b4efa9c9904979717301b5e675ad5de6
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -78,6 +78,8 @@ ClassTypes:
   Script: {fileID: 11500000, guid: b891242c3f1432e4f8a257ea6f72ec4c, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 584ad0d0bd8d40949913d67fbc21e3be, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: da2d212b1b4ad844dbda42cad2d3d2c1, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -152,6 +154,7 @@ SerializeReferenceClassIdentifiers:
 Assets:
 - Assets/Demo/UI/Scoreboard.prefab
 - Assets/Demo/UI/ScoreItem.prefab
+- Assets/Demo/UI/Canvas_Joystick.prefab
 - Assets/Demo/UI/BattleHUD.prefab
 - Assets/Demo/UI/Canvas_Settings.prefab
 - Assets/Demo/UI/UI_Main.prefab

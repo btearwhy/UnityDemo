@@ -10,15 +10,15 @@ public class AssetDatabaseTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-/*        TextTable so = AssetDatabase.LoadAssetAtPath<TextTable>("Assets/Demo/Data/TextTable.asset");
+      /*  Effect_Instant_Attack_Data so = AssetDatabase.LoadAssetAtPath<Effect_Instant_Attack_Data>("Assets/Demo/Data/Effect_Instant_Attack_Data.asset");
         if (so == null)
         {
             // Create and save ScriptableObject because it doesn't exist yet
-            so = ScriptableObject.CreateInstance<TextTable>();
-            AssetDatabase.CreateAsset(so, "Assets/Demo/Data/TextTable.asset");
+            so = ScriptableObject.CreateInstance<Effect_Instant_Attack_Data>();
+            AssetDatabase.CreateAsset(so, "Assets/Demo/Data/Effect_Instant_Attack_Data.asset");
         }*/
     }
-
+        
     // Update is called once per frame
     void Update()
     {

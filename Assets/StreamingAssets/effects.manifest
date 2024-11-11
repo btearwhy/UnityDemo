@@ -1,29 +1,43 @@
 ManifestFileVersion: 0
-CRC: 2538650940
+CRC: 3517573054
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 4f1f428685180f86c8c163f16134459a
+    Hash: 2ca74a27b6fe6bf56d726e423753c7bb
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4154bf0ae04e135cf215e7add9940aed
+    Hash: 850efef54d0988b56a703af274d201a7
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 4f1f428685180f86c8c163f16134459a
+    Hash: 2ca74a27b6fe6bf56d726e423753c7bb
 HashAppended: 0
 ClassTypes:
 - Class: 114
+  Script: {fileID: 11500000, guid: d4b0e37617c85194ab279a857e2a26e9, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 27c435fcc3041cd4abccb2da68312071, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 44aa8f5a5acada449b3833a8ec22debd, type: 3}
+  Script: {fileID: 11500000, guid: 3b3fa239a683a774f9af74b64cce327c, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: d331fc6cf137d354bb70f12f9bfb56f3, type: 3}
+  Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8d12e366829031c44b4b7e52d14ad480, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cc39e568c8567cf40b50a3e7abfc2a56, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a4966d06f12c2ce4dbd3f3393c6360f8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4307600fc5eab044886b84a57ce0391a, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Demo/Data/Effect_Duration_Data.asset
 - Assets/Demo/Data/Effect_Data.asset
-- Assets/Demo/Data/Effect_Decelerate.asset
-- Assets/Demo/Data/Effect_Attack_Data.asset
+- Assets/Demo/Data/Effect_Duration_AttackAbility_Data.asset
+- Assets/Demo/Data/Effect_Damage.asset
+- Assets/Demo/Data/Effect_Duration_Decelerate_Data.asset
+- Assets/Demo/Data/Effect_Duration_AttackAttached_Data.asset
+- Assets/Demo/Data/Effect_Instant_Data.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/buffs
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities

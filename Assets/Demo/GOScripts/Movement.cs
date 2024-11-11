@@ -20,7 +20,7 @@ public class Movement : MonoBehaviourPun
 
         if(TryGetComponent<AttributeSet>(out AttributeSet attributeSet))
         {
-            attributeSet.OnCurrentMaxSpeedChanged += (maxSpeed) =>
+            attributeSet.OnMaxSpeedChanged += (maxSpeed) =>
             {
                 this.maxSpeed = maxSpeed;
                 this.speed = Mathf.Clamp(speed, 0, maxSpeed);

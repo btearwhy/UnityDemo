@@ -7,6 +7,8 @@ using UnityEngine;
 [System.Serializable]
 public class Ability_Attack : Ability
 {
+    public static EventHandler OnPreAttack;
+    public static EventHandler OnPostAttack;
 
     public string fireSocket;
 
@@ -24,7 +26,7 @@ public class Ability_Attack : Ability
     public float minAttackRange;
     public float maxAttackRange;
     public float attackRangeChargeSpeed;
-    public Effect effect;
+    public EffectContainer EffectContainer;
 
 
 
@@ -56,37 +58,35 @@ public class Ability_Attack : Ability
         this.minAttackRange = ability_attack_data.minAttackRange;
         this.maxAttackRange = ability_attack_data.maxAttackRange;
         this.attackRangeChargeSpeed = ability_attack_data.attackRangeChargeSpeed;
-        this.effect = ability_attack_data.effect_Data.CreateInstance();
+        this.EffectContainer = new EffectContainer(ability_attack_data.effect_Data.CreateInstance());
         this.lineRenderer = GameObject.Instantiate(ability_attack_data.lineRenderer).GetComponent<LineRenderer>();
+    }
+    public virtual void PreFire()
+    {
+        if (character.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
+        {
+            List<Effect_AttachAttack> effects= battleSystem.GetAttackAttachedEffects();
+            foreach(Effect_AttachAttack effect in effects)
+            {
+                EffectContainer.Add(effect.AttachedEffect);
+                battleSystem.RemoveEffect(effect);
+            }
+        }
     }
 
     public override void Fire(Transform transform, Transform trans_projectileSpawnSocket)
     {
+        PreFire();
         base.Fire(transform, trans_projectileSpawnSocket);
+
         
         if (PhotonNetwork.IsMasterClient)
         {
-            List<Effect> effects = new List<Effect>();
-            if(character.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
-            {
-                Buff_Instant buff = battleSystem.GetOneAttackAttachedBuff();
-                if(buff != null)
-                {
-                    effects.AddRange(buff.EffectsOnSelf);
-                    effects.AddRange(buff.EffectsOnEnemy);
-                    battleSystem.RemoveBuff(buff);
-                }
-            }
-            object[] parameters = new object[4 + effects.Count];
+            object[] parameters = new object[4];
             parameters[0] = character.GetPhotonView().ViewID;
             parameters[1] = GetProjectileVelocity(character.transform.forward, attackRange, initialAngle, projectileGravity?Physics.gravity:Vector3.zero, projectileSpeed);
             parameters[2] = projectileGravity;
-            int i = 3;
-            for(; i < effects.Count + 3; i++)
-            {
-                parameters[i] = effects[i - 3];
-            }
-            parameters[i] = effect;
+            parameters[3] = EffectContainer;
             PhotonNetwork.Instantiate(projectileName, trans_projectileSpawnSocket.position, Quaternion.AngleAxis(initialAngle, Vector3.Cross(character.transform.forward, character.transform.up)) * character.transform.rotation, 0, parameters);
         }
         OnFired?.Invoke();
