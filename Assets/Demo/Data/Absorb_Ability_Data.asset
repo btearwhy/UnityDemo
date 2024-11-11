@@ -24,7 +24,8 @@ MonoBehaviour:
     type: 3}
   slotBarCanvas: {fileID: 7431605248844079147, guid: 1467ea36104695149af27e6035382f71,
     type: 3}
-  elements: 0000000001000000
+  elements: 000000000100000002000000
   slotImages:
   - {fileID: 7737292225741504696, guid: 0a6ec8694e2359742afeda85351c2bf2, type: 3}
   - {fileID: 7737292225741504696, guid: 6b8b0d0850e8999449feff0f0615d7ac, type: 3}
+  - {fileID: 7737292225741504696, guid: d7b40afdc742d3442becbbfe961c4f86, type: 3}

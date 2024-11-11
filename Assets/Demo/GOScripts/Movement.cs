@@ -35,6 +35,7 @@ public class Movement : MonoBehaviourPun
     // Start is called before the first frame update
     private void Start()
     {
+        maxSpeed = GetComponent<AttributeSet>().GetCurrentValue(AttributeType.MaxSpeed);
         rigidbody = GetComponent<Rigidbody>();
         canMove = true;
         canRotate = true;

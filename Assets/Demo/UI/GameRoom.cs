@@ -190,7 +190,10 @@ public class GameRoom : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(playerController.character);
         }
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
-        Destroy(gameRoom);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameRoom.gameObject);
+        }
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)

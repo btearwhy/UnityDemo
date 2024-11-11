@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 124156428
+CRC: 2593325116
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fe74557baa7e4ac9e1edbc42bb9835ab
+    Hash: ff077bc19f75d0ddde613a31bd25d6da
   TypeTreeHash:
     serializedVersion: 2
-    Hash: ce344e268affaf8289e2708d107eaf6e
+    Hash: f594f627eed99c494bb1e398a4c20fc0
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: fe74557baa7e4ac9e1edbc42bb9835ab
+    Hash: ff077bc19f75d0ddde613a31bd25d6da
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -42,8 +42,6 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 33d1063e4aef8f1429d553d97e62cccc, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 27c435fcc3041cd4abccb2da68312071, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: c56be9f6cd14dc24aa0dbc84afc4d868, type: 3}
 - Class: 114
@@ -90,5 +88,5 @@ Assets:
 - Assets/Demo/Data/AttackAbility_Wood.asset
 - Assets/Demo/Data/AttackAbility.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/effects
-- D:/3D mobile/Assets/StreamingAssets/lines
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/effects
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/lines

@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 392088175
+CRC: 2148099372
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 06a810ca00ee6655440f02a24585ea92
+    Hash: 2a46e9c9587d74ddd1ea84f8d1070762
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 2f33a501fb2d81595b2151b00a3a8fc2
+    Hash: cb1289e35bda41c95d3c3e3cf8920dba
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 06a810ca00ee6655440f02a24585ea92
+    Hash: 2a46e9c9587d74ddd1ea84f8d1070762
 HashAppended: 0
 ClassTypes:
 - Class: 114
@@ -28,16 +28,20 @@ ClassTypes:
   Script: {fileID: 11500000, guid: 8d12e366829031c44b4b7e52d14ad480, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: a4966d06f12c2ce4dbd3f3393c6360f8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: ed112315116684e41b3c5bac1f9bd057, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Data/Effect_Duration_Data.asset
 - Assets/Demo/Data/Effect_Data.asset
+- Assets/Demo/Data/Effect_Duration_Dot_Data.asset
 - Assets/Demo/Data/Effect_Duration_AttackAbility_Data.asset
 - Assets/Demo/Data/Effect_Damage.asset
 - Assets/Demo/Data/Effect_Duration_Decelerate_Data.asset
+- Assets/Demo/Data/Effect_Duration_AttackAttached_Dot.asset
 - Assets/Demo/Data/Effect_Duration_AttackAttached_Data.asset
 - Assets/Demo/Data/Effect_Instant_Data.asset
 Dependencies:
-- D:/3D mobile/Assets/StreamingAssets/abilities
+- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities
