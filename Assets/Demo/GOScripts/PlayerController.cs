@@ -10,14 +10,14 @@ using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 public class PlayerController : MonoBehaviour
 {
     public float armLength;
-    public float minArmLength = 1.0f;
-    public float maxArmLength = 15.0f;
-    public float cameraVertical = 45;
-    public float cameraHorizontal = 180;
-    public float cameraTilt = 0;
+    public float minArmLength;
+    public float maxArmLength;
+    public float cameraVertical;
+    public float cameraHorizontal;
+    public float cameraTilt;
 
-    public float rotateSpeed = 40;
-    public float zoomSpeed = 2;
+    public float rotateSpeed;
+    public float zoomSpeed;
 
     public GameObject character;
 
@@ -38,14 +38,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
 
-        armLength = 7.0f;
-        minArmLength = 1.0f;
-        maxArmLength = 15.0f;
-        cameraVertical = 45;
-        cameraHorizontal = 180;
-        cameraTilt = 0;
-
-        rotateSpeed = 10;
+        armLength = 7;
+        minArmLength = 3;
+        maxArmLength = 8;
+        rotateSpeed = 40;
         zoomSpeed = 2;
 
         inputActions = new InputActions();
@@ -264,7 +260,7 @@ public class PlayerController : MonoBehaviour
         transform.position = character.transform.position;
         cameraHorizontal += cameraVector2f.x * rotateSpeed * Time.deltaTime;
         armLength -= cameraVector2f.y * zoomSpeed * Time.deltaTime;
-        armLength = Mathf.Clamp(armLength, maxArmLength, maxArmLength);
+        armLength = Mathf.Clamp(armLength, minArmLength, maxArmLength);
         foreach (Transform child in transform)
         {
             child.localPosition = Vector3.up * armLength;

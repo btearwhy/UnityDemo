@@ -454,14 +454,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae96c67d0315df4dac054be65cb1d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armLength: 0
+  armLength: 7
   minArmLength: 1
-  maxArmLength: 15
+  maxArmLength: 8
   cameraVertical: 45
   cameraHorizontal: 180
   cameraTilt: 0
-  rotateSpeed: 0
-  zoomSpeed: 0
+  rotateSpeed: 40
+  zoomSpeed: 2
   character: {fileID: 0}
   MoveInput: {x: 0, y: 0}
   joyStick: {fileID: 0}

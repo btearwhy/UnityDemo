@@ -6,8 +6,7 @@ public class AudioManager : MonoBehaviour
 {
     public static float soundRatio = 0.7f;
     public static float musicRatio = 0.1f;
-
-    private void Start()
+    private void Awake()
     {
         if (PlayerPrefs.HasKey("Sound"))
         {
@@ -19,6 +18,11 @@ public class AudioManager : MonoBehaviour
         }
         ChangeMusic(musicRatio);
         ChangeSound(soundRatio);
+    }
+
+    private void Start()
+    {
+       
     }
     public static void ChangeSound(float value)
     {

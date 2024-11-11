@@ -31,11 +31,13 @@ public class UIController_Canvas_Settings : MonoBehaviour
         }
         );
 
+        sliderMusic.value = AudioManager.musicRatio;
         sliderMusic.onValueChanged.AddListener((value) =>
         {
             AudioManager.ChangeMusic(value);
         });
-        
+
+        sliderSound.value = AudioManager.soundRatio;
         sliderSound.onValueChanged.AddListener((value) =>
         {
             AudioManager.ChangeSound(value);
