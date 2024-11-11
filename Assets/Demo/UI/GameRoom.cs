@@ -308,6 +308,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
         {
             yield return new WaitForSeconds(seconds);
             PhotonNetwork.LoadLevel(endingScene);
+            PhotonNetwork.LeaveLobby();
         }
         StartCoroutine(WaitSeconds(10f));
 

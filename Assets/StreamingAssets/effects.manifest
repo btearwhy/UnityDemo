@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3517573054
+CRC: 392088175
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2ca74a27b6fe6bf56d726e423753c7bb
+    Hash: 06a810ca00ee6655440f02a24585ea92
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 850efef54d0988b56a703af274d201a7
+    Hash: 2f33a501fb2d81595b2151b00a3a8fc2
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 2ca74a27b6fe6bf56d726e423753c7bb
+    Hash: 06a810ca00ee6655440f02a24585ea92
 HashAppended: 0
 ClassTypes:
 - Class: 114
@@ -17,17 +17,17 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 27c435fcc3041cd4abccb2da68312071, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 4307600fc5eab044886b84a57ce0391a, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: 3b3fa239a683a774f9af74b64cce327c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cc39e568c8567cf40b50a3e7abfc2a56, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 7881d427b31d660458648a986bd90aab, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 8d12e366829031c44b4b7e52d14ad480, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: cc39e568c8567cf40b50a3e7abfc2a56, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: a4966d06f12c2ce4dbd3f3393c6360f8, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: 4307600fc5eab044886b84a57ce0391a, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
@@ -40,4 +40,4 @@ Assets:
 - Assets/Demo/Data/Effect_Duration_AttackAttached_Data.asset
 - Assets/Demo/Data/Effect_Instant_Data.asset
 Dependencies:
-- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities
+- D:/3D mobile/Assets/StreamingAssets/abilities

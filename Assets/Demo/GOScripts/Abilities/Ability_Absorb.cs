@@ -97,7 +97,7 @@ public class Ability_Absorb : Ability
 
     internal override void Held()
     {
-        //base.Held();
+        base.Held();
         
         if (Physics.SphereCast(character.GetComponentInChildren<SkinnedMeshRenderer>().bounds.center, detectRadius, character.transform.forward, out RaycastHit rayCastHit, detectRange/*, ~(1 << character.layer)*/))
         {
@@ -178,6 +178,6 @@ public class Ability_Absorb : Ability
     
     internal override void Released()
     {
-        //base.Released();
+        base.Released();
     }
 }

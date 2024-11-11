@@ -74,10 +74,11 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
         gameObject.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
+            gameObject.SetActive(true);
             IEnumerator DestroyDelay(GameObject gameObject)
             {
                 yield return new WaitForSeconds(1.0f);
-                gameObject.SetActive(true);
+
                 PhotonNetwork.Destroy(gameObject);
             }
             StartCoroutine(DestroyDelay(gameObject));
