@@ -21,11 +21,11 @@ MonoBehaviour:
   projectilePrefab: {fileID: 9097458414496180448, guid: 0f1fd2c843a30ae488d82b721c6962ec,
     type: 3}
   projectileGravity: 0
-  projectileSpeed: 10
+  projectileSpeed: 15
   initialAngle: 0
   minAttackRange: 5000
   maxAttackRange: 5000
   attackRangeChargeSpeed: 6
-  effect_Data: {fileID: 11400000, guid: aeeb85f0e886e1b43840a5e8bc475e03, type: 2}
+  effect_Data: {fileID: 11400000, guid: 44c61af5c58f3c44381e0f2d016da3c5, type: 2}
   lineRenderer: {fileID: 481126304768689868, guid: 158489636c6d50d4290c11b03aa00742,
     type: 3}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static float soundRatio = 0.7f;
+    public static float soundRatio = 0.8f;
     public static float musicRatio = 0.1f;
     private void Awake()
     {

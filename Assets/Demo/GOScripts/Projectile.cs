@@ -71,10 +71,9 @@ public class Projectile : MonoBehaviour, IPunInstantiateMagicCallback
             }
 
         }
-        gameObject.SetActive(false);
+        gameObject.transform.localScale = Vector3.zero;
         if (PhotonNetwork.IsMasterClient)
         {
-            gameObject.SetActive(true);
             IEnumerator DestroyDelay(GameObject gameObject)
             {
                 yield return new WaitForSeconds(1.0f);

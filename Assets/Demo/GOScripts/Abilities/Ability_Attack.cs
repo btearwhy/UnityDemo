@@ -34,7 +34,7 @@ public class Ability_Attack : Ability
 
     public string lineName;
     [field: NonSerialized]
-    private LineRenderer lineRenderer;
+    private static LineRenderer lineRenderer;
     private int numberOfPoints;
 
     public Ability_Attack() { }
@@ -43,6 +43,8 @@ public class Ability_Attack : Ability
     {
         
     }
+
+
 
     public override void Initialize()
     {
@@ -59,7 +61,11 @@ public class Ability_Attack : Ability
         this.maxAttackRange = ability_attack_data.maxAttackRange;
         this.attackRangeChargeSpeed = ability_attack_data.attackRangeChargeSpeed;
         this.EffectContainer = new EffectContainer(ability_attack_data.effect_Data.CreateInstance());
-        this.lineRenderer = GameObject.Instantiate(ability_attack_data.lineRenderer).GetComponent<LineRenderer>();
+        if(lineRenderer == null)
+        {
+            lineRenderer = GameObject.Instantiate(ability_attack_data.lineRenderer).GetComponent<LineRenderer>();
+
+        }
     }
     public virtual void PreFire()
     {
@@ -126,7 +132,7 @@ public class Ability_Attack : Ability
         base.End();
         attackRange = minAttackRange;
         character.GetComponent<Movement>().ResetStatus();
-        OnEnded?.Invoke();
+
     }
 
     internal override void HandleAnimationEvent(string dispatch)
@@ -156,7 +162,6 @@ public class Ability_Attack : Ability
         }
         attackRange = minAttackRange;
 
-        lineRenderer = GameObject.Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("lines", "LineStrip")).GetComponent<LineRenderer>();
         lineRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         numberOfPoints = 30;
     }
@@ -203,4 +208,5 @@ public class Ability_Attack : Ability
         Vector3 velocity = new Vector3(direction.x * velocityHorizontal, velocityVertical, direction.z * velocityHorizontal);
         return velocity;
     }
+
 }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInfinite: 0
   duration: 5
-  percentage: 0.9
+  percentage: 0.5
   attrbiuteType: 4

@@ -24,13 +24,13 @@ public class UI_Controller_GameRoom : MonoBehaviour
     public Button button_ready;
     public TMP_Text text_button_ready;
     public TMP_Text text_button_start;
-    private string chosenMap;
     private List<GameObject> seats;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gameRoom = GameRoom.gameRoom;
         gameRoom.OnInit += GUIInit;
 
     }
@@ -142,5 +142,10 @@ public class UI_Controller_GameRoom : MonoBehaviour
             }
         }
         
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("ui room destroyed");
     }
 }

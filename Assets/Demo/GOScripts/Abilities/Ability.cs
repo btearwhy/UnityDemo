@@ -68,7 +68,9 @@ public class Ability
 
     }
 
-    internal virtual void End() { }
+    internal virtual void End() {
+        OnEnded?.Invoke();
+    }
 
     internal virtual Ability_Data GetProtoData()
     {

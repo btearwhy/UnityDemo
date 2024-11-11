@@ -1,0 +1,47 @@
+ManifestFileVersion: 0
+CRC: 366630180
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d75560198f1ec676e28728d75d7bd8d7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a34d923a97bc9aa53a83ece8cd7d75bc
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: d75560198f1ec676e28728d75d7bd8d7
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: eb0ba1b8b57c3f54db21d2f572bc8069, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f7e007cefb05ba0469f8a1c71ed11aaf, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Demo/Prefabs/Scene/ForestCamp.prefab
+- Assets/Demo/Prefabs/Scene/Playground.prefab
+Dependencies: []

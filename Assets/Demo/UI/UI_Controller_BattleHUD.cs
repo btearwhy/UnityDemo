@@ -66,7 +66,15 @@ public class UI_Controller_BattleHUD : MonoBehaviour
         {
             scoreboard.SetActive(!scoreboard.activeSelf);
         });
-        button_setting.onClick.AddListener(() => setting.SetActive(!setting.activeSelf));
+        button_setting.onClick.AddListener(() => {
+            PlayerController pc = PlayerState.GetInstance().GetController();
+            if (pc)
+            {
+                pc.enabled = !pc.enabled;
+            }
+            setting.SetActive(!setting.activeSelf);
+        });
+
 
     }
 

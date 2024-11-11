@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 482334721
+CRC: 2999844403
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9d57083937c9e5d8aac14702b1c76f87
+    Hash: 70e3600ca6c792588afda0159f69b603
   TypeTreeHash:
     serializedVersion: 2
     Hash: 03f12a000ab0a10bc00777891c3c6fa2
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 9d57083937c9e5d8aac14702b1c76f87
+    Hash: 70e3600ca6c792588afda0159f69b603
 HashAppended: 0
 ClassTypes:
 - Class: 28
@@ -24,6 +24,6 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/Demo/Data/map1.asset
-- Assets/Demo/Data/map0.asset
+- Assets/Demo/Data/Playground.asset
+- Assets/Demo/Data/ForestCamp.asset
 Dependencies: []

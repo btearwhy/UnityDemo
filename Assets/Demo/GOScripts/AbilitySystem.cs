@@ -109,4 +109,9 @@ public class AbilitySystem : MonoBehaviourPunCallbacks
         return (T)((Ability_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("abilities", abilityDataName)).CreateInstance();
     }
 
+    private void OnDestroy()
+    {
+        abilities = null;
+        abilitiesOnHeld = null;
+    }
 }

@@ -27,4 +27,11 @@ public class RisingWater : MonoBehaviour
             battleSystem.DealDamage(gameObject, 1e+7f);
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent<BattleSystem>(out BattleSystem battleSystem))
+        {
+            battleSystem.DealDamage(gameObject, 1e+7f);
+        }
+    }
 }

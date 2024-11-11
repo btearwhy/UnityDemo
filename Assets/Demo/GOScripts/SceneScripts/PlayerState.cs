@@ -86,7 +86,7 @@ public class PlayerState
     {
         GameObject characterObject = playerController.character;
         AttributeSet attributeSet = characterObject.GetComponent<AttributeSet>();
-
+        HUD.HealthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = attributeSet.GetCurrentValue(AttributeType.Health) / attributeSet.GetCurrentValue(AttributeType.MaxHealth); 
         attributeSet.OnHealthChanged += (health) =>
         {
             HUD.HealthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = health / attributeSet.GetCurrentValue(AttributeType.MaxHealth);

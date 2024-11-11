@@ -184,6 +184,11 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
+        PlayerController playerController = PlayerState.GetInstance().GetController();
+        if (playerController != null && playerController.character != null)
+        {
+            PhotonNetwork.Destroy(playerController.character);
+        }
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
         Destroy(gameRoom);
     }
@@ -304,6 +309,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public void EndGame_RPC()
     {
         PlayerState.GetInstance().HUD.GetComponent<UI_Controller_BattleHUD>().scoreboard.SetActive(true);
+        PlayerState.GetInstance().GetController().enabled = false;
         IEnumerator WaitSeconds(float seconds)
         {
             yield return new WaitForSeconds(seconds);
@@ -312,5 +318,10 @@ public class GameRoom : MonoBehaviourPunCallbacks
         }
         StartCoroutine(WaitSeconds(10f));
 
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("room destroyed");
     }
 }

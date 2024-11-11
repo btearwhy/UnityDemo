@@ -29,9 +29,9 @@ public class GameLobby : MonoBehaviourPunCallbacks
 
         if (!PhotonNetwork.IsConnected)
         {
-            //Set the App version before connecting
+        
             PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion = gameVersion;
-            // Connect to the photon master-server. We use the settings saved in PhotonServerSettings (a .asset file in this project)
+
             PhotonNetwork.ConnectUsingSettings();
         }
     }
@@ -49,8 +49,7 @@ public class GameLobby : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("OnConnectedToMaster");
-        //After we connected to Master server, join the Lobby
+
         char t = 'z'; 
         PhotonPeer.RegisterType(typeof(EffectContainer), (byte)t--, Serializer.Serialize<EffectContainer>, Serializer.Deserialize<EffectContainer>);
         PhotonPeer.RegisterType(typeof(Effect), (byte)t--, Serializer.Serialize<Effect>, Serializer.Deserialize<Effect>);
@@ -74,8 +73,6 @@ public class GameLobby : MonoBehaviourPunCallbacks
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("We have received the Room list");
-        //After this callback, update the room list
         createdRooms = roomList;
     }
 
@@ -83,31 +80,26 @@ public class GameLobby : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsConnected)
         {
-            //Re-join Lobby to get the latest Room list
             PhotonNetwork.JoinLobby(TypedLobby.Default);
         }
         else
         {
-            //We are not connected, estabilish a new connection
             PhotonNetwork.ConnectUsingSettings();
         }
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.Log("OnCreateRoomFailed got called. This can happen if the room exists (even if not visible). Try another room name.");
         joiningRoom = false;
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
-        Debug.Log("OnJoinRoomFailed got called. This can happen if the room is not existing or full or closed.");
         joiningRoom = false;
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        Debug.Log("OnJoinRandomFailed got called. This can happen if the room is not existing or full or closed.");
         joiningRoom = false;
     }
 
@@ -122,7 +114,6 @@ public class GameLobby : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("OnJoinedRoom");
         PhotonNetwork.LoadLevel(levelName);
     }
 

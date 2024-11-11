@@ -24,7 +24,7 @@ public class UIController_GameLobby : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        //This makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
+       
 
         gameLobby.OnJoinedLobby_Custom += Init;
         
@@ -42,11 +42,6 @@ public class UIController_GameLobby : MonoBehaviourPunCallbacks
 
     public void Init()
     {
-
-        inputField_playerName.text = "player1" ;
-        inputField_roomNumber.text = "room1";
-        text_title.text = "Lobby";
-
         button_createRoom.onClick.AddListener(() =>
         {
             string roomName = inputField_roomNumber.text;
@@ -71,7 +66,6 @@ public class UIController_GameLobby : MonoBehaviourPunCallbacks
         }
         if (gameLobby.createdRooms.Count == 0)
         {
-            text_noRoomSign.text = "No Rooms were created yet...";
             text_noRoomSign.gameObject.SetActive(true);
         }
         else

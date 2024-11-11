@@ -14,13 +14,6 @@ public class Ability_Absorb : Ability
     public int slotsNr;
 
 
-    /*    [field: NonSerialized]
-        private Element?[] elements;*/
-
-    /*    [field: NonSerialized]
-        private int curPos;*/
-
-
     [field: NonSerialized]
     private GameObject progressPresent;
 
@@ -98,7 +91,8 @@ public class Ability_Absorb : Ability
     internal override void Held()
     {
         base.Held();
-        
+        movement.StopTranslation();
+
         if (Physics.SphereCast(character.GetComponentInChildren<SkinnedMeshRenderer>().bounds.center, detectRadius, character.transform.forward, out RaycastHit rayCastHit, detectRange/*, ~(1 << character.layer)*/))
         {
             GameObject hitObject = rayCastHit.collider.gameObject;
@@ -179,5 +173,13 @@ public class Ability_Absorb : Ability
     internal override void Released()
     {
         base.Released();
+        End();
+    }
+
+    internal override void End()
+    {
+        base.End();
+
+        character.GetComponent<Movement>().ResetStatus();
     }
 }

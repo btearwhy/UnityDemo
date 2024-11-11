@@ -148,7 +148,8 @@ public class BattleSystem : MonoBehaviourPunCallbacks
     {
         enabled = false;
         GetComponentInChildren<Animator>().Play("Death");
-
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponentInChildren<Animator>().applyRootMotion = true;
         if (TryGetComponent<PhotonView>(out PhotonView photonviewSelf))
         {
             if (WasDamaged())

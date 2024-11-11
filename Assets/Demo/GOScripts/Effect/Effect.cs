@@ -13,14 +13,16 @@ public class Effect
 
     
     public string data;
-    [field:NonSerialized]
+    [field: NonSerialized]
     public Effect_Data effect_data;
-    [field:NonSerialized]
-    public EffectContext Context;
+
+    [field: NonSerialized]
+    private EffectContext context;
+
+    public EffectContext Context { get { if (context == null) context = new EffectContext();  return context; } set { context = value; } }
     public Effect() { }
 
     public Effect(string data) {
-        Context = new EffectContext();
         this.data = data;
         effect_data = (Effect_Data)AssetBundleManager.GetInstance().LoadAsset<ScriptableObject>("effects", data);
         Initialize();
@@ -51,6 +53,7 @@ public class Effect
         Context.Instigator = instigator;
         Context.Target = target;
     }
+
 }
 
 

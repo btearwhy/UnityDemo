@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 3446454414
+CRC: 1071007285
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -33,4 +33,7 @@ AssetBundleManifest:
         Dependency_0: abilities
     Info_8:
       Name: languages
+      Dependencies: {}
+    Info_9:
+      Name: levels
       Dependencies: {}

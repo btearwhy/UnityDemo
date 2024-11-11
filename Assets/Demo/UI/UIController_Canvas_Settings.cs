@@ -19,7 +19,15 @@ public class UIController_Canvas_Settings : MonoBehaviour
 
         GetComponent<Canvas>().worldCamera = Camera.main;
 
-        buttonBack.onClick.AddListener(() => gameObject.SetActive(false));
+        buttonBack.onClick.AddListener(() =>
+        {
+            gameObject.SetActive(false);
+            PlayerController pc = PlayerState.GetInstance().GetController();
+            if (pc)
+            {
+                pc.enabled = true;
+            }
+        });
 
         dropdownLanguage.ClearOptions();
         IEnumerable<TMP_Dropdown.OptionData> characterOptions = from language in System.Enum.GetNames(typeof(LanguageManager.LanguageType))
@@ -45,9 +53,5 @@ public class UIController_Canvas_Settings : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

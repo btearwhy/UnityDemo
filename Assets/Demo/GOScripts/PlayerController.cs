@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour
         armLength = 7;
         minArmLength = 3;
         maxArmLength = 8;
-        rotateSpeed = 40;
-        zoomSpeed = 2;
+        rotateSpeed = 100;
+        zoomSpeed = 3;
 
         inputActions = new InputActions();
         inputActions.KeyboardandMouse.Attack.performed += callBackContext =>

@@ -18,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Demo/Scenes/GameLobby.unity
     guid: b0834dc7ce26f564e9bcf42d8257f9ee
   - enabled: 1
-    path: Assets/Demo/Scenes/Location camping forest.unity
+    path: Assets/Demo/Scenes/ForestCamp.unity
     guid: 9eb3d3406fabb5b408a4f80927c3710d
   - enabled: 1
-    path: Assets/Demo/Scenes/Scene.unity
+    path: Assets/Demo/Scenes/Playground.unity
     guid: 228a1b5d6e400e94585c3be5c2238c6e
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d13bfbd5242bd724e9be9aeb6321d8b8,
