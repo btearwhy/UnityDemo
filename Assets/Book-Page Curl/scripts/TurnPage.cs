@@ -76,6 +76,7 @@ public class TurnPage : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
+        Debug.Log("???");
         if (FlippingBookFinger == null && !stillFinishing)
         {
             bool canFlip = true;
@@ -115,17 +116,15 @@ public class TurnPage : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
 
-        NextPlane.gameObject.SetActive(true);
-        NextPlane.SetParent(BookPanel);
-        NextPlane.SetAsLastSibling();
         Vector2 temp = page.position;
         int width = System.Convert.ToInt32(page.rect.width);
         int height = System.Convert.ToInt32(page.rect.height);
 
-        float startX = temp.x - page.rect.x / 2;
-        float startY = temp.y - page.rect.y / 2;
+        float startX = temp.x - page.rect.width / 2;
+        float startY = temp.y - page.rect.height / 2;
 
         Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+        
         tex.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
         tex.Apply();
 
