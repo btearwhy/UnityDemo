@@ -62,6 +62,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold,Tap"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Value"",
+                    ""id"": ""a989076c-23af-47e5-aa7b-aff09b017c5d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -163,6 +172,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Absorb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9607bd2c-4d48-4fef-b43f-383019da9ec6"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -203,6 +223,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_KeyboardandMouse_Movement = m_KeyboardandMouse.FindAction("Movement", throwIfNotFound: true);
         m_KeyboardandMouse_Attack = m_KeyboardandMouse.FindAction("Attack", throwIfNotFound: true);
         m_KeyboardandMouse_Absorb = m_KeyboardandMouse.FindAction("Absorb", throwIfNotFound: true);
+        m_KeyboardandMouse_Aim = m_KeyboardandMouse.FindAction("Aim", throwIfNotFound: true);
         // Mobile
         m_Mobile = asset.FindActionMap("Mobile", throwIfNotFound: true);
         m_Mobile_Newaction = m_Mobile.FindAction("New action", throwIfNotFound: true);
@@ -271,6 +292,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_KeyboardandMouse_Movement;
     private readonly InputAction m_KeyboardandMouse_Attack;
     private readonly InputAction m_KeyboardandMouse_Absorb;
+    private readonly InputAction m_KeyboardandMouse_Aim;
     public struct KeyboardandMouseActions
     {
         private @InputActions m_Wrapper;
@@ -279,6 +301,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_KeyboardandMouse_Movement;
         public InputAction @Attack => m_Wrapper.m_KeyboardandMouse_Attack;
         public InputAction @Absorb => m_Wrapper.m_KeyboardandMouse_Absorb;
+        public InputAction @Aim => m_Wrapper.m_KeyboardandMouse_Aim;
         public InputActionMap Get() { return m_Wrapper.m_KeyboardandMouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +323,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Absorb.started += instance.OnAbsorb;
             @Absorb.performed += instance.OnAbsorb;
             @Absorb.canceled += instance.OnAbsorb;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
         }
 
         private void UnregisterCallbacks(IKeyboardandMouseActions instance)
@@ -316,6 +342,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Absorb.started -= instance.OnAbsorb;
             @Absorb.performed -= instance.OnAbsorb;
             @Absorb.canceled -= instance.OnAbsorb;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
         }
 
         public void RemoveCallbacks(IKeyboardandMouseActions instance)
@@ -385,6 +414,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnAbsorb(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
     }
     public interface IMobileActions
     {
