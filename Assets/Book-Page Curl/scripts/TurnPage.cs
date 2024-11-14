@@ -27,26 +27,22 @@ public class TurnPage : MonoBehaviour
     float circleRadius;
     float circleRadius2;
 
-    public RectTransform LeftTopPage;
-    public RectTransform LeftBottomPage;
-    public RectTransform RightTopPage;
-    public RectTransform RightBottomPage;
+    
 
     public RectTransform FlippingPlane;
-
     public RectTransform CurrentPlane;
     private RectTransform FlippingBackPlane;
     private RectTransform NextPlane;
-
+    private RectTransform NextPlaneCopy;
     public RectTransform ClippingPlaneFlipPage;
 
     public RectTransform ClippingPlaneNewPage;
-
+    public RectTransform CanvasPanelLists;
     public GameObject mark;
     public Canvas canvas;
-
+    public RenderTexture renderTexture;
     public RectTransform BookPanel;
-
+    public Camera ShotCamera;
     public InputActions inputActions;
     private Vector3 mouseFocusInBookSpace;
     private Vector3 actualFlippingPoint;
@@ -76,62 +72,94 @@ public class TurnPage : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
-        Debug.Log("???");
         if (FlippingBookFinger == null && !stillFinishing)
         {
             bool canFlip = true;
             Vector2 cursorOnBook = transformPoint(TouchedFinger.screenPosition);
             flipStart = GetStartRegion(cursorOnBook);
-            
-            if (flipStart == FlipRegion.LeftTop && LeftTopPage != null)
+            Page page = CurrentPlane.GetComponent<Page>();
+            if (flipStart == FlipRegion.LeftTop &&  page.LeftTopPage != null)
             {
-                NextPlane = LeftTopPage;
+                NextPlane = page.LeftTopPage;
             }
-            else if (flipStart == FlipRegion.LeftBottom && LeftBottomPage != null)
+            else if (flipStart == FlipRegion.LeftBottom && page.LeftBottomPage != null)
             {
-                NextPlane = LeftBottomPage;
+                NextPlane = page.LeftBottomPage;
             }
-            else if (flipStart == FlipRegion.RightBottom && RightBottomPage != null)
+            else if (flipStart == FlipRegion.RightBottom && page.RightBottomPage != null)
             {
-                NextPlane = RightBottomPage;
+                NextPlane = page.RightBottomPage;
             }
-            else if (flipStart == FlipRegion.RightTop && RightTopPage != null)
+            else if (flipStart == FlipRegion.RightTop && page.RightTopPage != null)
             {
-                NextPlane = RightTopPage;
+                NextPlane = page.RightTopPage;
 
             }
             else canFlip = false;
             if (flipStart.HasValue && canFlip)
             {
-                
-                StartCoroutine(TakeShotOfRect(NextPlane));
-
+/*                ShotCamera.enabled = true;
+                NextPlane.gameObject.SetActive(true);
+                NextPlane.SetAsLastSibling();*/
                 FlippingBookFinger = TouchedFinger;
+                mouseFocusInBookSpace = transformPoint(TouchedFinger.screenPosition);
+                actualFlippingPoint = getActualPoint();
+
+                FlippingPlane.SetParent(ClippingPlaneFlipPage);
+                NextPlane.SetParent(ClippingPlaneNewPage);
+/*                ClippingPlaneNewPage.gameObject.SetActive(true);
+                ClippingPlaneFlipPage.gameObject.SetActive(true);*/
+                FlippingPlane.gameObject.SetActive(true);
+
+                
+                ClippingPlaneFlipPage.gameObject.SetActive(true);
+                ClippingPlaneNewPage.gameObject.SetActive(true);
+
+                NextPlaneCopy = Instantiate(NextPlane, FlippingPlane);
+
+                //StartCoroutine(TakeShotOfRect(ShotCamera));
+
             }
 
         }
     }
 
-    public IEnumerator TakeShotOfRect(RectTransform page)
+
+    public IEnumerator TakeShotOfRect(Camera camera)
     {
+        yield return new WaitForSeconds(0);
         yield return new WaitForEndOfFrame();
 
-        Vector2 temp = page.position;
-        int width = System.Convert.ToInt32(page.rect.width);
-        int height = System.Convert.ToInt32(page.rect.height);
+        /* Vector2 temp = page.position;
+         int width = System.Convert.ToInt32(page.rect.width);
+         int height = System.Convert.ToInt32(page.rect.height);
 
-        float startX = temp.x - page.rect.width / 2;
-        float startY = temp.y - page.rect.height / 2;
+         float startX = temp.x - page.rect.width / 2;
+         float startY = temp.y - page.rect.height / 2;
 
-        Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+         Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
+
+         tex.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
+         tex.Apply();*/
+
         
-        tex.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
-        tex.Apply();
-
+        Texture2D tex = toTexture2D(camera.targetTexture);
         FlippingPlane.GetComponent<Image>().overrideSprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 2, tex.height / 2));
 
-        NextPlane.gameObject.SetActive(false);
+        ShotCamera.enabled = false;
     }
+
+
+    Texture2D toTexture2D(RenderTexture rTex)
+    {
+        Texture2D tex = new Texture2D(rTex.width, rTex.height, TextureFormat.RGB24, false);
+        // ReadPixels looks at the active RenderTexture.
+        RenderTexture.active = rTex;
+        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
+        tex.Apply();
+        return tex;
+    }
+
     private void HandleFingerUp(Finger TouchedFinger)
     {
         if (TouchedFinger == FlippingBookFinger)
@@ -154,7 +182,7 @@ public class TurnPage : MonoBehaviour
 
     private void DropSlip()
     {
-        StartCoroutine(Finish(flipStart.Value, false));
+        StartCoroutine(Finish(flipStart.Value, flipStart.Value));
     }
 
     private void FinishSlip()
@@ -176,12 +204,13 @@ public class TurnPage : MonoBehaviour
         {
             flipTarget = FlipRegion.LeftBottom;
         }
-        StartCoroutine(Finish(flipTarget, true));
+        StartCoroutine(Finish(flipStart.Value ,flipTarget));
     }
-
-    public IEnumerator Finish(FlipRegion targetRegion, bool flipped)
+    
+    public IEnumerator Finish(FlipRegion startRegion, FlipRegion targetRegion)
     {
         EnhancedTouchSupport.Disable();
+        bool flipped = startRegion != targetRegion;
         Vector3 target;
         if (targetRegion == FlipRegion.RightBottom)
         {
@@ -205,15 +234,32 @@ public class TurnPage : MonoBehaviour
         stillFinishing = false;
         if (flipped)
         {
+            //CurrentPlane.SetParent(CanvasPanelLists);
+            CurrentPlane.localPosition = Vector3.zero;
             CurrentPlane.gameObject.SetActive(false);
+            NextPlane.SetParent(BookPanel);
+            NextPlane.gameObject.SetActive(true);
             CurrentPlane = NextPlane;
-            CurrentPlane.SetParent(BookPanel);
+
         }
+        else
+        {
+            NextPlane.SetParent(BookPanel);
+            NextPlane.localPosition = Vector3.zero;
+            NextPlane.gameObject.SetActive(false);
+        }
+        ClippingPlaneFlipPage.gameObject.SetActive(false);
+        ClippingPlaneNewPage.gameObject.SetActive(false);
         NextPlane = null;
-/*        Image flipImage = FlippingPlane.GetComponent<Image>();
-        Texture2D.Destroy(flipImage.sprite.texture);
-        Sprite.Destroy(flipImage.sprite);*/
-        EnhancedTouchSupport.Enable();    
+
+        Destroy(NextPlaneCopy.gameObject);
+        FlippingPlane.SetParent(BookPanel);
+        FlippingPlane.gameObject.SetActive(false);
+        /*Image flipImage = FlippingPlane.GetComponent<Image>();*/
+        //Texture2D.Destroy(flipImage.sprite.texture);
+        //Sprite.Destroy(flipImage.sprite);
+        EnhancedTouchSupport.Enable();
+        CurrentPlane.GetComponent<Page>().InitialOperatiion();
     }
 
 
@@ -302,6 +348,7 @@ public class TurnPage : MonoBehaviour
 
     public void UpdateBookWithLocalFocus()
     {
+
         actualFlippingPoint = Vector3.Lerp(actualFlippingPoint, getActualPoint(), Time.deltaTime * 10);
         Vector3 startPoint;
         Vector3 targetPoint;
@@ -343,23 +390,29 @@ public class TurnPage : MonoBehaviour
         Vector3 newCenter = widthSideNormal * BookPanel.rect.width / 2.0f + heightSideNormal * BookPanel.rect.height / 2.0f + actualFlippingPoint;
        /* Instantiate(mark, BookPanel.TransformPoint(newCenter), Quaternion.identity);*/
         FlippingPlane.position = BookPanel.TransformPoint(newCenter);
-
+        NextPlaneCopy.anchoredPosition = Vector3.zero;
+        NextPlaneCopy.localRotation = Quaternion.identity;
         Vector3 midPoint = (startPoint + actualFlippingPoint) / 2f;
-        ClippingPlaneFlipPage.transform.localPosition = displacement.normalized * ClippingPlaneFlipPage.sizeDelta.y / 2.0f + midPoint;
+        ClippingPlaneFlipPage.transform.localPosition = displacement.normalized * (ClippingPlaneFlipPage.sizeDelta.y / 2.0f) + midPoint;
         ClippingPlaneFlipPage.transform.localEulerAngles =  new Vector3(0, 0, angle - 90);
-        FlippingPlane.SetParent(ClippingPlaneFlipPage);
-
-        NextPlane.gameObject.SetActive(true);
 
 
-        ClippingPlaneNewPage.transform.localPosition = -displacement.normalized * ClippingPlaneNewPage.sizeDelta.y / 2.0f + midPoint;
+
+
+
+
+        ClippingPlaneNewPage.transform.localPosition = -displacement.normalized * (ClippingPlaneNewPage.sizeDelta.y / 2.0f - 5) + midPoint;
         ClippingPlaneNewPage.transform.localEulerAngles = new Vector3(0, 0, angle - 90);
-        NextPlane.SetParent(ClippingPlaneNewPage);
+
         NextPlane.position = BookPanel.position;
         NextPlane.rotation = BookPanel.rotation;
-
+        NextPlane.localScale = Vector3.one;
         ClippingPlaneNewPage.SetAsLastSibling();
         ClippingPlaneFlipPage.SetAsLastSibling();
+
+        NextPlaneCopy.gameObject.SetActive(true);
+        NextPlane.gameObject.SetActive(true);
+
     }
 
     private Vector3 getActualPoint()
@@ -394,28 +447,24 @@ public class TurnPage : MonoBehaviour
         return revisedCursor;
     }
 
-   /* private Vector3 Calc_C_Position(Vector3 followLocation)
+    public void AutoFlip(FlipRegion StartRegion, FlipRegion EndRegion)
     {
-        Vector3 c;
-        mouseFocusInBookSpace = followLocation;
-        float F_SB_dy = mouseFocusInBookSpace.y - bottomSpine.y;
-        float F_SB_dx = mouseFocusInBookSpace.x - bottomSpine.x;
-        float F_SB_Angle = Mathf.Atan2(F_SB_dy, F_SB_dx);
-        Vector3 r1 = new Vector3(circleRadius * Mathf.Cos(F_SB_Angle), circleRadius * Mathf.Sin(F_SB_Angle), 0) + sb;
-
-        float F_SB_distance = Vector2.Distance(mouseFocusInBookSpace, bottomSpine);
-        if (F_SB_distance < circleRadius)
-            c = mouseFocusInBookSpace;
+        if(StartRegion == FlipRegion.LeftBottom)
+        {
+            mouseFocusInBookSpace = bottomLeft;
+        }
+        else if(StartRegion == FlipRegion.LeftTop)
+        {
+            mouseFocusInBookSpace = topLeft;
+        }
+        else if (StartRegion == FlipRegion.RightBottom)
+        {
+            mouseFocusInBookSpace = bottomRight;
+        }
         else
-            c = r1;
-        float F_ST_dy = c.y - topSpine.y;
-        float F_ST_dx = c.x - topSpine.x;
-        float F_ST_Angle = Mathf.Atan2(F_ST_dy, F_ST_dx);
-        Vector3 r2 = new Vector3(circleRadius2 * Mathf.Cos(F_ST_Angle),
-           circleRadius2 * Mathf.Sin(F_ST_Angle), 0) + topSpine;
-        float C_ST_distance = Vector2.Distance(c, topSpine);
-        if (C_ST_distance > circleRadius2)
-            c = r2;
-        return c;
-    }*/
+        {
+            mouseFocusInBookSpace = topRight;
+        }
+        StartCoroutine(Finish(StartRegion, EndRegion));
+    }
 }

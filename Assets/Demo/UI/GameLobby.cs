@@ -16,6 +16,33 @@ public class GameLobby : MonoBehaviourPunCallbacks
     public List<RoomInfo> createdRooms = new List<RoomInfo>();
     //Use this name when creating a Room
     public Vector2 roomListScroll = Vector2.zero;
+
+    public float ProgressToLobby()
+    {
+        float progress = 0.0f;
+        if(PhotonNetwork.NetworkClientState == ClientState.ConnectingToNameServer)
+        {
+            progress = 0.2f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.Authenticating)
+        {
+            progress = 0.4f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.ConnectingToMasterServer)
+        {
+            progress = 0.6f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.JoiningLobby)
+        {
+            progress = 0.8f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.JoinedLobby)
+        {
+            return 1.0f;
+        }
+        return progress;
+    }
+
     public bool joiningRoom = false;
 
     public string levelName;
@@ -25,11 +52,16 @@ public class GameLobby : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    public void ConnectToLobby()
+    {
         PhotonNetwork.AutomaticallySyncScene = true;
 
         if (!PhotonNetwork.IsConnected)
         {
-        
+
             PhotonNetwork.PhotonServerSettings.AppSettings.AppVersion = gameVersion;
 
             PhotonNetwork.ConnectUsingSettings();
@@ -148,5 +180,10 @@ public class GameLobby : MonoBehaviourPunCallbacks
         joiningRoom = true;
         PhotonNetwork.NickName = playerName;
         PhotonNetwork.JoinRoom(roomName);
+    }
+
+    public bool ConnectedToLobby()
+    {
+        return PhotonNetwork.InLobby;
     }
 }
