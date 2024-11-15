@@ -113,7 +113,6 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
         players = PhotonNetwork.PlayerList;
         maxPlayers = PhotonNetwork.CurrentRoom.MaxPlayers;
-        OnInit.Invoke();
         Hashtable playerProperties = new Hashtable();
 
         if (PhotonNetwork.IsMasterClient)
@@ -326,5 +325,16 @@ public class GameRoom : MonoBehaviourPunCallbacks
     private void OnDestroy()
     {
         Debug.Log("room destroyed");
+    }
+
+    internal bool ConnectedToRoom()
+    {
+        return PhotonNetwork.InRoom;
+    }
+
+    internal float ProgressToRoom()
+    {
+        return 0.5f;
+
     }
 }

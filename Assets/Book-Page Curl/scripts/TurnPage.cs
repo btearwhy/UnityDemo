@@ -74,90 +74,58 @@ public class TurnPage : MonoBehaviour
     {
         if (FlippingBookFinger == null && !stillFinishing)
         {
-            bool canFlip = true;
             Vector2 cursorOnBook = transformPoint(TouchedFinger.screenPosition);
             flipStart = GetStartRegion(cursorOnBook);
             Page page = CurrentPlane.GetComponent<Page>();
-            if (flipStart == FlipRegion.LeftTop &&  page.LeftTopPage != null)
+            if (flipStart.HasValue && GetNextPlane(flipStart.Value, page) != null)
             {
-                NextPlane = page.LeftTopPage;
-            }
-            else if (flipStart == FlipRegion.LeftBottom && page.LeftBottomPage != null)
-            {
-                NextPlane = page.LeftBottomPage;
-            }
-            else if (flipStart == FlipRegion.RightBottom && page.RightBottomPage != null)
-            {
-                NextPlane = page.RightBottomPage;
-            }
-            else if (flipStart == FlipRegion.RightTop && page.RightTopPage != null)
-            {
-                NextPlane = page.RightTopPage;
-
-            }
-            else canFlip = false;
-            if (flipStart.HasValue && canFlip)
-            {
-/*                ShotCamera.enabled = true;
-                NextPlane.gameObject.SetActive(true);
-                NextPlane.SetAsLastSibling();*/
+                /*                ShotCamera.enabled = true;
+                                NextPlane.gameObject.SetActive(true);
+                                NextPlane.SetAsLastSibling();*/
                 FlippingBookFinger = TouchedFinger;
                 mouseFocusInBookSpace = transformPoint(TouchedFinger.screenPosition);
-                actualFlippingPoint = getActualPoint();
-
-                FlippingPlane.SetParent(ClippingPlaneFlipPage);
-                NextPlane.SetParent(ClippingPlaneNewPage);
-/*                ClippingPlaneNewPage.gameObject.SetActive(true);
-                ClippingPlaneFlipPage.gameObject.SetActive(true);*/
-                FlippingPlane.gameObject.SetActive(true);
-
-                
-                ClippingPlaneFlipPage.gameObject.SetActive(true);
-                ClippingPlaneNewPage.gameObject.SetActive(true);
-
-                NextPlaneCopy = Instantiate(NextPlane, FlippingPlane);
-
-                //StartCoroutine(TakeShotOfRect(ShotCamera));
+                PrepareClipAfterCursorSet();
 
             }
 
         }
     }
 
-
-    public IEnumerator TakeShotOfRect(Camera camera)
+    private void PrepareClipAfterCursorSet()
     {
-        yield return new WaitForSeconds(0);
-        yield return new WaitForEndOfFrame();
+        actualFlippingPoint = getActualPoint();
 
-        /* Vector2 temp = page.position;
-         int width = System.Convert.ToInt32(page.rect.width);
-         int height = System.Convert.ToInt32(page.rect.height);
+        FlippingPlane.SetParent(ClippingPlaneFlipPage);
+        NextPlane.SetParent(ClippingPlaneNewPage);
 
-         float startX = temp.x - page.rect.width / 2;
-         float startY = temp.y - page.rect.height / 2;
+        FlippingPlane.gameObject.SetActive(true);
 
-         Texture2D tex = new Texture2D(width, height, TextureFormat.RGB24, false);
 
-         tex.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
-         tex.Apply();*/
+        ClippingPlaneFlipPage.gameObject.SetActive(true);
+        ClippingPlaneNewPage.gameObject.SetActive(true);
 
-        
-        Texture2D tex = toTexture2D(camera.targetTexture);
-        FlippingPlane.GetComponent<Image>().overrideSprite = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(tex.width / 2, tex.height / 2));
-
-        ShotCamera.enabled = false;
+        NextPlaneCopy = Instantiate(NextPlane, FlippingPlane);
     }
 
-
-    Texture2D toTexture2D(RenderTexture rTex)
+    private RectTransform GetNextPlane(FlipRegion flipStart, Page page)
     {
-        Texture2D tex = new Texture2D(rTex.width, rTex.height, TextureFormat.RGB24, false);
-        // ReadPixels looks at the active RenderTexture.
-        RenderTexture.active = rTex;
-        tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
-        tex.Apply();
-        return tex;
+        if (flipStart == FlipRegion.LeftTop && page.LeftTopPage != null)
+        {
+            NextPlane = page.LeftTopPage;
+        }
+        else if (flipStart == FlipRegion.LeftBottom && page.LeftBottomPage != null)
+        {
+            NextPlane = page.LeftBottomPage;
+        }
+        else if (flipStart == FlipRegion.RightBottom && page.RightBottomPage != null)
+        {
+            NextPlane = page.RightBottomPage;
+        }
+        else if (flipStart == FlipRegion.RightTop && page.RightTopPage != null)
+        {
+            NextPlane = page.RightTopPage;
+        }
+        return NextPlane;
     }
 
     private void HandleFingerUp(Finger TouchedFinger)
@@ -188,23 +156,28 @@ public class TurnPage : MonoBehaviour
     private void FinishSlip()
     {
         FlipRegion flipTarget;
+        Page page = CurrentPlane.GetComponent<Page>();
         if(flipStart == FlipRegion.LeftBottom)
         {
             flipTarget = FlipRegion.RightBottom;
+            page.LeaveLeftBottom();
         }
         else if (flipStart == FlipRegion.LeftTop)
         {
             flipTarget = FlipRegion.RightTop;
+            page.LeaveLeftTop();
         }
         else if (flipStart == FlipRegion.RightTop)
         {
             flipTarget = FlipRegion.LeftTop;
+            page.LeaveRightTop();
         }
         else
         {
             flipTarget = FlipRegion.LeftBottom;
+            page.LeaveRightBottom();
         }
-        StartCoroutine(Finish(flipStart.Value ,flipTarget));
+        StartCoroutine(Finish(flipStart.Value, flipTarget));
     }
     
     public IEnumerator Finish(FlipRegion startRegion, FlipRegion targetRegion)
@@ -240,7 +213,7 @@ public class TurnPage : MonoBehaviour
             NextPlane.SetParent(BookPanel);
             NextPlane.gameObject.SetActive(true);
             CurrentPlane = NextPlane;
-
+            CurrentPlane.GetComponent<Page>().InitialOperation();
         }
         else
         {
@@ -251,15 +224,15 @@ public class TurnPage : MonoBehaviour
         ClippingPlaneFlipPage.gameObject.SetActive(false);
         ClippingPlaneNewPage.gameObject.SetActive(false);
         NextPlane = null;
-
         Destroy(NextPlaneCopy.gameObject);
         FlippingPlane.SetParent(BookPanel);
         FlippingPlane.gameObject.SetActive(false);
+        NextPlaneCopy = null;
         /*Image flipImage = FlippingPlane.GetComponent<Image>();*/
         //Texture2D.Destroy(flipImage.sprite.texture);
         //Sprite.Destroy(flipImage.sprite);
+
         EnhancedTouchSupport.Enable();
-        CurrentPlane.GetComponent<Page>().InitialOperatiion();
     }
 
 
@@ -447,24 +420,34 @@ public class TurnPage : MonoBehaviour
         return revisedCursor;
     }
 
-    public void AutoFlip(FlipRegion StartRegion, FlipRegion EndRegion)
+    public void AutoFlip(FlipRegion StartRegion)
     {
+        FlipRegion EndRegion;
         if(StartRegion == FlipRegion.LeftBottom)
         {
             mouseFocusInBookSpace = bottomLeft;
+            EndRegion = FlipRegion.RightBottom;
         }
         else if(StartRegion == FlipRegion.LeftTop)
         {
             mouseFocusInBookSpace = topLeft;
+            EndRegion = FlipRegion.RightTop;
         }
         else if (StartRegion == FlipRegion.RightBottom)
         {
             mouseFocusInBookSpace = bottomRight;
+            EndRegion = FlipRegion.LeftBottom;
         }
         else
         {
             mouseFocusInBookSpace = topRight;
+            EndRegion = FlipRegion.LeftTop; 
         }
-        StartCoroutine(Finish(StartRegion, EndRegion));
+        if(GetNextPlane(StartRegion, CurrentPlane.GetComponent<Page>()) != null)
+        {
+            flipStart = StartRegion;
+            PrepareClipAfterCursorSet();
+            StartCoroutine(Finish(StartRegion, EndRegion));
+        }
     }
 }

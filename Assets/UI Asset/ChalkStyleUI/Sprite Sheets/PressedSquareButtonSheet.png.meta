@@ -1,0 +1,663 @@
+fileFormatVersion: 2
+guid: 1ece3ded6c6a2e34a8efc3e3ee9940f3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: SquareButtonIconSheetPressed_12
+  - first:
+      213: 21300002
+    second: SquareButtonIconSheetPressed_13
+  - first:
+      213: 21300004
+    second: SquareButtonIconSheetPressed_14
+  - first:
+      213: 21300006
+    second: SquareButtonIconSheetPressed_15
+  - first:
+      213: 21300008
+    second: SquareButtonIconSheetPressed_16
+  - first:
+      213: 21300010
+    second: SquareButtonIconSheetPressed_17
+  - first:
+      213: 21300012
+    second: SquareButtonIconSheetPressed_18
+  - first:
+      213: 21300014
+    second: SquareButtonIconSheetPressed_19
+  - first:
+      213: 21300016
+    second: SquareButtonIconSheetPressed_20
+  - first:
+      213: 21300018
+    second: SquareButtonIconSheetPressed_21
+  - first:
+      213: 21300020
+    second: SquareButtonIconSheetPressed_22
+  - first:
+      213: 21300022
+    second: SquareButtonIconSheetPressed_23
+  - first:
+      213: 21300024
+    second: SquareButtonIconSheetPressed_24
+  - first:
+      213: 21300026
+    second: SquareButtonIconSheetPressed_25
+  - first:
+      213: 21300028
+    second: SquareButtonIconSheetPressed_26
+  - first:
+      213: 21300030
+    second: SquareButtonIconSheetPressed_27
+  - first:
+      213: 21300032
+    second: SquareButtonIconSheetPressed_28
+  - first:
+      213: 21300034
+    second: SquareButtonIconSheetPressed_29
+  - first:
+      213: 21300036
+    second: PressedSquareButtonSheet_0
+  - first:
+      213: 21300038
+    second: PressedSquareButtonSheet_1
+  - first:
+      213: 21300040
+    second: PressedSquareButtonSheet_2
+  - first:
+      213: 21300042
+    second: PressedSquareButtonSheet_3
+  - first:
+      213: 21300044
+    second: PressedSquareButtonSheet_4
+  - first:
+      213: 21300046
+    second: PressedSquareButtonSheet_5
+  - first:
+      213: 21300048
+    second: PressedSquareButtonSheet_6
+  - first:
+      213: 21300050
+    second: PressedSquareButtonSheet_7
+  - first:
+      213: 21300052
+    second: PressedSquareButtonSheet_8
+  - first:
+      213: 21300054
+    second: PressedSquareButtonSheet_9
+  - first:
+      213: 21300056
+    second: PressedSquareButtonSheet_10
+  - first:
+      213: 21300058
+    second: PressedSquareButtonSheet_11
+  - first:
+      213: 21300060
+    second: PressedSquareButtonSheet_12
+  - first:
+      213: 21300062
+    second: PressedSquareButtonSheet_13
+  - first:
+      213: 21300064
+    second: PressedSquareButtonSheet_14
+  - first:
+      213: 21300066
+    second: PressedSquareButtonSheet_15
+  - first:
+      213: 21300068
+    second: PressedSquareButtonSheet_16
+  - first:
+      213: 21300070
+    second: PressedSquareButtonSheet_17
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1432
+        width: 566
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 262204ea246453b4eb2aeb46a6634bce
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_1
+      rect:
+        serializedVersion: 2
+        x: 793
+        y: 1432
+        width: 563
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1998771916ad6b0498198b06769f8a8b
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_2
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 1424
+        width: 563
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ac659f19b4a8a743b970e7cfd194449
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_3
+      rect:
+        serializedVersion: 2
+        x: 2352
+        y: 1415
+        width: 565
+        height: 544
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01d124d4e4bd4d9409f2bedd3fd65148
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_4
+      rect:
+        serializedVersion: 2
+        x: 3108
+        y: 1415
+        width: 565
+        height: 544
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf3d32efb68030a4bb80846d766eba34
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_5
+      rect:
+        serializedVersion: 2
+        x: 3877
+        y: 1415
+        width: 563
+        height: 560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a68dd27632731c149bc167b2792a8921
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 717
+        width: 569
+        height: 544
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df30b4eeec150004fbfc5b8bf4367722
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_7
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 758
+        width: 565
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb5def3e0e61f0a488b15146f5772207
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_8
+      rect:
+        serializedVersion: 2
+        x: 1595
+        y: 743
+        width: 563
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97752eb2333395244a4dce41af6a70c2
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_9
+      rect:
+        serializedVersion: 2
+        x: 2339
+        y: 719
+        width: 563
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 116a6ba16f3782e47baf03d450483466
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_10
+      rect:
+        serializedVersion: 2
+        x: 3086
+        y: 721
+        width: 564
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52c74402a54a99742b61b7518cdf6a52
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_11
+      rect:
+        serializedVersion: 2
+        x: 3875
+        y: 719
+        width: 565
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2124cbc190ecc42499e5a39ad1dad448
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 560
+        height: 563
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9eb01155c9ebb54ba86482f1631ba1e
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_13
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 0
+        width: 564
+        height: 562
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cad7bedd438bc046a454f8f6b2309a4
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1593
+        y: 51
+        width: 563
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d0262e05a658f478a4683e75124aa8
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_15
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 55
+        width: 564
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eedb62cf696d394d9e831add2262797
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_16
+      rect:
+        serializedVersion: 2
+        x: 3086
+        y: 51
+        width: 564
+        height: 546
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 699b2f710ba99ed4a88dee6d2b472b2e
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PressedSquareButtonSheet_17
+      rect:
+        serializedVersion: 2
+        x: 3869
+        y: 0
+        width: 571
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cba60a4aa3a05204a874db2379b90025
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5663402ad9a4d5047b08b337f9a045c9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      PressedSquareButtonSheet_0: 21300036
+      PressedSquareButtonSheet_1: 21300038
+      PressedSquareButtonSheet_10: 21300056
+      PressedSquareButtonSheet_11: 21300058
+      PressedSquareButtonSheet_12: 21300060
+      PressedSquareButtonSheet_13: 21300062
+      PressedSquareButtonSheet_14: 21300064
+      PressedSquareButtonSheet_15: 21300066
+      PressedSquareButtonSheet_16: 21300068
+      PressedSquareButtonSheet_17: 21300070
+      PressedSquareButtonSheet_2: 21300040
+      PressedSquareButtonSheet_3: 21300042
+      PressedSquareButtonSheet_4: 21300044
+      PressedSquareButtonSheet_5: 21300046
+      PressedSquareButtonSheet_6: 21300048
+      PressedSquareButtonSheet_7: 21300050
+      PressedSquareButtonSheet_8: 21300052
+      PressedSquareButtonSheet_9: 21300054
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

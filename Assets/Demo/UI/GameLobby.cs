@@ -47,8 +47,6 @@ public class GameLobby : MonoBehaviourPunCallbacks
 
     public string levelName;
 
-    public delegate void JoinLobbyHandler();
-    public event JoinLobbyHandler OnJoinedLobby_Custom;
     // Start is called before the first frame update
     void Start()
     {
@@ -144,10 +142,6 @@ public class GameLobby : MonoBehaviourPunCallbacks
                 PhotonNetwork.LoadLevel("GameLevel");*/
     }
 
-    public override void OnJoinedRoom()
-    {
-        PhotonNetwork.LoadLevel(levelName);
-    }
 
     public override void OnJoinedLobby()
     {
@@ -161,7 +155,6 @@ public class GameLobby : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
         }
 
-        OnJoinedLobby_Custom.Invoke();
 
 
     }
@@ -171,7 +164,7 @@ public class GameLobby : MonoBehaviourPunCallbacks
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsOpen = true;
         roomOptions.IsVisible = true;
-        roomOptions.MaxPlayers = (byte)10; //Set any number
+        roomOptions.MaxPlayers = (byte)10; 
         PhotonNetwork.NickName = playerName;
         PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, TypedLobby.Default);
     }

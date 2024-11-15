@@ -26,7 +26,7 @@ public class UIController_GameLobby : MonoBehaviourPunCallbacks
     {
        
 
-        gameLobby.OnJoinedLobby_Custom += Init;
+
         
     }
 

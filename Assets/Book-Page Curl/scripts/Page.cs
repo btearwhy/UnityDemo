@@ -10,18 +10,40 @@ public class Page : MonoBehaviour
     public RectTransform RightBottomPage;
 
     public TurnPage TurnPage;
-    public RectTransform BookPanel;
+
+
+
     private void Start()
     {
-        TurnPage = BookPanel.GetComponent<TurnPage>();
+
     }
-    public virtual void InitialOperatiion()
+    public virtual void InitialOperation()
+    {
+        
+    }
+
+    public void FlipBack()
+    {
+        TurnPage.AutoFlip(FlipRegion.LeftTop);
+    }
+
+    public virtual void LeaveLeftBottom()
     {
 
     }
 
-    public virtual void Back()
+    public virtual void LeaveLeftTop()
     {
-        TurnPage.AutoFlip(FlipRegion.LeftTop, FlipRegion.RightTop);
+
+    }
+
+    public virtual void LeaveRightBottom()
+    {
+
+    }
+
+    public virtual void LeaveRightTop()
+    {
+
     }
 }

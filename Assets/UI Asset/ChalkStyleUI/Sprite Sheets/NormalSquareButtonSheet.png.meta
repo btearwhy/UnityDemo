@@ -1,0 +1,696 @@
+fileFormatVersion: 2
+guid: 76ff707ac42f44348b5e31619571e3a4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: SquareButtonIconSheet_0
+  - first:
+      213: 21300002
+    second: SquareButtonIconSheet_1
+  - first:
+      213: 21300004
+    second: SquareButtonIconSheet_2
+  - first:
+      213: 21300006
+    second: SquareButtonIconSheet_3
+  - first:
+      213: 21300008
+    second: SquareButtonIconSheet_4
+  - first:
+      213: 21300010
+    second: SquareButtonIconSheet_5
+  - first:
+      213: 21300012
+    second: SquareButtonIconSheet_6
+  - first:
+      213: 21300014
+    second: SquareButtonIconSheet_7
+  - first:
+      213: 21300016
+    second: SquareButtonIconSheet_8
+  - first:
+      213: 21300018
+    second: SquareButtonIconSheet_9
+  - first:
+      213: 21300020
+    second: SquareButtonIconSheet_10
+  - first:
+      213: 21300022
+    second: SquareButtonIconSheet_11
+  - first:
+      213: 21300024
+    second: SquareButtonIconSheet_12
+  - first:
+      213: 21300026
+    second: SquareButtonIconSheet_13
+  - first:
+      213: 21300028
+    second: SquareButtonIconSheet_14
+  - first:
+      213: 21300030
+    second: SquareButtonIconSheet_15
+  - first:
+      213: 21300032
+    second: SquareButtonIconSheet_16
+  - first:
+      213: 21300034
+    second: SquareButtonIconSheet_17
+  - first:
+      213: 21300036
+    second: SquareButtonIconSheet_18
+  - first:
+      213: 21300038
+    second: SquareButtonIconSheet_19
+  - first:
+      213: 21300040
+    second: SquareButtonIconSheet_20
+  - first:
+      213: 21300042
+    second: SquareButtonIconSheet_21
+  - first:
+      213: 21300044
+    second: SquareButtonIconSheet_22
+  - first:
+      213: 21300046
+    second: SquareButtonIconSheet_23
+  - first:
+      213: 21300048
+    second: SquareButtonIconSheet_24
+  - first:
+      213: 21300050
+    second: SquareButtonIconSheet_25
+  - first:
+      213: 21300052
+    second: SquareButtonIconSheet_26
+  - first:
+      213: 21300054
+    second: SquareButtonIconSheet_27
+  - first:
+      213: 21300056
+    second: SquareButtonIconSheet_28
+  - first:
+      213: 21300058
+    second: NormalSquareButtonSheet_0
+  - first:
+      213: 21300060
+    second: NormalSquareButtonSheet_1
+  - first:
+      213: 21300062
+    second: NormalSquareButtonSheet_2
+  - first:
+      213: 21300064
+    second: NormalSquareButtonSheet_3
+  - first:
+      213: 21300066
+    second: NormalSquareButtonSheet_4
+  - first:
+      213: 21300068
+    second: NormalSquareButtonSheet_5
+  - first:
+      213: 21300070
+    second: NormalSquareButtonSheet_6
+  - first:
+      213: 21300072
+    second: NormalSquareButtonSheet_7
+  - first:
+      213: 21300074
+    second: NormalSquareButtonSheet_8
+  - first:
+      213: 21300076
+    second: NormalSquareButtonSheet_9
+  - first:
+      213: 21300078
+    second: NormalSquareButtonSheet_10
+  - first:
+      213: 21300080
+    second: NormalSquareButtonSheet_11
+  - first:
+      213: 21300082
+    second: NormalSquareButtonSheet_12
+  - first:
+      213: 21300084
+    second: NormalSquareButtonSheet_13
+  - first:
+      213: 21300086
+    second: NormalSquareButtonSheet_14
+  - first:
+      213: 21300088
+    second: NormalSquareButtonSheet_15
+  - first:
+      213: 21300090
+    second: NormalSquareButtonSheet_16
+  - first:
+      213: 21300092
+    second: NormalSquareButtonSheet_17
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1426
+        width: 466
+        height: 437
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78cbdff307e7a3d4991fe3b030c07094
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_1
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 1422
+        width: 459
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b18c73fcd4e118443a6b23d10f430183
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_2
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 1414
+        width: 459
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34965d5c97a8c804fbb67b2b6c1076c8
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_3
+      rect:
+        serializedVersion: 2
+        x: 2357
+        y: 1413
+        width: 457
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc819ea82fb9a5d478a6067c2e47066f
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_4
+      rect:
+        serializedVersion: 2
+        x: 3106
+        y: 1411
+        width: 459
+        height: 438
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8b7376119255724c9d05d1309f77579
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_5
+      rect:
+        serializedVersion: 2
+        x: 3877
+        y: 1413
+        width: 458
+        height: 450
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 463b3d184a875564a99ebe17f3af72b9
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 711
+        width: 466
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 366a9f4b3bd8510419f70058f8ecd8fb
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_7
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 753
+        width: 458
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0209a01a79d9ecc4f8b40ee3efed8e76
+      internalID: 21300072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_8
+      rect:
+        serializedVersion: 2
+        x: 1597
+        y: 737
+        width: 460
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5aac3e15c4c02d4c9e88232a1c82307
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_9
+      rect:
+        serializedVersion: 2
+        x: 2336
+        y: 711
+        width: 459
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60d6da34bbc363489a9f7d303e94dab
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_10
+      rect:
+        serializedVersion: 2
+        x: 3080
+        y: 711
+        width: 459
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e9e03c61d9368849bf9e5ea56151d75
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_11
+      rect:
+        serializedVersion: 2
+        x: 3877
+        y: 711
+        width: 458
+        height: 441
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c8a0140fd116a40bc5d8174d2fa342
+      internalID: 21300080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 457
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf1fb9042a4a08945854af4ab41d23af
+      internalID: 21300082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_13
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 0
+        width: 459
+        height: 452
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24ffb3800d65d1419e33375ae7cd12a
+      internalID: 21300084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1591
+        y: 42
+        width: 459
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d650cddc68c3a1449cf73f9d4300c09
+      internalID: 21300086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_15
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 46
+        width: 460
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f486c7b8bdba6c04aae32362d171eaf0
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_16
+      rect:
+        serializedVersion: 2
+        x: 3080
+        y: 46
+        width: 458
+        height: 439
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24f38657caeac0742b6145a2a376a520
+      internalID: 21300090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalSquareButtonSheet_17
+      rect:
+        serializedVersion: 2
+        x: 3866
+        y: 0
+        width: 469
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 828d316c16eebfe4ebbc2313d51b140b
+      internalID: 21300092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 8fafc1f9b262fbe4d8736c9f0bd2a11f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      NormalSquareButtonSheet_0: 21300058
+      NormalSquareButtonSheet_1: 21300060
+      NormalSquareButtonSheet_10: 21300078
+      NormalSquareButtonSheet_11: 21300080
+      NormalSquareButtonSheet_12: 21300082
+      NormalSquareButtonSheet_13: 21300084
+      NormalSquareButtonSheet_14: 21300086
+      NormalSquareButtonSheet_15: 21300088
+      NormalSquareButtonSheet_16: 21300090
+      NormalSquareButtonSheet_17: 21300092
+      NormalSquareButtonSheet_2: 21300062
+      NormalSquareButtonSheet_3: 21300064
+      NormalSquareButtonSheet_4: 21300066
+      NormalSquareButtonSheet_5: 21300068
+      NormalSquareButtonSheet_6: 21300070
+      NormalSquareButtonSheet_7: 21300072
+      NormalSquareButtonSheet_8: 21300074
+      NormalSquareButtonSheet_9: 21300076
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

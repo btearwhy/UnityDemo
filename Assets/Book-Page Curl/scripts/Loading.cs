@@ -7,26 +7,33 @@ using UnityEngine.UI;
 
 public class Loading : MonoBehaviour
 {
+    private RectTransform Self;
     public Sprite LoadingSprite;
     public Image LoadingProgress;
     public TMP_Text Text_Fail;
     public TMP_Text Text_Loading;
+
+    private void Awake()
+    {
+        Self = GetComponent<RectTransform>();
+    }
     private void Start()
     {
-
     }
 
 
     public IEnumerator JoinOrFail(float Timeout, float TimeStart, Action SucceedAction, Action FailAction, Func<bool> Satisfied, Func<float> Progress)
     {
-        
+
         gameObject.SetActive(true);
+        Self.SetAsLastSibling();
         Text_Loading.gameObject.SetActive(true);
         Text_Fail.gameObject.SetActive(false);
         while (!Satisfied() && Timeout > Time.time - TimeStart)
         {
+            Debug.Log("test");
             LoadingProgress.fillAmount = Progress();
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.01f);
         }
         if (Satisfied())
         {

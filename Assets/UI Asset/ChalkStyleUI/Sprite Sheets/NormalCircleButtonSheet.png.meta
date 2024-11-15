@@ -1,0 +1,663 @@
+fileFormatVersion: 2
+guid: 5d7ae1fd4befc664f9fee343826bc8c8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: CircleButtonIconSheet_12
+  - first:
+      213: 21300002
+    second: CircleButtonIconSheet_13
+  - first:
+      213: 21300004
+    second: CircleButtonIconSheet_14
+  - first:
+      213: 21300006
+    second: CircleButtonIconSheet_15
+  - first:
+      213: 21300008
+    second: CircleButtonIconSheet_16
+  - first:
+      213: 21300010
+    second: CircleButtonIconSheet_17
+  - first:
+      213: 21300012
+    second: CircleButtonIconSheet_18
+  - first:
+      213: 21300014
+    second: CircleButtonIconSheet_19
+  - first:
+      213: 21300016
+    second: CircleButtonIconSheet_20
+  - first:
+      213: 21300018
+    second: CircleButtonIconSheet_21
+  - first:
+      213: 21300020
+    second: CircleButtonIconSheet_22
+  - first:
+      213: 21300022
+    second: CircleButtonIconSheet_23
+  - first:
+      213: 21300024
+    second: CircleButtonIconSheet_24
+  - first:
+      213: 21300026
+    second: CircleButtonIconSheet_25
+  - first:
+      213: 21300028
+    second: CircleButtonIconSheet_26
+  - first:
+      213: 21300030
+    second: CircleButtonIconSheet_27
+  - first:
+      213: 21300032
+    second: CircleButtonIconSheet_28
+  - first:
+      213: 21300034
+    second: CircleButtonIconSheet_29
+  - first:
+      213: 21300036
+    second: NormalCircleButtonSheet_0
+  - first:
+      213: 21300038
+    second: NormalCircleButtonSheet_1
+  - first:
+      213: 21300040
+    second: NormalCircleButtonSheet_2
+  - first:
+      213: 21300042
+    second: NormalCircleButtonSheet_3
+  - first:
+      213: 21300044
+    second: NormalCircleButtonSheet_4
+  - first:
+      213: 21300046
+    second: NormalCircleButtonSheet_5
+  - first:
+      213: 21300048
+    second: NormalCircleButtonSheet_6
+  - first:
+      213: 21300050
+    second: NormalCircleButtonSheet_7
+  - first:
+      213: 21300052
+    second: NormalCircleButtonSheet_8
+  - first:
+      213: 21300054
+    second: NormalCircleButtonSheet_9
+  - first:
+      213: 21300056
+    second: NormalCircleButtonSheet_10
+  - first:
+      213: 21300058
+    second: NormalCircleButtonSheet_11
+  - first:
+      213: 21300060
+    second: NormalCircleButtonSheet_12
+  - first:
+      213: 21300062
+    second: NormalCircleButtonSheet_13
+  - first:
+      213: 21300064
+    second: NormalCircleButtonSheet_14
+  - first:
+      213: 21300066
+    second: NormalCircleButtonSheet_15
+  - first:
+      213: 21300068
+    second: NormalCircleButtonSheet_16
+  - first:
+      213: 21300070
+    second: NormalCircleButtonSheet_17
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 1
+  cookieLightType: 1
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 1
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1417
+        width: 527
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18fa819a0ba0d52448cd037498b53021
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_1
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 1415
+        width: 529
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b7081b7b6f5aa34ba823f28859040c6
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_2
+      rect:
+        serializedVersion: 2
+        x: 1592
+        y: 1421
+        width: 528
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12d01f843994a7e448cb3374462327a9
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_3
+      rect:
+        serializedVersion: 2
+        x: 2353
+        y: 1406
+        width: 526
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f839c9df92ef8141ab86e41981a5f15
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_4
+      rect:
+        serializedVersion: 2
+        x: 3103
+        y: 1415
+        width: 528
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a8f9be746a39e7488f59b585f34ebc6
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_5
+      rect:
+        serializedVersion: 2
+        x: 3877
+        y: 1421
+        width: 525
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694967947c0485840a4e627f7e8e7b6d
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 712
+        width: 532
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e7ff1bcf5d80c447abf8fc1f180f4e5
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_7
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 750
+        width: 528
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aac4dfc084074340ac9e76b49cc2de6
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_8
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 736
+        width: 528
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 297068fcb9827be468cdc8ce15cd6877
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_9
+      rect:
+        serializedVersion: 2
+        x: 2334
+        y: 712
+        width: 528
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 757129f43adf2b041add405bc9a60c71
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_10
+      rect:
+        serializedVersion: 2
+        x: 3079
+        y: 709
+        width: 529
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c44c18f37902db469fe39546f6070d5
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_11
+      rect:
+        serializedVersion: 2
+        x: 3875
+        y: 709
+        width: 527
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd0d8b2322a776446a7f0ebe9389bede
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 10
+        width: 525
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 374cbff1835f50e438e5be85ae7afe6b
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_13
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 10
+        width: 528
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 501d7b9fe2d8bfa4e96ca0934e81a069
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_14
+      rect:
+        serializedVersion: 2
+        x: 1588
+        y: 0
+        width: 528
+        height: 551
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9468b7d840712034482f753044c595bd
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_15
+      rect:
+        serializedVersion: 2
+        x: 2325
+        y: 44
+        width: 526
+        height: 518
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7510b0102031584a85daffe64563e3c
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_16
+      rect:
+        serializedVersion: 2
+        x: 3079
+        y: 32
+        width: 529
+        height: 519
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cebc536633dc4c246b09b806b77ee071
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: NormalCircleButtonSheet_17
+      rect:
+        serializedVersion: 2
+        x: 3875
+        y: 0
+        width: 527
+        height: 517
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7078a916b2ff5246a794834256acd94
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 82df91f2d15608146bf98808805502c3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      NormalCircleButtonSheet_0: 21300036
+      NormalCircleButtonSheet_1: 21300038
+      NormalCircleButtonSheet_10: 21300056
+      NormalCircleButtonSheet_11: 21300058
+      NormalCircleButtonSheet_12: 21300060
+      NormalCircleButtonSheet_13: 21300062
+      NormalCircleButtonSheet_14: 21300064
+      NormalCircleButtonSheet_15: 21300066
+      NormalCircleButtonSheet_16: 21300068
+      NormalCircleButtonSheet_17: 21300070
+      NormalCircleButtonSheet_2: 21300040
+      NormalCircleButtonSheet_3: 21300042
+      NormalCircleButtonSheet_4: 21300044
+      NormalCircleButtonSheet_5: 21300046
+      NormalCircleButtonSheet_6: 21300048
+      NormalCircleButtonSheet_7: 21300050
+      NormalCircleButtonSheet_8: 21300052
+      NormalCircleButtonSheet_9: 21300054
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
