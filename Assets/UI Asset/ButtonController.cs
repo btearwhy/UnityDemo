@@ -16,9 +16,9 @@ public class ButtonController : MonoBehaviour
 {
     public Image image_HaflCircle;
     public Tween tween;
-    public Sequence sequence;
     public ButtonEffect buttonEffect;
-
+    public AudioClip clickSound;
+    public TurnPage turnPage;
     // Start is called before the first frame update
 
     public delegate void EventHandler();
@@ -30,6 +30,7 @@ public class ButtonController : MonoBehaviour
         button.onClick.AddListener(() =>
         {
             getAction(buttonEffect)();
+            turnPage.GetComponent<AudioSource>().PlayOneShot(clickSound, AudioManager.soundRatio);
             tween.Play();
         });
 

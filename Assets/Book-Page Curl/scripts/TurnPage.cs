@@ -44,11 +44,14 @@ public class TurnPage : MonoBehaviour
     public RectTransform BookPanel;
     public Camera ShotCamera;
     public InputActions inputActions;
+    public AudioClip TurnPageSound;
     private Vector3 mouseFocusInBookSpace;
     private Vector3 actualFlippingPoint;
     private Finger FlippingBookFinger;
 
     private bool stillFinishing = false;
+
+    private AudioSource audioSource;
     private void Awake()
     {
         EnhancedTouchSupport.Enable();
@@ -271,6 +274,8 @@ public class TurnPage : MonoBehaviour
 
     public void Init()
     {
+        audioSource = GetComponent<AudioSource>();
+
         bottomSpine = new Vector3(0, -BookPanel.rect.height / 2);
         bottomRight = new Vector3(BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
         bottomLeft = new Vector3(-BookPanel.rect.width / 2, -BookPanel.rect.height / 2);
@@ -447,6 +452,7 @@ public class TurnPage : MonoBehaviour
         {
             flipStart = StartRegion;
             PrepareClipAfterCursorSet();
+            audioSource.PlayOneShot(TurnPageSound, AudioManager.soundRatio);
             StartCoroutine(Finish(StartRegion, EndRegion));
         }
     }

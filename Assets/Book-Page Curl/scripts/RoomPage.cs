@@ -10,26 +10,24 @@ public class RoomPage : Page
 {
     public Loading LoadingPage;
     public Sprite sprite_seat_default;
-    public GameObject go_seats_scrollView_content;
+    public ScrollRect seats_ScrollView;
     public GameObject prefab_seat;
-    public TMP_Dropdown dropdown_maps;
-    public TMP_Dropdown dropdown_characters;
-    public Image img_map;
     public Button button_leave;
     public Button button_ready;
     public TMP_Text text_button_ready;
+    public TMP_Text text_button_cantStart;
     public TMP_Text text_button_start;
+    public TMP_Text text_button_cancelReady;
+    public string gameRoomName;
+    public ScrollViewSlide MapSlide;
 
-
-    private List<GameObject> seats;
+    private List<SeatController> seats;
     private GameRoom gameRoom;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        gameRoom = GameRoom.gameRoom;
-        gameRoom.OnInit += Init;
 
     }
 
@@ -37,51 +35,64 @@ public class RoomPage : Page
     {
         base.InitialOperation();
 
-        StartCoroutine(LoadingPage.JoinOrFail(3f, Time.time, Init, FlipBack, gameRoom.ConnectedToRoom, gameRoom.ProgressToRoom));
+        gameRoom = PhotonNetwork.Instantiate(gameRoomName, Vector3.one, Quaternion.identity).GetComponent<GameRoom>();
+        DontDestroyOnLoad(gameRoom);
+        StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameRoom.ConnectedToRoom, gameRoom.ProgressToRoom));
     }
 
     private void Update()
     {
-        Debug.Log(PhotonNetwork.NetworkClientState);
+        
     }
 
     public void Init()
     {
-        button_leave.onClick.AddListener(() => PhotonNetwork.LeaveRoom());
+        gameRoom.Init();
 
-        seats = new List<GameObject>();
+
+
+        button_leave.onClick.AddListener(FlipBack);
+
+        seats = new List<SeatController>();
         for (int i = 0; i < gameRoom.maxPlayers; i++)
         {
-            GameObject item = Instantiate(prefab_seat, Vector3.zero, Quaternion.identity, go_seats_scrollView_content.transform);
-            item.transform.SetParent(go_seats_scrollView_content.transform);
+            GameObject item = Instantiate(prefab_seat, Vector3.zero, Quaternion.identity, seats_ScrollView.content);
             item.transform.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, 0);
-            Button button = item.GetComponentInChildren<Button>();
-            button.GetComponentInChildren<TMP_Text>().text = string.Empty;
+            SeatController seatController = item.GetComponent<SeatController>();
+            seatController.playerName.text = string.Empty;
             int t = i;
-            button.onClick.AddListener(() => gameRoom.ChangeSeat(t));
+            seatController.button.onClick.AddListener(() => gameRoom.ChangeSeat(t));
 
-            seats.Add(item);
+            seats.Add(seatController);
         }
+
+
 
         gameRoom.OnRoomChanged += refreshSeats;
 
-        img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
-        dropdown_characters.ClearOptions();
-        IEnumerable<TMP_Dropdown.OptionData> characterOptions = from character in gameRoom.characters
-                                                                select new TMP_Dropdown.OptionData(character.characterName, character.avator);
-        dropdown_characters.AddOptions(characterOptions.ToList());
-        dropdown_characters.onValueChanged.AddListener(gameRoom.ChangeCharacter);
+
+        /* dropdown_characters.ClearOptions();
+         IEnumerable<TMP_Dropdown.OptionData> characterOptions = from character in gameRoom.characters
+                                                                 select new TMP_Dropdown.OptionData(character.characterName, character.avator);
+         dropdown_characters.AddOptions(characterOptions.ToList());
+         dropdown_characters.onValueChanged.AddListener(gameRoom.ChangeCharacter);*/
 
 
-        dropdown_maps.ClearOptions();
-        IEnumerable<TMP_Dropdown.OptionData> mapOptions = from map in gameRoom.maps
-                                                          select new TMP_Dropdown.OptionData(map.mapName, map.image);
-        dropdown_maps.AddOptions(mapOptions.ToList());
-        dropdown_maps.onValueChanged.AddListener(gameRoom.ChangeMap);
-        gameRoom.OnMapChanged += () => {
-            img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
-            dropdown_maps.value = gameRoom.curMap;
-        };
+        foreach (MapType map in gameRoom.maps)
+        {
+            GameObject gameObject = new GameObject();
+            Image image = gameObject.AddComponent<Image>();
+            image.sprite = map.image;
+            RectTransform rect = image.GetComponent<RectTransform>();
+            gameObject.SetActive(true);
+            MapSlide.AddItem(rect);
+        }
+        MapSlide.Init();
+        gameRoom.OnMapChanged += MapSlide.JumpTo;
+
+        
+        
+        
 
         gameRoom.OnMasterAcquired += MasterView;
         if (PhotonNetwork.IsMasterClient)
@@ -97,13 +108,24 @@ public class RoomPage : Page
 
     private void MasterView()
     {
-        dropdown_maps.enabled = true;
         text_button_ready.enabled = false;
+        text_button_cantStart.enabled = false;
         text_button_start.enabled = true;
+        text_button_cancelReady.enabled = false;
         button_ready.enabled = false;
         button_ready.onClick.RemoveAllListeners();
         button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName));
-        gameRoom.OnReady += (ready) => button_ready.enabled = ready;
+        gameRoom.OnReady += (ready) =>
+        {
+            button_ready.enabled = ready;
+            text_button_ready.enabled = ready;
+            text_button_cantStart.enabled = !ready;
+        };
+
+        MapSlide.OnValueChanged += (mapNr) =>
+        {
+            gameRoom.ChangeMap(mapNr);
+        };
     }
 
     private void ClientView()
@@ -111,9 +133,22 @@ public class RoomPage : Page
         text_button_ready.enabled = true;
         text_button_start.enabled = false;
         button_ready.onClick.RemoveAllListeners();
-        button_ready.onClick.AddListener(() => gameRoom.Ready(!gameRoom.IsReady()));
+        button_ready.onClick.AddListener(() => {
+            if (gameRoom.IsReady())
+            {
+                text_button_ready.enabled = true;
+                text_button_cancelReady.enabled = false;
+            }
+            else
+            {
+                text_button_ready.enabled = false;
+                text_button_cancelReady.enabled = true;
+            }
+            gameRoom.Ready(!gameRoom.IsReady());
+        });
 
-        dropdown_maps.enabled = false;
+
+        MapSlide.ScrollRect.horizontal = false;
     }
 
     private void refreshSeats(RoomProperty roomProperty)
@@ -123,18 +158,22 @@ public class RoomPage : Page
         {
             int seatNr = entry.Value.seatNr;
             set[seatNr] = true;
-            Button button = seats[seatNr].GetComponentInChildren<Button>();
+            Button button = seats[seatNr].button;
             ColorBlock cb = button.colors;
-            seats[seatNr].GetComponentInChildren<TMP_Text>().text = entry.Value.nickName;
-            button.image.sprite = entry.Value.character.avator;
+            seats[seatNr].playerName.text = entry.Value.nickName;
+            seats[seatNr].image_background.sprite = entry.Value.character.avator;
             button.enabled = false;
             if (entry.Value.ready)
             {
                 cb.normalColor = Color.green;
+                seats[seatNr].image_ready.enabled = true;
+                seats[seatNr].image_notReady.enabled = false;
             }
             else
             {
                 cb.normalColor = Color.yellow;
+                seats[seatNr].image_ready.enabled = false;
+                seats[seatNr].image_notReady.enabled = true;
             }
             button.colors = cb;
         }
@@ -142,13 +181,16 @@ public class RoomPage : Page
         {
             if (!set[i])
             {
-                seats[i].GetComponentInChildren<TMP_Text>().text = string.Empty;
-                Button button = seats[i].GetComponentInChildren<Button>();
+                seats[i].playerName.text = string.Empty;
+                Button button = seats[i].button;
                 ColorBlock cb = button.colors;
                 cb.normalColor = Color.white;
-                button.colors = cb;
+                button.colors = cb; 
                 button.enabled = true;
                 button.image.sprite = sprite_seat_default;
+                seats[i].image_background.enabled = false;
+                seats[i].image_notReady.enabled = false;
+                seats[i].image_ready.enabled = false;
             }
         }
 

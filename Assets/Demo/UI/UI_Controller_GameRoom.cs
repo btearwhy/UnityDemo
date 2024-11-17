@@ -68,10 +68,10 @@ public class UI_Controller_GameRoom : MonoBehaviour
                                       select new TMP_Dropdown.OptionData(map.mapName, map.image);
         dropdown_maps.AddOptions(mapOptions.ToList());
         dropdown_maps.onValueChanged.AddListener(gameRoom.ChangeMap);
-        gameRoom.OnMapChanged += () => {
+/*        gameRoom.OnMapChanged += () => {
             img_map.sprite = gameRoom.maps[gameRoom.curMap].image;
             dropdown_maps.value = gameRoom.curMap;
-        };
+        };*/
 
         gameRoom.OnMasterAcquired += MasterView;
         if (PhotonNetwork.IsMasterClient)

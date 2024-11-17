@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,12 +16,13 @@ public class LobbyPage : Page
     public Button button_createRoom;
     public Button button_back;
     public RectTransform panel_noRoomSign;
-    public RectTransform viewScrollContent;
+    public ScrollRect scrollRoom;
     public GameObject viewScrollContentPrefab;
 
+    public RectTransform Image_Refresh;
 
     private string playername = "test";
-
+    private Tween tweenForRefresh;
     public override void InitialOperation()
     {
         base.InitialOperation();
@@ -29,18 +31,35 @@ public class LobbyPage : Page
 
         gameLobby.ConnectToLobby();
 
-        StartCoroutine(LoadingPage.JoinOrFail(3f, Time.time, Init, FlipBack, gameLobby.ConnectedToLobby, gameLobby.ProgressToLobby));
+        StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameLobby.ConnectedToLobby, gameLobby.ProgressToLobby));
     }
 
     private void Start()
     {
         button_back.GetComponent<ButtonController>().OnComplete += FlipBack;
+
+        
     }
 
     //temp， should not be updated every frame
     public void Update()
     {
+        if (scrollRoom.content.localPosition.y < -150)
+        {
+            if (!tweenForRefresh.IsActive()){
+                tweenForRefresh = Image_Refresh.DORotate(Image_Refresh.rotation.eulerAngles + new Vector3(0, 0, -180), 1.0f).OnStart(() => Image_Refresh.gameObject.SetActive(true)).OnComplete(() =>
+                {
+                    Image_Refresh.gameObject.SetActive(false);
+                    Refresh();
+                });
+            }
+            if (!tweenForRefresh.IsPlaying())
+            {
+                tweenForRefresh.Play();
+            }
 
+        }
+        panel_noRoomSign.localPosition = scrollRoom.content.localPosition;
     }
 
     public void Init()
@@ -58,15 +77,14 @@ public class LobbyPage : Page
         });
 
         Refresh();
-        //button_refresh.onClick.AddListener(gameLobby.JoinLobby);
     }
 
     public void Refresh()
     {
 
-        for (int i = 0; i < viewScrollContent.childCount; i++)
+        for (int i = 0; i < scrollRoom.content.childCount; i++)
         {
-            Destroy(viewScrollContent.GetChild(i).gameObject);
+            Destroy(scrollRoom.content.GetChild(i).gameObject);
         }
         if (gameLobby.createdRooms.Count == 0)
         {
@@ -81,7 +99,7 @@ public class LobbyPage : Page
                 item.transform.GetChild(1).GetComponent<TMP_Text>().text = gameLobby.createdRooms[i].PlayerCount + "/" + gameLobby.createdRooms[i].MaxPlayers;
                 item.transform.GetChild(2).GetComponent<Button>().interactable = gameLobby.createdRooms[i].PlayerCount != gameLobby.createdRooms[i].MaxPlayers;
                 //item.GetComponent<UIController_RoomList_Item>().setItem(gameLobby.createdRooms[i].Name, gameLobby.createdRooms[i].PlayerCount + "/" + gameLobby.createdRooms[i].MaxPlayers, gameLobby.createdRooms[i].PlayerCount != gameLobby.createdRooms[i].MaxPlayers);
-                item.GetComponent<RectTransform>().SetParent(viewScrollContent);
+                item.GetComponent<RectTransform>().SetParent(scrollRoom.content);
                 item.transform.localScale = Vector3.one;
                 item.transform.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, 0);
                 Button button_joinRoom = item.GetComponentInChildren<Button>();

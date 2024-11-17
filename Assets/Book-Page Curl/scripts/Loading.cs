@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ public class Loading : MonoBehaviour
     }
     private void Start()
     {
+        
     }
 
 
@@ -31,23 +33,30 @@ public class Loading : MonoBehaviour
         Text_Fail.gameObject.SetActive(false);
         while (!Satisfied() && Timeout > Time.time - TimeStart)
         {
-            Debug.Log("test");
-            LoadingProgress.fillAmount = Progress();
-            yield return new WaitForSeconds(0.01f);
+            LoadingProgress.DOFillAmount(Progress(), 0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
         if (Satisfied())
         {
-            gameObject.SetActive(false);
+            LoadingProgress.DOFillAmount(1.0f, 0.5f).OnComplete(Reset);
+            yield return new WaitForSeconds(0.5f);
             SucceedAction();
+            Debug.Log("succeed");
         }
         else
         {
+            LoadingProgress.DOFillAmount(0f, 0.5f).OnComplete(Reset);
             Text_Fail.gameObject.SetActive(true);
             Text_Loading.gameObject.SetActive(false);
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.5f);
             Text_Fail.gameObject.SetActive(false);
-            gameObject.SetActive(false);
             FailAction();
         }
+        gameObject.SetActive(false);
+    }
+
+    public void Reset()
+    {
+        LoadingProgress.fillAmount = 0.0f;
     }
 }

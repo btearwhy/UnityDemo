@@ -47,14 +47,14 @@ public class GameRoom : MonoBehaviourPunCallbacks
 {
     public int score = 30;
     public int maxPlayers = 10;
-    public List<MapType> maps;
+    public List<MapType> maps = new List<MapType>();
     public int curMap;
 
     public int winCondition = -20;
     public float timeCondition = 60f;
     public string endingScene = "GameLobby";
     
-    public List<Character> characters;
+    public List<Character> characters = new List<Character>();
     public int chosenCharacter;
 
     public delegate void RoomViewHandler(RoomProperty roomProperty);
@@ -63,7 +63,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public delegate void ReadyHandler(bool ready);
     public event ReadyHandler OnReady;
 
-    public delegate void MapHandler();
+    public delegate void MapHandler(int selected);
     public event MapHandler OnMapChanged;
 
     public delegate void JoinRoomHandler();
@@ -84,30 +84,22 @@ public class GameRoom : MonoBehaviourPunCallbacks
     private void Awake()
     {
         gameRoom = this;
-        DontDestroyOnLoadManager.DontDestroyOnLoad(gameObject);
+        /*DontDestroyOnLoadManager.DontDestroyOnLoad(gameObject);*/
     }
     // Start is called before the first frame update
-    void Start() 
-    {
 
+    public void Init()
+    {
         AssetBundleManager assetBundleManager = AssetBundleManager.GetInstance();
         IEnumerable<MapType> maps_t = from map in assetBundleManager.LoadAssets<ScriptableObject>("maps")
-                                    select (MapType)map;
+                                      select (MapType)map;
         maps.AddRange(maps_t);
         curMap = 0;
 
         IEnumerable<Character> characters_t = from character in assetBundleManager.LoadAssets<ScriptableObject>("characters")
-                                      select (Character)character;
+                                              select (Character)character;
         characters.AddRange(characters_t);
 
-        StartCoroutine(InitWhenConnected());
-       
-
-    }
-
-    IEnumerator InitWhenConnected()
-    {
-        yield return new WaitUntil(() => PhotonNetwork.InRoom);
         winCondition = 100;
         endingScene = "Main";
 
@@ -124,11 +116,17 @@ public class GameRoom : MonoBehaviourPunCallbacks
         {
             playerProperties.Add("ready", false);
         }
-        
+
         playerProperties.Add("seat", GetAvailableSeatNumber());
         playerProperties.Add("character", 0);
         playerProperties.Add("score", 0);
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+    }
+
+    IEnumerator InitWhenConnected()
+    {
+        yield return new WaitUntil(() => PhotonNetwork.InRoom);
+        
     }
 
     internal void ChangeCharacter(int selected)
@@ -143,14 +141,14 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     internal void ChangeMap(int selected)
     {
-        photonView.RPC("ChangeMapRPC", RpcTarget.All, selected);
+        photonView.RPC("ChangeMapRPC", RpcTarget.Others, selected);
     }
 
     [PunRPC]
     public void ChangeMapRPC(int selected)
     {
         curMap = selected;
-        OnMapChanged.Invoke();
+        OnMapChanged?.Invoke(selected);
     }
 
     public int GetAvailableSeatNumber()
@@ -322,10 +320,6 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log("room destroyed");
-    }
 
     internal bool ConnectedToRoom()
     {
@@ -334,7 +328,23 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     internal float ProgressToRoom()
     {
-        return 0.5f;
+        if(PhotonNetwork.NetworkClientState == ClientState.Joining)
+        {
+            return 0.3f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.ConnectingToGameServer)
+        {
+            return 0.5f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.Authenticating)
+        {
+            return 0.8f;
+        }
+        else if(PhotonNetwork.NetworkClientState == ClientState.Joined)
+        {
+            return 1.0f;
+        }
+        return 0.0f;
 
     }
 }
