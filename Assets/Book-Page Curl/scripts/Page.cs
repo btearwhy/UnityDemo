@@ -14,6 +14,7 @@ public class Page : MonoBehaviour
 
     public Page LastPage;
 
+    public bool isClonedForViewOnly = false;
     private void Start()
     {
 
@@ -51,5 +52,25 @@ public class Page : MonoBehaviour
     internal virtual void SetFlippedFrom(Page page)
     {
         LastPage = page;
+    }
+
+    internal void Leave(FlipRegion startRegion)
+    {
+        if(startRegion == FlipRegion.LeftBottom)
+        {
+            LeaveLeftBottom();
+        }
+        else if(startRegion == FlipRegion.RightBottom)
+        {
+            LeaveRightBottom();
+        }
+        else if(startRegion == FlipRegion.LeftTop)
+        {
+            LeaveLeftTop();
+        }
+        else
+        {
+            LeaveRightTop();
+        }
     }
 }

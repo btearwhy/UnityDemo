@@ -15,8 +15,6 @@ public class SettingPage : Page
     void Start()
     {
 
-        GetComponent<Canvas>().worldCamera = Camera.main;
-
         buttonBack.onClick.AddListener(() =>
         {
             FlipBack();
@@ -55,12 +53,5 @@ public class SettingPage : Page
         base.InitialOperation();
 
         LeftTopPage = LastPage.GetComponent<RectTransform>();
-    }
-
-    public override void LeaveLeftTop()
-    {
-        base.LeaveLeftTop();
-
-        TurnPage.AutoFlip(FlipRegion.LeftTop);
     }
 }

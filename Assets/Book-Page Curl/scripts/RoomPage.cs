@@ -14,6 +14,7 @@ public class RoomPage : Page
     public GameObject prefab_seat;
     public Button button_leave;
     public Button button_ready;
+    public Button button_start;
     public TMP_Text text_button_ready;
     public TMP_Text text_button_cantStart;
     public TMP_Text text_button_start;
@@ -28,16 +29,57 @@ public class RoomPage : Page
     // Start is called before the first frame update
     void Start()
     {
+        if (isClonedForViewOnly) return;
 
+        gameRoom = GetComponent<GameRoom>();
+
+        button_leave.onClick.AddListener(FlipBack);
+
+        gameRoom.OnRoomChanged += RefreshSeats;
+
+        gameRoom.OnMapChanged += MapSlide.JumpTo;
+
+        gameRoom.OnMasterAcquired += MasterView;
+
+        button_start.onClick.AddListener(gameRoom.StartGame);
+
+        gameRoom.OnReady += (ready) =>
+        {
+            button_ready.enabled = ready;
+            text_button_start.enabled = ready;
+            text_button_cantStart.enabled = !ready;
+        };
+
+        MapSlide.OnValueChanged += (mapNr) =>
+        {
+            gameRoom.ChangeMap(mapNr);
+        };
+
+        button_ready.onClick.AddListener(() => {
+            if (gameRoom.IsReady())
+            {
+                text_button_ready.enabled = true;
+                text_button_cancelReady.enabled = false;
+            }
+            else
+            {
+                text_button_ready.enabled = false;
+                text_button_cancelReady.enabled = true;
+            }
+            gameRoom.Ready(!gameRoom.IsReady());
+        });
     }
 
     public override void InitialOperation()
     {
         base.InitialOperation();
 
-        gameRoom = PhotonNetwork.Instantiate(gameRoomName, Vector3.one, Quaternion.identity).GetComponent<GameRoom>();
-        DontDestroyOnLoad(gameRoom);
-        StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameRoom.ConnectedToRoom, gameRoom.ProgressToRoom));
+        /*        gameRoom = PhotonNetwork.Instantiate(gameRoomName, Vector3.one, Quaternion.identity).GetComponent<GameRoom>();
+                DontDestroyOnLoad(gameRoom);*/
+        if(LastPage is not SettingPage)
+        {
+            StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameRoom.ConnectedToRoom, gameRoom.ProgressToRoom));
+        }
     }
 
     private void Update()
@@ -51,7 +93,7 @@ public class RoomPage : Page
 
 
 
-        button_leave.onClick.AddListener(FlipBack);
+        
 
         seats = new List<SeatController>();
         for (int i = 0; i < gameRoom.maxPlayers; i++)
@@ -68,7 +110,7 @@ public class RoomPage : Page
 
 
 
-        gameRoom.OnRoomChanged += refreshSeats;
+        
 
 
         /* dropdown_characters.ClearOptions();
@@ -88,13 +130,9 @@ public class RoomPage : Page
             MapSlide.AddItem(rect);
         }
         MapSlide.Init();
-        gameRoom.OnMapChanged += MapSlide.JumpTo;
-
-        
-        
         
 
-        gameRoom.OnMasterAcquired += MasterView;
+        
         if (PhotonNetwork.IsMasterClient)
         {
             MasterView();
@@ -108,52 +146,24 @@ public class RoomPage : Page
 
     private void MasterView()
     {
-        text_button_ready.enabled = false;
-        text_button_cancelReady.enabled = false;
-        text_button_start.enabled = true;
+        button_start.gameObject.SetActive(true);
+        button_ready.gameObject.SetActive(false);
         text_button_cantStart.enabled = false;
-        button_ready.enabled = false;
-        button_ready.onClick.RemoveAllListeners();
-        button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName));
-        gameRoom.OnReady += (ready) =>
-        {
-            button_ready.enabled = ready;
-            text_button_start.enabled = ready;
-            text_button_cantStart.enabled = !ready;
-        };
-
-        MapSlide.OnValueChanged += (mapNr) =>
-        {
-            gameRoom.ChangeMap(mapNr);
-        };
+        text_button_start.enabled = true;
     }
 
     private void ClientView()
     {
+        button_start.gameObject.SetActive(true);
+        button_ready.gameObject.SetActive(false);
         text_button_ready.enabled = true;
         text_button_cancelReady.enabled = false;
-        text_button_start.enabled = false;
-        text_button_cantStart.enabled = false;
-        button_ready.onClick.RemoveAllListeners();
-        button_ready.onClick.AddListener(() => {
-            if (gameRoom.IsReady())
-            {
-                text_button_ready.enabled = true;
-                text_button_cancelReady.enabled = false;
-            }
-            else
-            {
-                text_button_ready.enabled = false;
-                text_button_cancelReady.enabled = true;
-            }
-            gameRoom.Ready(!gameRoom.IsReady());
-        });
 
 
         MapSlide.ScrollRect.horizontal = false;
     }
 
-    private void refreshSeats(RoomProperty roomProperty)
+    private void RefreshSeats(RoomProperty roomProperty)
     {
         bool[] set = new bool[seats.Count];
         
@@ -213,7 +223,7 @@ public class RoomPage : Page
         }
         MapSlide.Clear();
         PhotonNetwork.LeaveRoom();
-        TurnPage.AutoFlip(FlipRegion.LeftTop);
     }
+
 
 }

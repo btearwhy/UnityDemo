@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public float rotateSpeed;
     public float zoomSpeed;
-
+    public Camera playerCamera;
     public GameObject character;
 
     public InputActions inputActions;
@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFingerMove(Finger TouchedFinger)
     {
+        
         if(TouchedFinger == MovementFinger)
         {
             Vector2 knobPosition;
@@ -159,6 +160,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
+        if (IsClickOnUI(TouchedFinger.screenPosition)) 
+        {
+            return;
+        }
         if(MovementFinger == null && TouchedFinger.screenPosition.x < Screen.width / 2.0f && TouchedFinger.screenPosition.y  < Screen.height * 2.0f / 3.0f)
         {
             MovementFinger = TouchedFinger;
@@ -269,21 +274,49 @@ public class PlayerController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(cameraVertical, cameraHorizontal, cameraTilt);
     }
 
-    public bool IsClickOnUI(Vector3 location)
+    public bool IsClickOnUI(Vector2 ScreenPosition)
     {
-        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-        pointerEventData.position = location;
-
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pointerEventData, results);
-        for (int i = 0; i < results.Count; i++)
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(ScreenPosition.x, ScreenPosition.y));
+        Debug.DrawRay(ray.origin, ray.direction, Color.red, 5.0f);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (results[i].gameObject.CompareTag("UI"))
-            {
-                return true;
-            }
+            DrawSphere(hit.point, 2, Color.red);
         }
 
-        return false;
+            return false;
+    }
+
+    private static readonly Vector4[] s_UnitSphere = MakeUnitSphere(16);
+    private static Vector4[] MakeUnitSphere(int len)
+    {
+        Debug.Assert(len > 2);
+        var v = new Vector4[len * 3];
+        for (int i = 0; i < len; i++)
+        {
+            var f = i / (float)len;
+            float c = Mathf.Cos(f * (float)(Math.PI * 2.0));
+            float s = Mathf.Sin(f * (float)(Math.PI * 2.0));
+            v[0 * len + i] = new Vector4(c, s, 0, 1);
+            v[1 * len + i] = new Vector4(0, c, s, 1);
+            v[2 * len + i] = new Vector4(s, 0, c, 1);
+        }
+        return v;
+    }
+    public static void DrawSphere(Vector4 pos, float radius, Color color)
+    {
+        Vector4[] v = s_UnitSphere;
+        int len = s_UnitSphere.Length / 3;
+        for (int i = 0; i < len; i++)
+        {
+            var sX = pos + radius * v[0 * len + i];
+            var eX = pos + radius * v[0 * len + (i + 1) % len];
+            var sY = pos + radius * v[1 * len + i];
+            var eY = pos + radius * v[1 * len + (i + 1) % len];
+            var sZ = pos + radius * v[2 * len + i];
+            var eZ = pos + radius * v[2 * len + (i + 1) % len];
+            Debug.DrawLine(sX, eX, color, 5);
+            Debug.DrawLine(sY, eY, color, 5);
+            Debug.DrawLine(sZ, eZ, color, 5);
+        }
     }
 }

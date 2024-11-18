@@ -101,13 +101,8 @@ public class TurnPage : MonoBehaviour
         FlippingPlane.SetParent(ClippingPlaneFlipPage);
         NextPlane.SetParent(ClippingPlaneNewPage);
 
-        FlippingPlane.gameObject.SetActive(true);
-
-
-        ClippingPlaneFlipPage.gameObject.SetActive(true);
-        ClippingPlaneNewPage.gameObject.SetActive(true);
-
         NextPlaneCopy = Instantiate(NextPlane, FlippingPlane);
+        NextPlaneCopy.GetComponent<Page>().isClonedForViewOnly = true;
     }
 
     private RectTransform GetNextPlane(FlipRegion flipStart, Page page)
@@ -141,44 +136,40 @@ public class TurnPage : MonoBehaviour
                 || (flipStart == FlipRegion.RightBottom || flipStart == FlipRegion.RightTop) && cursorOnBook.x > 0)
             {
 
-                DropSlip();
+                DropFlip();
             }
             else
             {
-                FinishSlip();
+                FinishFlip();
             }
             stillFinishing = true;
         }
     }
 
-    private void DropSlip()
+    private void DropFlip()
     {
         StartCoroutine(Finish(flipStart.Value, flipStart.Value));
     }
 
-    private void FinishSlip()
+    private void FinishFlip()
     {
         FlipRegion flipTarget;
         Page page = CurrentPlane.GetComponent<Page>();
         if(flipStart == FlipRegion.LeftBottom)
         {
             flipTarget = FlipRegion.RightBottom;
-            page.LeaveLeftBottom();
         }
         else if (flipStart == FlipRegion.LeftTop)
         {
             flipTarget = FlipRegion.RightTop;
-            page.LeaveLeftTop();
         }
         else if (flipStart == FlipRegion.RightTop)
         {
             flipTarget = FlipRegion.LeftTop;
-            page.LeaveRightTop();
         }
         else
         {
             flipTarget = FlipRegion.LeftBottom;
-            page.LeaveRightBottom();
         }
         StartCoroutine(Finish(flipStart.Value, flipTarget));
     }
@@ -207,11 +198,12 @@ public class TurnPage : MonoBehaviour
             mouseFocusInBookSpace = target;
             UpdateBookWithLocalFocus();
         }
-        stillFinishing = false;
+
         if (flipped)
         {
             //CurrentPlane.SetParent(CanvasPanelLists);
             CurrentPlane.localPosition = Vector3.zero;
+            CurrentPlane.GetComponent<Page>().Leave(startRegion);
             CurrentPlane.gameObject.SetActive(false);
             NextPlane.SetParent(BookPanel);
             NextPlane.gameObject.SetActive(true);
@@ -237,7 +229,7 @@ public class TurnPage : MonoBehaviour
         /*Image flipImage = FlippingPlane.GetComponent<Image>();*/
         //Texture2D.Destroy(flipImage.sprite.texture);
         //Sprite.Destroy(flipImage.sprite);
-
+        stillFinishing = false;
         EnhancedTouchSupport.Enable();
     }
 
@@ -391,6 +383,9 @@ public class TurnPage : MonoBehaviour
         ClippingPlaneNewPage.SetAsLastSibling();
         ClippingPlaneFlipPage.SetAsLastSibling();
 
+        ClippingPlaneFlipPage.gameObject.SetActive(true);
+        ClippingPlaneNewPage.gameObject.SetActive(true);
+        FlippingPlane.gameObject.SetActive(true);
         NextPlaneCopy.gameObject.SetActive(true);
         NextPlane.gameObject.SetActive(true);
 
@@ -430,6 +425,7 @@ public class TurnPage : MonoBehaviour
 
     public void AutoFlip(FlipRegion StartRegion)
     {
+        stillFinishing = true;
         FlipRegion EndRegion;
         if(StartRegion == FlipRegion.LeftBottom)
         {
@@ -451,7 +447,8 @@ public class TurnPage : MonoBehaviour
             mouseFocusInBookSpace = topRight;
             EndRegion = FlipRegion.LeftTop; 
         }
-        if(GetNextPlane(StartRegion, CurrentPlane.GetComponent<Page>()) != null)
+
+        if (GetNextPlane(StartRegion, CurrentPlane.GetComponent<Page>()) != null)
         {
             flipStart = StartRegion;
             PrepareClipAfterCursorSet();

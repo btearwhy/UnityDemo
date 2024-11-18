@@ -14,16 +14,16 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
 
     public ScrollRect ScrollRect;
-    private bool isLerping = true;
+    private bool isLerping = false;
     private bool isDragging = false;
     private float reservedSpace;
     private Vector3 velocity;
     private bool isUpdated;
-    private bool isStill = true;
 
     private Vector3 lerpingRemains;
     public float targetHorizontalNorm;
     public List<RectTransform> items;
+    private bool stopped = true;
 
     public delegate void ValueChangeHandler(int chosenNr);
     public event ValueChangeHandler OnValueChanged;
@@ -38,13 +38,14 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         if (!isDragging)
         {
-            if (isLerping)
+            if (isLerping && !stopped)
             {
                 Vector3 remainBefore = lerpingRemains;
                 lerpingRemains = Vector3.Lerp(lerpingRemains, Vector3.zero, 10 * Time.deltaTime);
                 if(lerpingRemains == Vector3.zero)
                 {
                     OnValueChanged?.Invoke(Index2Pos(GetCurIndex()));
+                    stopped = true;
                 }
                 ScrollRect.content.localPosition += remainBefore - lerpingRemains;
             }
@@ -53,7 +54,6 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
                 lerpingRemains = CalculateLerpRemains();
                 isLerping = true;
                 ScrollRect.velocity = Vector3.zero;
-                int diff = lerpingRemains.x < 0 ? 1 : 0;
                 
             }
         }
@@ -98,7 +98,7 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         isDragging = true;
         isLerping = false;
-        isStill = false;
+        stopped = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -190,7 +190,6 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     internal void Clear()
     {
         items.Clear();
-        OnValueChanged = null;
         for(int i = 0; i < ScrollRect.content.childCount; i++)
         {
             Destroy(ScrollRect.content.GetChild(i).gameObject);

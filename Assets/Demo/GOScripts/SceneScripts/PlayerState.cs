@@ -84,6 +84,7 @@ public class PlayerState
     }
     public void InitHUD()
     {
+
         GameObject characterObject = playerController.character;
         AttributeSet attributeSet = characterObject.GetComponent<AttributeSet>();
         HUD.HealthBar.transform.GetChild(0).GetComponent<Image>().fillAmount = attributeSet.GetCurrentValue(AttributeType.Health) / attributeSet.GetCurrentValue(AttributeType.MaxHealth); 

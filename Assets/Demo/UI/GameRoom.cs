@@ -75,7 +75,6 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public delegate void ScoreChangeHandler(RoomProperty roomProperty);
     public event ScoreChangeHandler OnScoreChanged;
 
-    private readonly int currentSeatNumber = -1;
 
 
     private Player[] players;
@@ -123,11 +122,6 @@ public class GameRoom : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
     }
 
-    IEnumerator InitWhenConnected()
-    {
-        yield return new WaitUntil(() => PhotonNetwork.InRoom);
-        
-    }
 
     internal void ChangeCharacter(int selected)
     {
@@ -185,13 +179,15 @@ public class GameRoom : MonoBehaviourPunCallbacks
         PlayerController playerController = PlayerState.GetInstance().GetController();
         if (playerController != null && playerController.character != null)
         {
+            PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.Destroy(playerController.character);
         }
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameLobby");
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.Destroy(gameRoom.gameObject);
-        }
+    }
+
+    public void StartGame()
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -269,7 +265,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
         base.OnPlayerLeftRoom(otherPlayer);
         players = PhotonNetwork.PlayerList;
         RoomProperty roomProperty = GetRoomProperty();
-        OnRoomChanged.Invoke(roomProperty);
+        OnRoomChanged?.Invoke(roomProperty);
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
@@ -348,4 +344,5 @@ public class GameRoom : MonoBehaviourPunCallbacks
         return 0.0f;
 
     }
+
 }

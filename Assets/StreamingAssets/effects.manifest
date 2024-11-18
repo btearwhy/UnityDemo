@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 2148099372
+CRC: 1221209391
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 2a46e9c9587d74ddd1ea84f8d1070762
+    Hash: 63fad44d778eeeb02af0c0384714302a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: cb1289e35bda41c95d3c3e3cf8920dba
+    Hash: 08a5e046822e6e46b89634373c58bfbf
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 2a46e9c9587d74ddd1ea84f8d1070762
+    Hash: 63fad44d778eeeb02af0c0384714302a
 HashAppended: 0
 ClassTypes:
 - Class: 114
@@ -27,9 +27,9 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 8d12e366829031c44b4b7e52d14ad480, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: a4966d06f12c2ce4dbd3f3393c6360f8, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: ed112315116684e41b3c5bac1f9bd057, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a4966d06f12c2ce4dbd3f3393c6360f8, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
@@ -44,4 +44,4 @@ Assets:
 - Assets/Demo/Data/Effect_Duration_AttackAttached_Data.asset
 - Assets/Demo/Data/Effect_Instant_Data.asset
 Dependencies:
-- C:/Users/mofan/Assignment/UnityDemo/Assets/StreamingAssets/abilities
+- D:/3D mobile/Assets/StreamingAssets/abilities

@@ -33,6 +33,7 @@ public class Loading : MonoBehaviour
         Text_Fail.gameObject.SetActive(false);
         while (!Satisfied() && Timeout > Time.time - TimeStart)
         {
+            Debug.Log(Timeout + ">" + (Time.time - TimeStart));
             LoadingProgress.DOFillAmount(Progress(), 0.5f);
             yield return new WaitForSeconds(0.2f);
         }
@@ -41,7 +42,6 @@ public class Loading : MonoBehaviour
             LoadingProgress.DOFillAmount(1.0f, 0.5f).OnComplete(Reset);
             yield return new WaitForSeconds(0.5f);
             SucceedAction();
-            Debug.Log("succeed");
         }
         else
         {

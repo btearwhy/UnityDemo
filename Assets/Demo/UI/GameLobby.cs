@@ -53,7 +53,7 @@ public class GameLobby : MonoBehaviourPunCallbacks
         
     }
 
-    public void ConnectToLobby()
+    public void TryConnectToMaster()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -98,6 +98,11 @@ public class GameLobby : MonoBehaviourPunCallbacks
         PhotonPeer.RegisterType(typeof(Ability_Attack), (byte)t--, Serializer.Serialize<Ability_Attack>, Serializer.Deserialize<Ability_Attack>);
         PhotonPeer.RegisterType(typeof(Ability_Absorb), (byte)t--, Serializer.Serialize<Ability_Absorb>, Serializer.Deserialize<Ability_Absorb>);
 
+    }
+
+    public IEnumerator JoinLobbyCoroutine()
+    {
+        yield return new WaitUntil(() => PhotonNetwork.IsConnectedAndReady);
         PhotonNetwork.JoinLobby(TypedLobby.Default);
     }
 
@@ -115,6 +120,7 @@ public class GameLobby : MonoBehaviourPunCallbacks
         else
         {
             PhotonNetwork.ConnectUsingSettings();
+            StartCoroutine(JoinLobbyCoroutine());
         }
     }
 
