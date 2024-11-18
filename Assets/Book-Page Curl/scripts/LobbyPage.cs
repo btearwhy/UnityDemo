@@ -29,9 +29,12 @@ public class LobbyPage : Page
 
         gameLobby = GetComponent<GameLobby>();
 
-        gameLobby.ConnectToLobby();
 
-        StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameLobby.ConnectedToLobby, gameLobby.ProgressToLobby));
+        if (!PhotonNetwork.InLobby)
+        {
+            gameLobby.ConnectToLobby();
+            StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameLobby.ConnectedToLobby, gameLobby.ProgressToLobby));
+        }
     }
 
     private void Start()

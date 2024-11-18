@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,7 @@ public class Page : MonoBehaviour
 
     public TurnPage TurnPage;
 
-
+    public Page LastPage;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class Page : MonoBehaviour
         
     }
 
-    public void FlipBack()
+    public virtual void FlipBack()
     {
         TurnPage.AutoFlip(FlipRegion.LeftTop);
     }
@@ -45,5 +46,10 @@ public class Page : MonoBehaviour
     public virtual void LeaveRightTop()
     {
 
+    }
+
+    internal virtual void SetFlippedFrom(Page page)
+    {
+        LastPage = page;
     }
 }

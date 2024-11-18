@@ -141,6 +141,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
 
     internal void ChangeMap(int selected)
     {
+        curMap = selected;
         photonView.RPC("ChangeMapRPC", RpcTarget.Others, selected);
     }
 

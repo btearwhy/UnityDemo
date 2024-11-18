@@ -215,8 +215,11 @@ public class TurnPage : MonoBehaviour
             CurrentPlane.gameObject.SetActive(false);
             NextPlane.SetParent(BookPanel);
             NextPlane.gameObject.SetActive(true);
+            Page p = NextPlane.GetComponent<Page>();
+            p.SetFlippedFrom(CurrentPlane.GetComponent<Page>());
             CurrentPlane = NextPlane;
-            CurrentPlane.GetComponent<Page>().InitialOperation();
+
+            p.InitialOperation();
         }
         else
         {

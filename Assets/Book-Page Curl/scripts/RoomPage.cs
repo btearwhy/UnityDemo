@@ -109,16 +109,16 @@ public class RoomPage : Page
     private void MasterView()
     {
         text_button_ready.enabled = false;
-        text_button_cantStart.enabled = false;
-        text_button_start.enabled = true;
         text_button_cancelReady.enabled = false;
+        text_button_start.enabled = true;
+        text_button_cantStart.enabled = false;
         button_ready.enabled = false;
         button_ready.onClick.RemoveAllListeners();
         button_ready.onClick.AddListener(() => PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName));
         gameRoom.OnReady += (ready) =>
         {
             button_ready.enabled = ready;
-            text_button_ready.enabled = ready;
+            text_button_start.enabled = ready;
             text_button_cantStart.enabled = !ready;
         };
 
@@ -131,7 +131,9 @@ public class RoomPage : Page
     private void ClientView()
     {
         text_button_ready.enabled = true;
+        text_button_cancelReady.enabled = false;
         text_button_start.enabled = false;
+        text_button_cantStart.enabled = false;
         button_ready.onClick.RemoveAllListeners();
         button_ready.onClick.AddListener(() => {
             if (gameRoom.IsReady())
@@ -154,6 +156,7 @@ public class RoomPage : Page
     private void refreshSeats(RoomProperty roomProperty)
     {
         bool[] set = new bool[seats.Count];
+        
         foreach (var entry in roomProperty.playersMap)
         {
             int seatNr = entry.Value.seatNr;
@@ -201,6 +204,16 @@ public class RoomPage : Page
         Debug.Log("ui room destroyed");
     }
 
-
+    public override void LeaveLeftTop()
+    {
+        base.LeaveLeftTop();
+        for (int i = 0; i < seats_ScrollView.content.childCount; i++)
+        {
+            Destroy(seats_ScrollView.content.GetChild(i).gameObject);
+        }
+        MapSlide.Clear();
+        PhotonNetwork.LeaveRoom();
+        TurnPage.AutoFlip(FlipRegion.LeftTop);
+    }
 
 }

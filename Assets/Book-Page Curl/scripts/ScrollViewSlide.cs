@@ -187,5 +187,13 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         ScrollRect.content.localPosition = new Vector3(0 - reservedSpace * ItemsToDuplicate, ScrollRect.content.localPosition.y, ScrollRect.content.localPosition.z);
     }
 
-
+    internal void Clear()
+    {
+        items.Clear();
+        OnValueChanged = null;
+        for(int i = 0; i < ScrollRect.content.childCount; i++)
+        {
+            Destroy(ScrollRect.content.GetChild(i).gameObject);
+        }
+    }
 }

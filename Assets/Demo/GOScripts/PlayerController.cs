@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -268,5 +269,21 @@ public class PlayerController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(cameraVertical, cameraHorizontal, cameraTilt);
     }
 
+    public bool IsClickOnUI(Vector3 location)
+    {
+        PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
+        pointerEventData.position = location;
 
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerEventData, results);
+        for (int i = 0; i < results.Count; i++)
+        {
+            if (results[i].gameObject.CompareTag("UI"))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
