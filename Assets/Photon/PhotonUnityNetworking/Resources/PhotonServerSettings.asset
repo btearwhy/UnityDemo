@@ -50,6 +50,7 @@ MonoBehaviour:
   - SetMaxSpeed_RPC
   - SetAttribute_RPC
   - EndGame_RPC
+  - StartGame_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

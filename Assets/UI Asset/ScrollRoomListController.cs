@@ -40,6 +40,7 @@ public class ScrollRoomListController : MonoBehaviour, IBeginDragHandler, IEndDr
             {
                 tweenForRefresh = Image_Refresh.DORotate(Image_Refresh.rotation.eulerAngles + new Vector3(0, 0, -180), 1.0f).OnStart(() => Image_Refresh.gameObject.SetActive(true)).OnComplete(() =>
                 {
+        
                     Image_Refresh.gameObject.SetActive(false);
                     page.RefreshRoomList();
                 });
@@ -58,6 +59,7 @@ public class ScrollRoomListController : MonoBehaviour, IBeginDragHandler, IEndDr
 
     internal void Refresh(List<RoomInfo> rooms)
     {
+
         for (int i = 0; i < scrollRect.content.childCount; i++)
         {
             Destroy(scrollRect.content.GetChild(i).gameObject);

@@ -14,6 +14,7 @@ public class PlayerState
 
     private PlayerController playerController;
     public UI_Controller_BattleHUD HUD;
+    public Camera UICamera;
     private Character character;
     private FloatingJoystick joyStick;
     private PlayerState() {
@@ -29,6 +30,10 @@ public class PlayerState
         return playerState;
     }
 
+    public Camera GetCamera()
+    {
+        return playerController.playerCamera;
+    }
     public void SetController(PlayerController playerController)
     {
         GetInstance().playerController = playerController;
@@ -116,7 +121,13 @@ public class PlayerState
         HUD.button_attack.GetComponent<Image>().sprite = abilitySystem.abilities[0].GetProtoData().icon;
         HUD.button_skill.GetComponent<Image>().sprite = abilitySystem.abilities[1].GetProtoData().icon;
         playerController.joyStick = joyStick;
-
+        playerController.HUD = HUD;
     }
 
+    internal void Clear()
+    {
+        if (playerController != null) GameObject.Destroy(playerController.gameObject);
+        if (HUD != null) GameObject.Destroy(HUD.gameObject);
+        if (joyStick != null) GameObject.Destroy(joyStick.gameObject);
+    }
 }

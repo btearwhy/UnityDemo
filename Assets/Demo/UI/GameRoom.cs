@@ -75,11 +75,14 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public delegate void ScoreChangeHandler(RoomProperty roomProperty);
     public event ScoreChangeHandler OnScoreChanged;
 
-
+    public delegate void LeaveRoomHandler();
+    public event LeaveRoomHandler OnLeave;
 
     private Player[] players;
 
     public static GameRoom gameRoom;
+
+    public GameObject level;
     private void Awake()
     {
         gameRoom = this;
@@ -187,9 +190,28 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public void StartGame()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
-        PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName);
+        /*PhotonNetwork.LoadLevel(gameRoom.maps[gameRoom.curMap].sceneName);*/
+        Debug.Log("before RPC");
+        photonView.RPC("StartGame_RPC", RpcTarget.All);
     }
 
+    [PunRPC]
+    public void StartGame_RPC()
+    {
+        level = Instantiate(gameRoom.maps[gameRoom.curMap].scenePrefab, Vector3.zero, Quaternion.identity);
+        //Camera.main.GetComponent<MoveCamera>().move = true;
+        StartCoroutine(WaitForInit());
+        Debug.Log("in rpc");
+    }
+
+    public IEnumerator WaitForInit()
+    {
+        yield return new WaitUntil(() => PlayerState.GetInstance().GetController() != null);
+        PlayerState.GetInstance().UICamera = Camera.main;
+        Camera.main.enabled = false;
+        PlayerState.GetInstance().GetCamera().enabled = true;
+
+    }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
@@ -282,6 +304,16 @@ public class GameRoom : MonoBehaviourPunCallbacks
         OnMasterAcquired.Invoke();
     }
 
+    public void Leave()
+    {
+        Camera.main.enabled = false;
+        PlayerState.GetInstance().UICamera.enabled = true;
+        PlayerState.GetInstance().Clear();
+        Destroy(level);
+        
+        OnLeave?.Invoke();
+    }
+
     public void AddScore(int killerName, int victimName)
     {
         Player killer = PhotonNetwork.CurrentRoom.GetPlayer(killerName);
@@ -305,44 +337,23 @@ public class GameRoom : MonoBehaviourPunCallbacks
     [PunRPC]
     public void EndGame_RPC()
     {
-        PlayerState.GetInstance().HUD.GetComponent<UI_Controller_BattleHUD>().scoreboard.SetActive(true);
+        Camera.current.enabled = false;
+        PlayerState.GetInstance().UICamera.enabled = true;
+        Destroy(level);
+
+
+        PlayerState.GetInstance().HUD.GetComponent<UI_Controller_BattleHUD>().scoreboard.gameObject.SetActive(true);
         PlayerState.GetInstance().GetController().enabled = false;
         IEnumerator WaitSeconds(float seconds)
         {
             yield return new WaitForSeconds(seconds);
-            PhotonNetwork.LoadLevel(endingScene);
-            PhotonNetwork.LeaveLobby();
+            OnLeave?.Invoke();
         }
-        StartCoroutine(WaitSeconds(10f));
+        StartCoroutine(WaitSeconds(5f));
 
     }
 
 
-    internal bool ConnectedToRoom()
-    {
-        return PhotonNetwork.InRoom;
-    }
-
-    internal float ProgressToRoom()
-    {
-        if(PhotonNetwork.NetworkClientState == ClientState.Joining)
-        {
-            return 0.3f;
-        }
-        else if(PhotonNetwork.NetworkClientState == ClientState.ConnectingToGameServer)
-        {
-            return 0.5f;
-        }
-        else if(PhotonNetwork.NetworkClientState == ClientState.Authenticating)
-        {
-            return 0.8f;
-        }
-        else if(PhotonNetwork.NetworkClientState == ClientState.Joined)
-        {
-            return 1.0f;
-        }
-        return 0.0f;
-
-    }
+   
 
 }

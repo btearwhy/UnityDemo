@@ -13,21 +13,22 @@ MonoBehaviour:
   m_Name: EN
   m_EditorClassIdentifier: 
   texts:
-  - Start
-  - Settings
-  - Exit
-  - PlayerID
+  - Loading
+  - Fail
   - Lobby
-  - Room
-  - No Room Available
-  - Room
-  - Player
-  - Game Setting
-  - Character
-  - Map
-  - Leave
+  - No room yet, please pull to refresh or create a new one
+  - Create
   - Ready
+  - Cancel
+  - Map
   - Start
-  - Language
-  - Music
+  - Cant Start
+  - Start
+  - Setting
+  - Quit
   - Sound
+  - Music
+  - Language
+  - Join
+  - In Game, cant Join
+  - Room Full

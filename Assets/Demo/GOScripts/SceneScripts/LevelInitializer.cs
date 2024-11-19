@@ -17,9 +17,6 @@ public class LevelInitializer : MonoBehaviour
 
         gameRoom = GameRoom.gameRoom;
 
-        string levelName = gameRoom.maps[gameRoom.curMap].mapName;
-        levelMap = Instantiate(AssetBundleManager.GetInstance().LoadAsset<GameObject>("levels", levelName), Vector3.zero, Quaternion.identity) ;
-
         playerState = PlayerState.GetInstance();
         playerState.CreateHUD();
         playerState.SetCharacter(gameRoom.characters[gameRoom.chosenCharacter]);
@@ -33,10 +30,4 @@ public class LevelInitializer : MonoBehaviour
         
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

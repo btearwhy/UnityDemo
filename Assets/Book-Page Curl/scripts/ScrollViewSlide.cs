@@ -24,7 +24,7 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     public float targetHorizontalNorm;
     public List<RectTransform> items;
     private bool stopped = true;
-
+    private bool activeDrag = false;
     public delegate void ValueChangeHandler(int chosenNr);
     public event ValueChangeHandler OnValueChanged;
     
@@ -41,10 +41,14 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             if (isLerping && !stopped)
             {
                 Vector3 remainBefore = lerpingRemains;
-                lerpingRemains = Vector3.Lerp(lerpingRemains, Vector3.zero, 10 * Time.deltaTime);
+                lerpingRemains = Vector3.Lerp(lerpingRemains, Vector3.zero, 30 * Time.deltaTime);
                 if(lerpingRemains == Vector3.zero)
                 {
-                    OnValueChanged?.Invoke(Index2Pos(GetCurIndex()));
+                    if (activeDrag)
+                    {
+                        OnValueChanged?.Invoke(Index2Pos(GetCurIndex()));
+                        activeDrag = false;
+                    }
                     stopped = true;
                 }
                 ScrollRect.content.localPosition += remainBefore - lerpingRemains;
@@ -78,6 +82,15 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     }
 
+    internal void ClearValueEvent()
+    {
+        if (OnValueChanged == null) return;
+        foreach(var d in OnValueChanged.GetInvocationList())
+        {
+            OnValueChanged -= (ValueChangeHandler)d;
+        }
+    }
+
     private Vector3 CalculateLerpRemains()
     {
         float posx = ScrollRect.content.localPosition.x;
@@ -104,6 +117,7 @@ public class ScrollViewSlide : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
+        activeDrag = true;
     }
 
 

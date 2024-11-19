@@ -11,17 +11,15 @@ public class UI_Controller_BattleHUD : MonoBehaviour
     public Button button_back;
     public Button button_score;
     public Button button_setting;
-    public TMP_Text text_time;
     public GameObject HealthBar;
     public GameObject SkillUIPlaceHolder;
     public Button button_attack;
     public Button button_skill;
-    public string canvas_score;
-    public string canvas_setting;
-    public GameObject scoreboard;
-    public GameObject setting;
+    public RectTransform scoreboard;
+    public RectTransform setting;
     RoomProperty roomProperty = null;
-    
+
+    public Button[] buttons;
     GameRoom gameRoom;
     // Start is called before the first frame update
     private void Awake()
@@ -34,11 +32,12 @@ public class UI_Controller_BattleHUD : MonoBehaviour
         HUD.worldCamera = Camera.main;
         gameRoom = GameRoom.gameRoom;
 
-        scoreboard = Instantiate<GameObject>(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", canvas_score));
-        scoreboard.SetActive(false);
+        
+        scoreboard.gameObject.SetActive(false);
 
-        setting = Instantiate<GameObject>(AssetBundleManager.GetInstance().LoadAsset<GameObject>("ui", canvas_setting));
-        setting.SetActive(false);
+
+        setting.gameObject.SetActive(false);
+        
 
         roomProperty = gameRoom.GetRoomProperty();
         foreach(var entry in roomProperty.playersMap)
@@ -60,24 +59,30 @@ public class UI_Controller_BattleHUD : MonoBehaviour
         };
         button_back.onClick.AddListener(() =>
         {
-            PhotonNetwork.LeaveRoom();
+            GameRoom.gameRoom.Leave();
         });
         button_score.onClick.AddListener(() =>
         {
-            scoreboard.SetActive(!scoreboard.activeSelf);
+            PlayerController pc = PlayerState.GetInstance().GetController();
+            if (pc)
+            {
+                pc.enabled = false;
+            }
+            scoreboard.gameObject.SetActive(true);
         });
         button_setting.onClick.AddListener(() => {
             PlayerController pc = PlayerState.GetInstance().GetController();
             if (pc)
             {
-                pc.enabled = !pc.enabled;
+                pc.enabled = false;
             }
-            setting.SetActive(!setting.activeSelf);
+            setting.gameObject.SetActive(true);
         });
 
-
+        buttons = GetComponentsInChildren<Button>();
     }
 
+    
     // Update is called once per frame
     void Update()
     {

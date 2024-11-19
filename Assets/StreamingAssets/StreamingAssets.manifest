@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2823863520
+CRC: 1617253406
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -12,7 +12,8 @@ AssetBundleManifest:
         Dependency_1: effects
     Info_2:
       Name: maps
-      Dependencies: {}
+      Dependencies:
+        Dependency_0: levels
     Info_3:
       Name: ui
       Dependencies: {}

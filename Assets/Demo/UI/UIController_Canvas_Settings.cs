@@ -17,7 +17,6 @@ public class UIController_Canvas_Settings : MonoBehaviour
     void Start()
     {
 
-        GetComponent<Canvas>().worldCamera = Camera.main;
 
         buttonBack.onClick.AddListener(() =>
         {

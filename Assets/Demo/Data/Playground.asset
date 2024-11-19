@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Playground
   m_EditorClassIdentifier: 
   sceneName: Playground
+  scenePrefab: {fileID: 7486921447615171584, guid: 06570e50102cc3449a71298c810a4927,
+    type: 3}
   mapName: Playground
   image: {fileID: 21300000, guid: 931db6d84c5c64749b720c24917b298a, type: 3}
   introduction: Playground
@@ -29,4 +31,4 @@ MonoBehaviour:
   - {x: 4, y: 5, z: 52}
   - {x: 2, y: 5, z: 52}
   - {x: 0, y: 5, z: 52}
-  backgoundMusic: {fileID: 8300000, guid: bea93a38b71b64b598109b3a3b1a0048, type: 3}
+  backgoundMusic: {fileID: 8300000, guid: 062154a7e4a3a9440a883d213fc1687b, type: 3}

@@ -1,17 +1,19 @@
 ManifestFileVersion: 0
-CRC: 2143333530
+CRC: 2483301872
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 7937ecda5d1361a16f095552e570cc99
+    Hash: 42b6d578de007377d52ad615d0989303
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 03f12a000ab0a10bc00777891c3c6fa2
+    Hash: d86e39174517a28e9558917b5add9cea
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 7937ecda5d1361a16f095552e570cc99
+    Hash: 42b6d578de007377d52ad615d0989303
 HashAppended: 0
 ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
 - Class: 28
   Script: {instanceID: 0}
 - Class: 83
@@ -25,5 +27,5 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Demo/Data/Playground.asset
-- Assets/Demo/Data/ForestCamp.asset
-Dependencies: []
+Dependencies:
+- D:/3D mobile/Assets/StreamingAssets/levels

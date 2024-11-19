@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.Interactions;
 using UnityEngine.InputSystem.EnhancedTouch;
 using ETouch = UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public Camera playerCamera;
     public GameObject character;
 
+    public UI_Controller_BattleHUD HUD;
     public InputActions inputActions;
 
     public Vector2 MoveInput;
@@ -33,12 +35,15 @@ public class PlayerController : MonoBehaviour
     private Vector2 MovementAmount;
 
     private Finger CameraFinger;
+    private Finger AnotherCameraFinger = null;
     private Vector2 CameraAmount;
     private Vector2 CameraFirstTouchedPos;
     private float CameraFingerMoveMaxDistance = 150;
+    private float initialDisBetweenTwoFingers;
+    private float distance = 0;
+    private float TwoFingerMoveMaxDistance = 150;
     private void Awake()
     {
-
         armLength = 7;
         minArmLength = 3;
         maxArmLength = 8;
@@ -125,11 +130,19 @@ public class PlayerController : MonoBehaviour
             joyStick.Knob.anchoredPosition = knobPosition;
             MovementAmount = knobPosition / maxMovement;
         }
+        else if(CameraFinger != null && AnotherCameraFinger != null && (TouchedFinger == CameraFinger || TouchedFinger == AnotherCameraFinger))
+        {
+            float newDistance = Vector2.Distance(CameraFinger.screenPosition, AnotherCameraFinger.screenPosition);
+            distance = newDistance - initialDisBetweenTwoFingers;
+            if (distance > TwoFingerMoveMaxDistance) distance = TwoFingerMoveMaxDistance;
+            else if (distance < -TwoFingerMoveMaxDistance) distance = -TwoFingerMoveMaxDistance;
+            CameraAmount = new Vector2(CameraAmount.x, distance / TwoFingerMoveMaxDistance);
+        }
         else if(TouchedFinger == CameraFinger)
         {
             Vector2 virtualPosition;
             ETouch.Touch currentTouch = TouchedFinger.currentTouch;
-            if(Vector2.Distance(currentTouch.screenPosition, CameraFirstTouchedPos) > CameraFingerMoveMaxDistance)
+            if (Vector2.Distance(currentTouch.screenPosition, CameraFirstTouchedPos) > CameraFingerMoveMaxDistance)
             {
                 virtualPosition = (currentTouch.screenPosition - CameraFirstTouchedPos).normalized * CameraFingerMoveMaxDistance;
             }
@@ -137,7 +150,8 @@ public class PlayerController : MonoBehaviour
             {
                 virtualPosition = currentTouch.screenPosition - CameraFirstTouchedPos;
             }
-            CameraAmount = virtualPosition / CameraFingerMoveMaxDistance;
+            Vector2  displace = virtualPosition / CameraFingerMoveMaxDistance;
+            CameraAmount = new Vector2(displace.x, CameraAmount.y);
         }
     }
 
@@ -156,15 +170,21 @@ public class PlayerController : MonoBehaviour
             CameraFirstTouchedPos = Vector2.zero;
             CameraAmount = Vector2.zero;
         }
+        else if(TouchedFinger == AnotherCameraFinger)
+        {
+            AnotherCameraFinger = null;
+            distance = 0;
+            CameraAmount = Vector2.zero;
+        }
     }
 
     private void HandleFingerDown(Finger TouchedFinger)
     {
-        if (IsClickOnUI(TouchedFinger.screenPosition)) 
+        if (IsClickOnUI(TouchedFinger.screenPosition))
         {
             return;
         }
-        if(MovementFinger == null && TouchedFinger.screenPosition.x < Screen.width / 2.0f && TouchedFinger.screenPosition.y  < Screen.height * 2.0f / 3.0f)
+        if (MovementFinger == null && TouchedFinger.screenPosition.x < Screen.width / 2.0f && TouchedFinger.screenPosition.y  < Screen.height * 2.0f / 3.0f)
         {
             MovementFinger = TouchedFinger;
             MovementAmount = Vector2.zero;
@@ -178,6 +198,12 @@ public class PlayerController : MonoBehaviour
             CameraAmount = Vector2.zero;
             CameraFirstTouchedPos = TouchedFinger.screenPosition;
         }
+        else if(CameraFinger != null && TouchedFinger.screenPosition.x > Screen.width / 2.0f)
+        {
+            AnotherCameraFinger = TouchedFinger;
+            initialDisBetweenTwoFingers = Vector2.Distance(CameraFinger.screenPosition, AnotherCameraFinger.screenPosition);
+        }
+        
     }
 
     private Vector2 ClampStartPosition(Vector2 startPosition)
@@ -214,7 +240,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Camera.main != null && character != null)
+        if(playerCamera != null && character != null)
         {
             CameraControl();
             MovementControl();
@@ -276,14 +302,37 @@ public class PlayerController : MonoBehaviour
 
     public bool IsClickOnUI(Vector2 ScreenPosition)
     {
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(ScreenPosition.x, ScreenPosition.y));
-        Debug.DrawRay(ray.origin, ray.direction, Color.red, 5.0f);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        foreach(Button button in HUD.buttons)
         {
-            DrawSphere(hit.point, 2, Color.red);
-        }
+            Vector2[] polygon = new Vector2[4];
+            Vector3 position = button.transform.position;
+            Vector2 size = button.GetComponent<RectTransform>().sizeDelta / 2.0f ;
+            polygon[0] = new Vector2(position.x - size.x, position.y - size.y);
+            polygon[1] = new Vector2(position.x + size.x, position.y - size.y);
+            polygon[0] = new Vector2(position.x + size.x, position.y + size.y);
+            polygon[0] = new Vector2(position.x - size.x, position.y + size.y);
 
-            return false;
+            if(ScreenPosition.x > position.x - size.x && ScreenPosition.x < position.x + size.x && ScreenPosition.y > position.y - size.y && ScreenPosition.y < position.y + size.y)
+            {
+                return true;
+            }
+
+            /*bool result = false;
+            int j = polygon.Length - 1;
+            for (int i = 0; i < polygon.Length; i++)
+            {
+                if (polygon[i].y < ScreenPosition.y && polygon[j].y >= ScreenPosition.y || polygon[j].y < ScreenPosition.y && polygon[i].y >= ScreenPosition.y)
+                {
+                    if (polygon[i].x + (ScreenPosition.y - polygon[i].y) / (polygon[j].y - polygon[i].y) * (polygon[j].x - polygon[i].x) < ScreenPosition.x)
+                    {
+                        result = !result;
+                    }
+                }
+                j = i;
+            }
+            if (result) return result;*/
+        }
+        return false;
     }
 
     private static readonly Vector4[] s_UnitSphere = MakeUnitSphere(16);

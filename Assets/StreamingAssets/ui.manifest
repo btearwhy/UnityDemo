@@ -1,15 +1,15 @@
 ManifestFileVersion: 0
-CRC: 1300310684
+CRC: 2604763826
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 0127cc82a56226f8e9dca45eacb62cc2
+    Hash: 8f23862261c99860af879921ba8e9d71
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 0e73c25d6a19e3fa8fe97d431dbecf9f
+    Hash: 7688c3414baf8007e629b60c5b750a2a
   IncrementalBuildHash:
     serializedVersion: 2
-    Hash: 0127cc82a56226f8e9dca45eacb62cc2
+    Hash: 8f23862261c99860af879921ba8e9d71
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -45,6 +45,8 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: ac76411dcf10bd544905dbc5f72f3050, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
@@ -65,8 +67,6 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: 2a4db7a114972834c8e4117be1d82ba3, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: 2200b24d13e918244a4f29164b65f114, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: da2d212b1b4ad844dbda42cad2d3d2c1, type: 3}
@@ -81,8 +81,6 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: 584ad0d0bd8d40949913d67fbc21e3be, type: 3}
 - Class: 115
-  Script: {instanceID: 0}
-- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -104,17 +102,13 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_Dropdown/DropdownEvent
 - AssemblyName: Unity.TextMeshPro
+  ClassName: TMPro.TMP_Dropdown/OptionData
+- AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_Dropdown/OptionDataList
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_FontFeatureTable
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.TMP_FontWeightPair
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphAdjustmentRecord
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphPairAdjustmentRecord
-- AssemblyName: Unity.TextMeshPro
-  ClassName: TMPro.TMP_GlyphValueRecord
 - AssemblyName: Unity.TextMeshPro
   ClassName: TMPro.VertexGradient
 - AssemblyName: UnityEngine.CoreModule
@@ -144,8 +138,6 @@ SerializeReferenceClassIdentifiers:
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.ScrollRect/ScrollRectEvent
 - AssemblyName: UnityEngine.UI
-  ClassName: UnityEngine.UI.Scrollbar/ScrollEvent
-- AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.Slider/SliderEvent
 - AssemblyName: UnityEngine.UI
   ClassName: UnityEngine.UI.SpriteState
@@ -156,6 +148,6 @@ Assets:
 - Assets/Demo/UI/ScoreItem.prefab
 - Assets/Demo/UI/Canvas_Joystick.prefab
 - Assets/Demo/UI/BattleHUD.prefab
-- Assets/Demo/UI/Canvas_Settings.prefab
+- Assets/Demo/UI/Canvas_Set.prefab
 - Assets/Demo/UI/UI_Main.prefab
 Dependencies: []

@@ -6,6 +6,7 @@ using UnityEngine;
 public class MapType : ScriptableObject
 {
     public string sceneName;
+    public GameObject scenePrefab;
     public string mapName;
     public Sprite image;
     public string introduction;

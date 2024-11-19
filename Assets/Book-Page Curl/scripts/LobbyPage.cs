@@ -19,7 +19,7 @@ public class LobbyPage : Page
 
 
 
-    private string playername = "test";
+    private string playername = "player";
 
     
     public override void InitialOperation()
@@ -65,16 +65,17 @@ public class LobbyPage : Page
         });
     }
 
-    //temp， should not be updated every frame
 
     public void Init()
     {
-        RefreshRoomList();
+        scrollRoom.Refresh(gameLobby.createdRooms);
     }
 
     public void RefreshRoomList()
     {
-        scrollRoom.Refresh(gameLobby.createdRooms);
+        gameLobby.TryConnectToMaster();
+        StartCoroutine(gameLobby.JoinLobbyCoroutine());
+        StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, () => scrollRoom.Refresh(gameLobby.createdRooms), FlipBack, gameLobby.ConnectedToLobby, gameLobby.ProgressToLobby));
     }
 
     public void EnterRoom(string roonName)

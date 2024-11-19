@@ -90,10 +90,9 @@ public class Ability_Absorb : Ability
 
     internal override void Held()
     {
-        base.Held();
         movement.StopTranslation();
 
-        if (Physics.SphereCast(character.GetComponentInChildren<SkinnedMeshRenderer>().bounds.center, detectRadius, character.transform.forward, out RaycastHit rayCastHit, detectRange/*, ~(1 << character.layer)*/))
+        if (Physics.SphereCast(character.transform.position + Vector3.up * 0.5f , detectRadius, character.transform.forward, out RaycastHit rayCastHit, detectRange/*, ~(1 << character.layer)*/))
         {
             GameObject hitObject = rayCastHit.collider.gameObject;
 
@@ -106,6 +105,8 @@ public class Ability_Absorb : Ability
 
             if (hitObject.TryGetComponent<WorldProperty>(out WorldProperty worldProperty))
             {
+                animator.Play(animHeldStateName);
+
                 float amount = Time.deltaTime * chargeSpeed;
                 if(elements[curPos] == worldProperty.element)
                 {

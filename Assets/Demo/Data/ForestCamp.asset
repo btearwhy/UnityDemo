@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: ForestCamp
   m_EditorClassIdentifier: 
   sceneName: ForestCamp
+  scenePrefab: {fileID: 6232773902991646299, guid: 3483f0c4d7e3fad4890d97618f6d3315,
+    type: 3}
   mapName: ForestCamp
   image: {fileID: 21300000, guid: a9803d26d51522045802283337c6149c, type: 3}
   introduction: ForestCamp

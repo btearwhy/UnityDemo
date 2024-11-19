@@ -121,8 +121,8 @@ MonoBehaviour:
     type: 3}
   ImpactVisual: {fileID: 2708598583397607911, guid: 6398d43fe79ea0140913dc5530c646af,
     type: 3}
-  FlyingAudio: {fileID: 8300000, guid: 7ca74fdc589f42f4385d51ab6b62cc67, type: 3}
-  ImpactAudio: {fileID: 8300000, guid: e93d5cbd4a12fe540a2b627c99c00b85, type: 3}
+  FlyingAudio: {fileID: 8300000, guid: 22c0dd6b95574a247a52d0524427639e, type: 3}
+  ImpactAudio: {fileID: 8300000, guid: bc1b0d82c29696d4da184e570c38f16f, type: 3}
   instigator: {fileID: 0}
   effectRange: 5
   initSpeed: 10

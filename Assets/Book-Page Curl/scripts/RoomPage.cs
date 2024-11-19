@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +22,75 @@ public class RoomPage : Page
     public TMP_Text text_button_cancelReady;
     public string gameRoomName;
     public ScrollViewSlide MapSlide;
-
+    public RectTransform rawImageMap;
     private List<SeatController> seats;
     private GameRoom gameRoom;
 
-
+    public Vector3 cameraPos;
     // Start is called before the first frame update
     void Start()
     {
         if (isClonedForViewOnly) return;
 
-        gameRoom = GetComponent<GameRoom>();
 
+        
+    }
+
+    public override void InitialOperation()
+    {
+        base.InitialOperation();
+
+        if (isClonedForViewOnly) return;
+        if (LastPage is not SettingPage)
+        {
+           
+            StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, ConnectedToRoom, ProgressToRoom));
+        }
+    }
+    internal bool ConnectedToRoom()
+    {
+        return PhotonNetwork.InRoom;
+    }
+
+    internal float ProgressToRoom()
+    {
+        if (PhotonNetwork.NetworkClientState == ClientState.Joining)
+        {
+            return 0.3f;
+        }
+        else if (PhotonNetwork.NetworkClientState == ClientState.ConnectingToGameServer)
+        {
+            return 0.5f;
+        }
+        else if (PhotonNetwork.NetworkClientState == ClientState.Authenticating)
+        {
+            return 0.8f;
+        }
+        else if (PhotonNetwork.NetworkClientState == ClientState.Joined)
+        {
+            return 1.0f;
+        }
+        return 0.0f;
+
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    public void Init()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            gameRoom = PhotonNetwork.Instantiate(gameRoomName, Vector3.one, Quaternion.identity).GetComponent<GameRoom>();
+        }
+        else
+        {
+            gameRoom = FindObjectOfType<GameRoom>();
+        }
+
+        button_leave.onClick.RemoveAllListeners();
         button_leave.onClick.AddListener(FlipBack);
 
         gameRoom.OnRoomChanged += RefreshSeats;
@@ -41,7 +99,14 @@ public class RoomPage : Page
 
         gameRoom.OnMasterAcquired += MasterView;
 
-        button_start.onClick.AddListener(gameRoom.StartGame);
+        gameRoom.OnLeave += FlipBack;
+
+        button_start.onClick.RemoveAllListeners();
+        button_start.onClick.AddListener(() => {
+            gameRoom.StartGame();
+            rawImageMap.gameObject.SetActive(true);
+
+        });
 
         gameRoom.OnReady += (ready) =>
         {
@@ -50,11 +115,13 @@ public class RoomPage : Page
             text_button_cantStart.enabled = !ready;
         };
 
+        MapSlide.ClearValueEvent();
         MapSlide.OnValueChanged += (mapNr) =>
         {
             gameRoom.ChangeMap(mapNr);
         };
 
+        button_ready.onClick.RemoveAllListeners();
         button_ready.onClick.AddListener(() => {
             if (gameRoom.IsReady())
             {
@@ -68,27 +135,7 @@ public class RoomPage : Page
             }
             gameRoom.Ready(!gameRoom.IsReady());
         });
-    }
 
-    public override void InitialOperation()
-    {
-        base.InitialOperation();
-
-        /*        gameRoom = PhotonNetwork.Instantiate(gameRoomName, Vector3.one, Quaternion.identity).GetComponent<GameRoom>();
-                DontDestroyOnLoad(gameRoom);*/
-        if(LastPage is not SettingPage)
-        {
-            StartCoroutine(LoadingPage.JoinOrFail(5f, Time.time, Init, FlipBack, gameRoom.ConnectedToRoom, gameRoom.ProgressToRoom));
-        }
-    }
-
-    private void Update()
-    {
-        
-    }
-
-    public void Init()
-    {
         gameRoom.Init();
 
 
@@ -154,8 +201,8 @@ public class RoomPage : Page
 
     private void ClientView()
     {
-        button_start.gameObject.SetActive(true);
-        button_ready.gameObject.SetActive(false);
+        button_start.gameObject.SetActive(false);
+        button_ready.gameObject.SetActive(true);
         text_button_ready.enabled = true;
         text_button_cancelReady.enabled = false;
 

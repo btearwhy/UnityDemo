@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Controller_Scoreboard : MonoBehaviour
 {
     public GameObject content;
     public string itemName;
-
+    public Button button_close;
     private List<PlayerLocal> scoreRank;
     // Start is called before the first frame update
     private void Awake()
@@ -18,7 +19,14 @@ public class UI_Controller_Scoreboard : MonoBehaviour
 
     void Start()
     {
-
+        button_close.onClick.AddListener(() => {
+            gameObject.SetActive(false);
+            PlayerController pc = PlayerState.GetInstance().GetController();
+            if (pc)
+            {
+                pc.enabled = true;
+            }
+        });
     }
 
     // Update is called once per frame

@@ -42,7 +42,7 @@ public class TurnPage : MonoBehaviour
     public Canvas canvas;
     public RenderTexture renderTexture;
     public RectTransform BookPanel;
-    public Camera ShotCamera;
+    public Camera UICamera;
     public InputActions inputActions;
     public AudioClip TurnPageSound;
     private Vector3 mouseFocusInBookSpace;
@@ -301,7 +301,7 @@ public class TurnPage : MonoBehaviour
         }
         else if (canvas.renderMode == RenderMode.WorldSpace)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(mouseScreenPos);
             Vector3 globalEBR = transform.TransformPoint(bottomRight);
             Vector3 globalEBL = transform.TransformPoint(bottomLeft);
             Vector3 globalSt = transform.TransformPoint(topSpine);

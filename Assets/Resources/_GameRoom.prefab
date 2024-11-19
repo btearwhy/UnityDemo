@@ -54,6 +54,7 @@ MonoBehaviour:
   endingScene: GameLobby
   characters: []
   chosenCharacter: 0
+  level: {fileID: 0}
 --- !u!114 &8159642400229523034
 MonoBehaviour:
   m_ObjectHideFlags: 0
