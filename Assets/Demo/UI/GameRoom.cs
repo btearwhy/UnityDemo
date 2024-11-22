@@ -50,7 +50,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     public List<MapType> maps = new List<MapType>();
     public int curMap;
 
-    public int winCondition = -20;
+    public int winCondition = 100;
     public float timeCondition = 60f;
     public string endingScene = "GameLobby";
     
@@ -102,7 +102,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
                                               select (Character)character;
         characters.AddRange(characters_t);
 
-        winCondition = 100;
+        winCondition = 10;
         endingScene = "Main";
 
         players = PhotonNetwork.PlayerList;
@@ -337,9 +337,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
     [PunRPC]
     public void EndGame_RPC()
     {
-        Camera.current.enabled = false;
-        PlayerState.GetInstance().UICamera.enabled = true;
-        Destroy(level);
+
 
 
         PlayerState.GetInstance().HUD.GetComponent<UI_Controller_BattleHUD>().scoreboard.gameObject.SetActive(true);
@@ -347,7 +345,7 @@ public class GameRoom : MonoBehaviourPunCallbacks
         IEnumerator WaitSeconds(float seconds)
         {
             yield return new WaitForSeconds(seconds);
-            OnLeave?.Invoke();
+            Leave();
         }
         StartCoroutine(WaitSeconds(5f));
 
